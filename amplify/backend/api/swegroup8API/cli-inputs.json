@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "swegroup8API",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/zaquariah/Documents/GitHub/our-app/amplify/backend/api/swegroup8API/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authswegroup8c3e4f6f6"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2023-03-10T03:07:25.583Z",
+        "keyDescription": "for our group project during the spring 2022 semester"
+      }
+    ]
+  }
+}
