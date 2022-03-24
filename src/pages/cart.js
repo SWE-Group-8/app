@@ -10,7 +10,7 @@ const Cart = () => {
         height: '100vh'
       }}
     >
-      <h1>Cart section</h1>
+      <h1>Cart section we will be changing it</h1>
     </div>
   );
 };

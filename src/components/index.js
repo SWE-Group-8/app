@@ -27,6 +27,12 @@ const Navbar = () => {
           <NavLink to='/Profile' activeStyle>
             Profile
           </NavLink>
+          <NavLink to='/SignIn' activeStyle>
+                      SignIn
+          </NavLink>
+          <NavLink to='/SignUp' activeStyle>
+                                SignUp
+          </NavLink>
         </NavMenu>
       </Nav>
     </>
