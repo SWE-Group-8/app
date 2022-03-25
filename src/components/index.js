@@ -30,9 +30,6 @@ const Navbar = () => {
           <NavLink to='/SignIn' activeStyle>
                       SignIn
           </NavLink>
-          <NavLink to='/SignUp' activeStyle>
-                                SignUp
-          </NavLink>
         </NavMenu>
       </Nav>
     </>
