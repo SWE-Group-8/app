@@ -15,13 +15,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import zaqPic from '../images/zaquariah-holland.jpg';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Group8 Repo
+        Your Website
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -29,7 +30,7 @@ function Copyright() {
   );
 }
 
-const cards = [1];
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
@@ -41,7 +42,7 @@ export default function Album() {
         <Toolbar>
           <CameraIcon sx={{ mr: 2 }} />
           <Typography variant="h6" color="inherit" noWrap>
-            Group 8 Members
+            Album layout
           </Typography>
         </Toolbar>
       </AppBar>
@@ -62,10 +63,12 @@ export default function Album() {
               color="text.primary"
               gutterBottom
             >
-              Group 8 Members
+              Album layout
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              This is the Members of Group 8 and what roles they have.
+              Something short and leading about the collection below—its contents,
+              the creator, etc. Make it short and sweet, but not too short so folks
+              don&apos;t simply skip over it entirely.
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -73,7 +76,8 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              
+              <Button variant="contained">Main call to action</Button>
+              <Button variant="outlined">Secondary action</Button>
             </Stack>
           </Container>
         </Box>
@@ -91,15 +95,15 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://source.unsplash.com/random"
+                    image={zaqPic}//idk how to make diff pictures must discuss that with eric or research to figure out
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      Zaquariah Holland
                     </Typography>
                     <Typography>
-                      dafkjladfslkjfd
+                      Team Lead and Vice President of ACM UTSA
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -111,7 +115,6 @@ export default function Album() {
             ))}
           </Grid>
         </Container>
-        
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">

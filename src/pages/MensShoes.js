@@ -15,8 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import shirt from '../images/shirts.jpg';
-
+import shoe from '../images/shoes.jpg';
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -95,7 +94,7 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image={shirt}
+                    image={shoe}
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
