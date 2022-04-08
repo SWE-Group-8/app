@@ -9,11 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import React, { useState } from "react";
 const useStyles = makeStyles({
   root: {
-    maxWidth: 480,
+    maxWidth: 345,
   },
   media: {
-    height: 640,
-    width: 480
+    height: 350,
+    width: 500
   },
 })
 
@@ -21,12 +21,13 @@ interface Props{
     image: string;
     title: string;
     description: string;
+    price: string;
 }
 
-export default function MediaCard({ image, title, description}: Props) {
+export default function MediaCard({ image, title, description, price}: Props) {
   const classes = useStyles();
   return (
-    <Card variant="outlined" style={{border: '1px solid'}}className={classes.root}>
+    <Card className={classes.root}>
       <CardActionArea>
         <CardMedia 
         className={classes.media} 
@@ -39,8 +40,19 @@ export default function MediaCard({ image, title, description}: Props) {
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {description}
+          </Typography >
+          <Typography variant="body2" color="textSecondary" component="p">
+            {price}
           </Typography>
         </CardContent>
+        <CardActions>
+          <button>
+            +
+          </button>
+          <button>
+            -
+          </button>
+        </CardActions>
       </CardActionArea>
     </Card>
   )

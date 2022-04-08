@@ -85,9 +85,11 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
+              
               sx={{ mt: 3, mb: 2 }}
+              
             >
-              <Link href="http://localhost:3000" variant="body2">
+              <Link color="inherit" href="http://localhost:3000" variant="body2">
                 Sign In
               </Link>
               

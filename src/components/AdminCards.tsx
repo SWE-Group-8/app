@@ -5,25 +5,26 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
+import Button from '@mui/material/Button';
+import Link from 'react-router-dom';
 import React, { useState } from "react";
 const useStyles = makeStyles({
   root: {
-    maxWidth: 480,
+    maxWidth: 345,
   },
   media: {
-    height: 640,
-    width: 480
+    height: 350,
+    width: 500
   },
 })
 
 interface Props{
     image: string;
-    title: string;
-    description: string;
+    button: string;
+    link: string;
 }
 
-export default function MediaCard({ image, title, description}: Props) {
+export default function MediaCard({ image, button, link}: Props) {
   const classes = useStyles();
   return (
     <Card variant="outlined" style={{border: '1px solid'}}className={classes.root}>
@@ -31,17 +32,19 @@ export default function MediaCard({ image, title, description}: Props) {
         <CardMedia 
         className={classes.media} 
         image={image} 
-        title={title}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description}
-          </Typography>
+        <CardContent> 
+            
         </CardContent>
+
       </CardActionArea>
+      <CardActions>
+          
+            <Button href={link} variant="outlined" size="large" color="inherit">
+                {button}
+            </Button>
+          
+      </CardActions>
     </Card>
   )
 }

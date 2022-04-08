@@ -1,4 +1,8 @@
 import MediaCard from '../components/MediaCard.tsx';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box'
 import AngeloPic from '../images/Angelo-M.png';
@@ -6,6 +10,7 @@ import BondPic from '../images/Bond-Blanton.jpg';
 import EricPic from '../images/Eric-P.jpg';
 import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
+import JJPic from '../images/JJ.jpg';
 const mediaCards = [
   {
     image: AngeloPic,
@@ -28,7 +33,7 @@ const mediaCards = [
     description: `Accounts & Carts Manager`,
   },
   {
-    image: ZaqPic,
+    image: JJPic,
     title: "Jose Torres",
     description: `Lead UX Designer`,
   },
@@ -38,10 +43,38 @@ const mediaCards = [
     description: `Project Manager`,
   },
 ];
-
+const theme = createTheme();
 export default function About() {
+  
   return (
-    <Box p={20}>
+    <>
+    
+    <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Box
+          sx={{
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 2,
+          }}
+        >
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
+              Meet The Team!
+            </Typography>
+            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+              This is Group 8 and what roles each one of us took!
+            </Typography>
+            
+          </Container>
+        </Box>
+    <Box p={20} pl={55}>
     <Grid container spacing={10}>
       {mediaCards.map((mediaCard, i) => {
         return( 
@@ -52,5 +85,7 @@ export default function About() {
       })}
     </Grid>
     </Box>
+    </ThemeProvider>
+    </>
   );
 }
