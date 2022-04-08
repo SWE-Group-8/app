@@ -48,18 +48,18 @@ export default function About() {
   
   return (
     <>
-    <CssBaseline />
-    <Box p={20} pl={40} pt={10} pb={10}>
-    <Grid container spacing={10}>
-      {adminCards.map((adminCard, i) => {
-        return( 
-          <Grid key ={i} item>
-            <AdminCards  {...adminCard} /> 
-          </Grid> 
-        );
-      })}
-    </Grid>
-    </Box>
+      <CssBaseline />
+      <Box p={20} pl={40} pt={10} pb={10}>
+      <Grid container spacing={10}>
+        {adminCards.map((adminCard, i) => {
+          return( 
+            <Grid key ={i} item>
+              <AdminCards  {...adminCard} /> 
+            </Grid> 
+          );
+        })}
+      </Grid>
+      </Box>
     </>
     
   );

@@ -43,6 +43,7 @@ const mediaCards = [
     description: `Project Manager`,
   },
 ];
+
 const theme = createTheme();
 export default function About() {
   
