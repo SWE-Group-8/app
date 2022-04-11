@@ -15,7 +15,6 @@ export const createDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -33,7 +32,6 @@ export const updateDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -51,7 +49,6 @@ export const deleteDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;

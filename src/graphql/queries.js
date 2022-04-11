@@ -12,7 +12,6 @@ export const getDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -32,7 +31,6 @@ export const listDansInventories = /* GraphQL */ `
         type
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

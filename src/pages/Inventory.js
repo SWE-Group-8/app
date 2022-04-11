@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pant from '../images/hat.jpg';
 
 import { Component } from 'react';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux' commented out since there is *not* a reference to this yet
 
 
 function Copyright() {
