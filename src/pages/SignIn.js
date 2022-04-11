@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Authenticator} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 function Copyright(props) {
   return (
@@ -38,11 +40,42 @@ export default function SignIn() {
     });
   };
 
+  const formFields = {
+    signUp: {
+      name: {
+        labelHidden: true,
+        placeholder: 'Name',
+        isRequired: true,
+        label: 'Name:'
+      },
+      address: {
+        labelHidden: true,
+        placeholder: 'Address',
+        isRequired: true,
+        label: 'Address:'
+      },
+      phone_number: {
+        labelHidden: true,
+        placeholder: 'Phone',
+        isRequired: true,
+        label: 'Phone:'
+      },
+    },
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
+        <Authenticator formFields={formFields} signUpAttributes={[
+          'name',
+          'address',
+          'email',
+          'phone_number',
+        ]}/>
+        
+        
+        {/* <Box
           sx={{
             marginTop: 8,
             display: 'flex',
@@ -107,7 +140,7 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Box>
-        </Box>
+        </Box> */}
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>

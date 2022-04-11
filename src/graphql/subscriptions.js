@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateDansInventory = /* GraphQL */ `
-  subscription OnCreateDansInventory($owner: String) {
-    onCreateDansInventory(owner: $owner) {
+  subscription OnCreateDansInventory {
+    onCreateDansInventory {
       id
       name
       color
@@ -12,13 +12,12 @@ export const onCreateDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateDansInventory = /* GraphQL */ `
-  subscription OnUpdateDansInventory($owner: String) {
-    onUpdateDansInventory(owner: $owner) {
+  subscription OnUpdateDansInventory {
+    onUpdateDansInventory {
       id
       name
       color
@@ -27,13 +26,12 @@ export const onUpdateDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteDansInventory = /* GraphQL */ `
-  subscription OnDeleteDansInventory($owner: String) {
-    onDeleteDansInventory(owner: $owner) {
+  subscription OnDeleteDansInventory {
+    onDeleteDansInventory {
       id
       name
       color
@@ -42,7 +40,6 @@ export const onDeleteDansInventory = /* GraphQL */ `
       type
       createdAt
       updatedAt
-      owner
     }
   }
 `;
