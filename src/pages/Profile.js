@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Card, CardActions, CardContent, Container } from '@mui/material';
 import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -22,8 +21,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-const theme = createTheme();
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,6 +55,8 @@ function a11yProps(index) {
   };
 }
 
+const theme = createTheme();
+
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
 
@@ -66,8 +65,9 @@ export default function BasicTabs() {
   };
 
   return (
+    
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <CssBaseline />
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'Typographyider' }}>
         <Tabs value={value} centered onChange={handleChange} aria-label="basic tabs example">

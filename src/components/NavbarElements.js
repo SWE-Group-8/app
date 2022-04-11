@@ -12,7 +12,7 @@ export const Nav = styled.nav`
 `;
 //first color option is for all button colors in the navbar
 export const NavLink = styled(Link)`
-    color: #ffffff;
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -20,7 +20,7 @@ export const NavLink = styled(Link)`
     height: 100%
     cursor: pointer;
     &.active { 
-        color: #ffffff;
+        color: #FFFFFF;
     }
 `;
 //in the &.active is the Home button color

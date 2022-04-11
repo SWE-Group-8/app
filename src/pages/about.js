@@ -5,12 +5,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box'
-import AngeloPic from '../images/Angelo-M.png';
+import AngeloPic from '../images/Angelo-M.jpg';
 import BondPic from '../images/Bond-Blanton.jpg';
 import EricPic from '../images/Eric-P.jpg';
 import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
+
 const mediaCards = [
   {
     image: AngeloPic,
@@ -49,7 +50,7 @@ export default function About() {
   
   return (
     <>
-    
+
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <Box
