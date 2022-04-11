@@ -17,6 +17,9 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pant from '../images/hat.jpg';
 
+import { Component } from 'react';
+import { connect } from 'react-redux'
+
 
 function Copyright() {
   return (
