@@ -13,6 +13,7 @@ export const createDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
       createdAt
       updatedAt
     }
@@ -30,6 +31,7 @@ export const updateDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
       createdAt
       updatedAt
     }
@@ -47,6 +49,7 @@ export const deleteDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
       createdAt
       updatedAt
     }

@@ -10,6 +10,7 @@ export const getDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
       createdAt
       updatedAt
     }
@@ -29,6 +30,7 @@ export const listDansInventories = /* GraphQL */ `
         price
         fabric
         type
+        image
         createdAt
         updatedAt
       }
