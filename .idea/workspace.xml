@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a625da70-1ad0-4e10-88ea-5afa157730d7" name="Changes" comment="Added the Graph">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/schema.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/team-provider-info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/mutations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/queries.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/queries.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/subscriptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/subscriptions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +38,7 @@
       <updated>1648147734664</updated>
       <workItem from="1649032447412" duration="2182000" />
       <workItem from="1649798432847" duration="8503000" />
+      <workItem from="1649883851920" duration="4023000" />
     </task>
     <servers />
   </component>
