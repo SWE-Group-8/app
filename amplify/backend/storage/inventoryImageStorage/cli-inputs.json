@@ -1,0 +1,16 @@
+{
+  "resourceName": "inventoryImageStorage",
+  "policyUUID": "761df02b",
+  "bucketName": "swegroup881e0b11fd3194ff5ac63390f054d158f",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

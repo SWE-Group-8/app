@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a625da70-1ad0-4e10-88ea-5afa157730d7" name="Changes" comment="Added the Graph">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/cli-inputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/cli-inputs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/transform.conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/transform.conf.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/auth/swegroup8c3e4f6f6/cli-inputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/auth/swegroup8c3e4f6f6/cli-inputs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/backend-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/types/amplify-dependent-resources-ref.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/types/amplify-dependent-resources-ref.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/team-provider-info.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +27,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -42,6 +47,7 @@
       <workItem from="1649798432847" duration="8503000" />
       <workItem from="1649883851920" duration="4023000" />
       <workItem from="1649907604536" duration="4331000" />
+      <workItem from="1649977016880" duration="10027000" />
     </task>
     <servers />
   </component>
