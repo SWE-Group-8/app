@@ -16,3 +16,5 @@ type DansInventory @model
     type: String!
     image: String
 } #CreateDansInventory
+
+

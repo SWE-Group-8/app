@@ -15,13 +15,13 @@ import HistoryOfOrders from './pages/HistoryOfOrders';
 import ModifyItems from './pages/ModifyItems';
 import ModifyUsers from './pages/ModifyUsers';
 import PlacedOrders from './pages/PlacedOrders';
+import AddItemsTest from './pages/AddItemsTest';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 
-
 function App() {
-  
+
   const { route, error, signOut } = useAuthenticator(context => [context.route]);
 
   return (
@@ -41,10 +41,12 @@ function App() {
         <Route path='/ModifyUsers' element={<ModifyUsers/>} />
         <Route path='/PlacedOrders' element={<PlacedOrders/>} />
         <Route path='/HistoryOfOrders' element={<HistoryOfOrders/>} />
+        <Route path='/AddItemsTest' element={<AddItemsTest/>} />
       </Routes>
     </Router>
   );
 }
 //testset
-  
+
+
 export default App;

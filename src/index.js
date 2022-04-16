@@ -5,6 +5,8 @@ import awsExports from './aws-exports';
 import { Amplify, Auth } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 
+
+
 Amplify.configure(awsExports);
 Auth.configure(awsExports);
   
