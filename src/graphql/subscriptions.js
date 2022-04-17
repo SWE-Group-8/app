@@ -11,6 +11,11 @@ export const onCreateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }
@@ -26,6 +31,11 @@ export const onUpdateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }
@@ -41,6 +51,11 @@ export const onDeleteDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }

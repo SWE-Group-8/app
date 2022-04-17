@@ -15,6 +15,14 @@ type DansInventory @model
     fabric: String!
     type: String!
     image: String
+
+    file: S3Object
 } #CreateDansInventory
+
+type S3Object {
+    bucket: String!
+    region: String!
+    key: String!
+}
 
 

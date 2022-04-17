@@ -11,6 +11,11 @@ export const getDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }
@@ -31,6 +36,11 @@ export const listDansInventories = /* GraphQL */ `
         fabric
         type
         image
+        file {
+          bucket
+          region
+          key
+        }
         createdAt
         updatedAt
       }
