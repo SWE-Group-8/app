@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a625da70-1ad0-4e10-88ea-5afa157730d7" name="Changes" comment="Added the Graph">
-      <change afterPath="$PROJECT_DIR$/src/pages/AddItemsTest.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.deleteDansInventory.auth.1.res.vtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.updateDansInventory.auth.1.res.vtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/schema.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/mutations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/queries.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/queries.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/subscriptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/subscriptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AddItemsTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddItemsTest.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +69,7 @@
       <workItem from="1649907604536" duration="4331000" />
       <workItem from="1649977016880" duration="10027000" />
       <workItem from="1650051804116" duration="25297000" />
-      <workItem from="1650141436901" duration="11134000" />
+      <workItem from="1650141436901" duration="13832000" />
     </task>
     <servers />
   </component>
