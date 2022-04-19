@@ -6,6 +6,40 @@
   <component name="ChangeListManager">
     <list default="true" id="a625da70-1ad0-4e10-88ea-5afa157730d7" name="Changes" comment="Added the Graph">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.auth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.auth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.postAuth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.postAuth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.req.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.res.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.createDansInventory.res.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.deleteDansInventory.postAuth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.deleteDansInventory.postAuth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.deleteDansInventory.req.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.deleteDansInventory.res.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.deleteDansInventory.res.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.updateDansInventory.init.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.updateDansInventory.init.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.updateDansInventory.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.updateDansInventory.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Mutation.updateDansInventory.res.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.getDansInventory.auth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.getDansInventory.auth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.getDansInventory.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.getDansInventory.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.getDansInventory.res.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.listDansInventories.auth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.listDansInventories.auth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.listDansInventories.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.listDansInventories.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Query.listDansInventories.res.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onCreateDansInventory.auth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onCreateDansInventory.auth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onCreateDansInventory.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onCreateDansInventory.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onCreateDansInventory.res.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onDeleteDansInventory.auth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onDeleteDansInventory.auth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onDeleteDansInventory.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onDeleteDansInventory.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onDeleteDansInventory.res.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onUpdateDansInventory.auth.1.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onUpdateDansInventory.auth.1.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onUpdateDansInventory.req.vtl" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onUpdateDansInventory.req.vtl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/resolvers/Subscription.onUpdateDansInventory.res.vtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/swegroup8API/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/storage/inventoryImageStorage/cli-inputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/storage/inventoryImageStorage/cli-inputs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphql/mutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/mutations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphql/queries.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/queries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphql/subscriptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/subscriptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AddItemsTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AddItemsTest.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +74,11 @@
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="ts.external.directory.path" value="C:\Users\Operator Rex\Documents\GitHub\swProject\node_modules\typescript\lib" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Operator Rex\Documents\GitHub\swProject\src\components" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
@@ -69,7 +108,7 @@
       <workItem from="1649907604536" duration="4331000" />
       <workItem from="1649977016880" duration="10027000" />
       <workItem from="1650051804116" duration="25297000" />
-      <workItem from="1650141436901" duration="13832000" />
+      <workItem from="1650141436901" duration="49877000" />
     </task>
     <servers />
   </component>

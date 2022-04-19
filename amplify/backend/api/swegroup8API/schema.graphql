@@ -19,10 +19,21 @@ type DansInventory @model
     file: S3Object
 } #CreateDansInventory
 
+type DiscountCode @model
+    @auth(rules: [{ allow: groups, groups: ["Admin"], operations: [read, create, delete, update] },
+                  { allow: private, operations: [read, create, delete, update] }]
+
+) {
+    description: String!
+    code: String!
+    discountDecimal: Float!
+} #CreateDiscountCodes
+
+
 type S3Object {
     bucket: String!
     region: String!
     key: String!
-}
+} #UsedForImagesInS3
 
 

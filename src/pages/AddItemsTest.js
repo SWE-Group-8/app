@@ -1,68 +1,148 @@
-import * as React from 'react';
+//import React from 'react';
 import './AddItemsTest.css';
-// React from 'react';
+import React, { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import {Storage, API, graphqlOperation} from 'aws-amplify';
-import {createDansInventory} from '../graphql/mutations';
-import awsExports from "../aws-exports";
+//import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { createDansInventory } from '../graphql/mutations'
+import config from '../aws-exports'
 
+const {
+    aws_user_files_s3_bucket_region: region,
+    aws_user_files_s3_bucket: bucket
+} = config
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+const Admin = () => {
+    const [image, setImage] = useState(null);
+    const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "" });
 
-/*function createData(ItemName, Description, Price, Amount) {
-    return { ItemName, Description, Price, Amount };
-}*/
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (!dansDetails.name || !dansDetails.price) return
+            await API.graphql(graphqlOperation(createDansInventory, { input: dansDetails }))
+            setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "" })
+        } catch (err) {
+            console.log('error creating todo:', err)
+        }
+    }
 
-/*const rows = [
-    createData('CAP1', 'green special cap', 999.99, 1),
-    createData('CAP', 'yellow cap', 17.99, 20),
-    createData('CAP', 'red cap', 30.99, 50),
-    createData('CAP', 'blue cap', 20.99, 45),
-    createData('CAP', 'black cap', 20.99, 78),
-];
+    const handleImageUpload = async (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        const extension = file.name.split(".")[1];
+        const name = file.name.split(".")[0];
+        const key = `images/${uuidv4()}${name}.${extension}`;
+        const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
+        try {
+            // Upload the file to s3 with public access level.
+            await Storage.put(key, file, {
+                level: 'public',
+                contentType: file.type
+            });
+            // Retrieve the uploaded file to display
+            const image = await Storage.get(key, { level: 'public' })
+            setImage(image);
+            setDansDetails({ ...dansDetails, image: url });
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
-export default function BasicTable() {
     return (
-        <>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell >Item Name</TableCell>
-                            <TableCell align="right">Description</TableCell>
-                            <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">Amount in stock</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <TableRow
-                                key={row.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">{row.ItemName}</TableCell>
-                                <TableCell align="right">{row.Description}</TableCell>
-                                <TableCell align="right">{row.Price}</TableCell>
-                                <TableCell align="right">{row.Amount}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Button>
-                Edit
-            </Button>
-        </>
-    );
-}*/
+        <section className="admin-wrapper">
 
+                <section>
+                    <header className="form-header">
+                        <h3>Add New Dans</h3>
+
+                    </header>
+                    <form className="form-wrapper" onSubmit={handleSubmit}>
+                        <div className="form-image">
+                            {image ? <img className="image-preview" src={image} alt="" /> : <input
+                                type="file"
+                                accept="image/jpg"
+                                onChange={(e) => handleImageUpload(e)} />}
+
+                        </div>
+                        <div className="form-fields">
+                            <div className="name-form">
+                                <p><label htmlFor="name">Name</label></p>
+                                <p><input
+                                    name="email"
+                                    type="name"
+                                    placeholder="Name of Product"
+                                    onChange={(e) => setDansDetails({ ...dansDetails, name: e.target.value })}
+                                    required
+                                /></p>
+                            </div>
+                            <div className="color-form">
+                                <p><label htmlFor="color">Color</label></p>
+                                <p><input
+                                    name="color"
+                                    type="text"
+                                    placeholder="Primary Colors of Dans"
+                                    onChange={(e) => setDansDetails({ ...dansDetails, color: e.target.value })}
+                                    required
+                                /></p>
+                            </div>
+                            <div className="fabric-form">
+                                <p><label htmlFor="fabric">Fabric</label></p>
+                                <p><input
+                                    name="fabric"
+                                    type="text"
+                                    placeholder="Type of fabric"
+                                    onChange={(e) => setDansDetails({ ...dansDetails, fabric: e.target.value })}
+                                    required
+                                /></p>
+                            </div>
+                            <div className="type-form">
+                                <p><label htmlFor="type">Type</label></p>
+                                <p><input
+                                    name="type"
+                                    type="text"
+                                    placeholder="Type of Hat(Visor, Baseball, Boonie, etc..)"
+                                    onChange={(e) => setDansDetails({ ...dansDetails, fabric: e.target.value })}
+                                    required
+                                /></p>
+                            </div>
+                            <div className="price-form">
+                                <p><label htmlFor="price">Price ($)</label>
+                                    <input
+                                        name="price"
+                                        type="text"
+                                        placeholder="What is the Price of the Dans? (USD)"
+                                        onChange={(e) => setDansDetails({ ...dansDetails, price: e.target.value })}
+                                        required
+                                    /></p>
+                            </div>
+                            <div className="submit-form">
+                                <button className="btn" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+        </section>
+    )
+}
+
+export default Admin
+
+
+
+
+
+
+
+// React from 'react';
+//import {Storage, API, graphqlOperation} from 'aws-amplify';
+//import {createDansInventory} from '../graphql/mutations';
+//import awsExports from "../aws-exports";
+
+/*
 class AddItemsTest extends React.Component{
+
 
     constructor(props) {
         super(props);
@@ -74,7 +154,7 @@ class AddItemsTest extends React.Component{
     addImageToDB = async (image) => {
         console.log('add image to db')
         try{
-            await API.graphql(graphqlOperation(createDansInventory, {Input:image}));
+            await API.graphql(graphqlOperation(createDansInventory, {Input: image}));
         } catch (error) {
             console.log(error)
         }
@@ -86,7 +166,7 @@ class AddItemsTest extends React.Component{
 
         Storage.put(file.name, file, {
         contentType: 'image/png'
-        }).then ((result) => {
+        }).then (() => {
             this.setState({file: URL.createObjectURL(file)})
             //console.log(result);
             const image = {
@@ -118,4 +198,4 @@ class AddItemsTest extends React.Component{
     }
 }
 
-export default AddItemsTest;
+export default AddItemsTest;*/

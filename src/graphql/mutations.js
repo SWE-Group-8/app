@@ -70,3 +70,48 @@ export const deleteDansInventory = /* GraphQL */ `
     }
   }
 `;
+export const createDiscountCode = /* GraphQL */ `
+  mutation CreateDiscountCode(
+    $input: CreateDiscountCodeInput!
+    $condition: ModelDiscountCodeConditionInput
+  ) {
+    createDiscountCode(input: $input, condition: $condition) {
+      description
+      code
+      discountDecimal
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDiscountCode = /* GraphQL */ `
+  mutation UpdateDiscountCode(
+    $input: UpdateDiscountCodeInput!
+    $condition: ModelDiscountCodeConditionInput
+  ) {
+    updateDiscountCode(input: $input, condition: $condition) {
+      description
+      code
+      discountDecimal
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDiscountCode = /* GraphQL */ `
+  mutation DeleteDiscountCode(
+    $input: DeleteDiscountCodeInput!
+    $condition: ModelDiscountCodeConditionInput
+  ) {
+    deleteDiscountCode(input: $input, condition: $condition) {
+      description
+      code
+      discountDecimal
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
