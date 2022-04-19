@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {Storage, API, graphqlOperation} from 'aws-amplify';
 //import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { createDansInventory } from '../graphql/mutations'
-import config from '../aws-exports'
+import config from '../use-this-aws-exports'
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -49,6 +49,8 @@ const Admin = () => {
         }
     }
 
+
+
     return (
         <section className="admin-wrapper">
 
@@ -69,7 +71,7 @@ const Admin = () => {
                             <div className="name-form">
                                 <p><label htmlFor="name">Name</label></p>
                                 <p><input
-                                    name="email"
+                                    name="name"
                                     type="name"
                                     placeholder="Name of Product"
                                     onChange={(e) => setDansDetails({ ...dansDetails, name: e.target.value })}
@@ -102,7 +104,7 @@ const Admin = () => {
                                     name="type"
                                     type="text"
                                     placeholder="Type of Hat(Visor, Baseball, Boonie, etc..)"
-                                    onChange={(e) => setDansDetails({ ...dansDetails, fabric: e.target.value })}
+                                    onChange={(e) => setDansDetails({ ...dansDetails, type: e.target.value })}
                                     required
                                 /></p>
                             </div>
@@ -110,7 +112,7 @@ const Admin = () => {
                                 <p><label htmlFor="price">Price ($)</label>
                                     <input
                                         name="price"
-                                        type="text"
+                                        type="number"
                                         placeholder="What is the Price of the Dans? (USD)"
                                         onChange={(e) => setDansDetails({ ...dansDetails, price: e.target.value })}
                                         required

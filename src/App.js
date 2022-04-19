@@ -22,7 +22,7 @@ import {Amplify} from "aws-amplify";
 
 //import Amplify from "aws-amplify";
 //import {AmplifyAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react'
-import awsExports from "./aws-exports"
+import awsExports from "./use-this-aws-exports"
 Amplify.configure(awsExports);
 
 
