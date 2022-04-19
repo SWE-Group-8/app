@@ -4,11 +4,28 @@ import { v4 as uuidv4 } from 'uuid';
 import {Storage, API, graphqlOperation} from 'aws-amplify';
 import { createDansInventory } from '../graphql/mutations'
 import config from '../use-this-aws-exports'
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 const {
     aws_user_files_s3_bucket_region: region,
     aws_user_files_s3_bucket: bucket
 } = config
+
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright Â© '}
+            <Link color="inherit" href="https://github.com/SWE-Group-8">
+                Group 8 Repo
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+const theme = createTheme();
 
 const Admin = () => {
     const [image, setImage] = useState(null);
@@ -50,6 +67,7 @@ const Admin = () => {
 
 
     return (
+        <ThemeProvider theme={theme}>
         <section className="admin-wrapper">
 
                 <section>
@@ -124,6 +142,8 @@ const Admin = () => {
                 </section>
 
         </section>
+    <Copyright sx={{ mt: 8, mb: 4 }} />
+</ThemeProvider>
     )
 }
 
