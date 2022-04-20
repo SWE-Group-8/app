@@ -21,9 +21,11 @@ type DansInventory @model
 
 type DiscountCode @model
     @auth(rules: [{ allow: groups, groups: ["Admin"], operations: [read, create, delete, update] },
-                  { allow: private, operations: [read, create, delete, update] }]
+                  { allow: private, operations: [read, create, delete, update] },
+                  { allow: public, operations: [read] }]
 
 ) {
+    id: ID!
     description: String!
     code: String!
     discountDecimal: Float!
@@ -34,6 +36,6 @@ type S3Object {
     bucket: String!
     region: String!
     key: String!
-} #UsedForImagesInS3
+} #UsedForImagesInS31
 
 

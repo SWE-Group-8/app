@@ -16,6 +16,7 @@ import ModifyItems from './pages/ModifyItems';
 import ModifyUsers from './pages/ModifyUsers';
 import PlacedOrders from './pages/PlacedOrders';
 import AddItemsTest from './pages/AddItemsTest';
+import AddDiscountCodes from "./pages/AddDiscountCodes";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import {Amplify} from "aws-amplify";
@@ -47,7 +48,8 @@ function App() {
         <Route path='/ModifyUsers' element={<ModifyUsers/>} />
         <Route path='/PlacedOrders' element={<PlacedOrders/>} />
         <Route path='/HistoryOfOrders' element={<HistoryOfOrders/>} />
-        <Route path='/AddItemsTest' element={<AddItemsTest/>} />
+        <Route path='/AddItemsTests' element={<AddItemsTest/>} />
+        <Route path='/AddDiscountCodes' element={<AddDiscountCodes/>} />
       </Routes>
     </Router>
   );

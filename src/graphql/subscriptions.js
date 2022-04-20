@@ -1,42 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateDiscountCode = /* GraphQL */ `
-  subscription OnCreateDiscountCode {
-    onCreateDiscountCode {
-      description
-      code
-      discountDecimal
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateDiscountCode = /* GraphQL */ `
-  subscription OnUpdateDiscountCode {
-    onUpdateDiscountCode {
-      description
-      code
-      discountDecimal
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteDiscountCode = /* GraphQL */ `
-  subscription OnDeleteDiscountCode {
-    onDeleteDiscountCode {
-      description
-      code
-      discountDecimal
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateDansInventory = /* GraphQL */ `
   subscription OnCreateDansInventory {
     onCreateDansInventory {
@@ -92,6 +56,42 @@ export const onDeleteDansInventory = /* GraphQL */ `
         region
         key
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateDiscountCode = /* GraphQL */ `
+  subscription OnCreateDiscountCode {
+    onCreateDiscountCode {
+      id
+      description
+      code
+      discountDecimal
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateDiscountCode = /* GraphQL */ `
+  subscription OnUpdateDiscountCode {
+    onUpdateDiscountCode {
+      id
+      description
+      code
+      discountDecimal
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteDiscountCode = /* GraphQL */ `
+  subscription OnDeleteDiscountCode {
+    onDeleteDiscountCode {
+      id
+      description
+      code
+      discountDecimal
       createdAt
       updatedAt
     }

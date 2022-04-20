@@ -76,10 +76,10 @@ export const createDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     createDiscountCode(input: $input, condition: $condition) {
+      id
       description
       code
       discountDecimal
-      id
       createdAt
       updatedAt
     }
@@ -91,10 +91,10 @@ export const updateDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     updateDiscountCode(input: $input, condition: $condition) {
+      id
       description
       code
       discountDecimal
-      id
       createdAt
       updatedAt
     }
@@ -106,10 +106,10 @@ export const deleteDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     deleteDiscountCode(input: $input, condition: $condition) {
+      id
       description
       code
       discountDecimal
-      id
       createdAt
       updatedAt
     }
