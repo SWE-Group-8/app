@@ -2,12 +2,15 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Card, CardActions, CardContent, Container } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Container } from '@mui/material';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import AdminControls from '../pages/AdminControls';
+
 
 function Copyright(props) {
   return (
@@ -117,7 +120,7 @@ export default function BasicTabs() {
             </CardActions>
           </Card>
           <Card>
-            <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
+            <CardContent onClick ={() => alert("from Payment Management")/*insert page link */} >
             <Typography>Payment Management:</Typography>
             </CardContent>
             <CardActions>
@@ -125,8 +128,9 @@ export default function BasicTabs() {
             </CardActions>
           </Card>
           <Card>
-            <CardContent>
-            <Typography onClick ={() => alert("from Account Info")/*insert page link */} >Security:</Typography>
+            <CardContent >
+            <Typography>Security:</Typography>
+            <Button onClick ={() => alert("from Payment Management")/*insert page link */} > Edit</Button>
             </CardContent>
             <CardActions>
       

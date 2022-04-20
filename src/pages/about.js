@@ -12,6 +12,7 @@ import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
 
+
 const mediaCards = [
   {
     image: AngeloPic,
@@ -45,7 +46,13 @@ const mediaCards = [
   },
 ];
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "#ffe8d6"
+    }
+  }
+});
 export default function About() {
   
   return (
@@ -55,12 +62,12 @@ export default function About() {
     <CssBaseline />
     <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: '#ffe8d6',
             pt: 8,
             pb: 2,
           }}
         >
-          <Container maxWidth="sm">
+          <Container maxWidth="sm" >
             <Typography
               component="h1"
               variant="h2"

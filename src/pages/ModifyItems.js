@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 function createData(ItemName, Description, Price, Amount) {
   return { ItemName, Description, Price, Amount };
 }
@@ -19,10 +21,22 @@ const rows = [
   createData('CAP', 'black cap', 20.99, 78),
 ];
 
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "#ffe8d6"
+    }
+  }
+});
+
 export default function BasicTable() {
   return (
-    <>
-    <TableContainer component={Paper}>
+    <ThemeProvider theme = {theme}>
+    <CssBaseline />
+    <TableContainer component={Paper}sx={{
+        pt: 10,
+        bgcolor: "#ffe8d6",
+      }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -50,6 +64,6 @@ export default function BasicTable() {
     <Button>
         Edit
     </Button>
-    </>
+    </ThemeProvider>
   );
 }

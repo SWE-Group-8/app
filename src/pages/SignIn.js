@@ -28,7 +28,13 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "#ffe8d6"
+    }
+  }
+});
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -65,7 +71,11 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs"sx={{
+        pt: 20,
+        bgcolor: "#ffe8d6",
+      }
+      }>
         <CssBaseline />
         <Authenticator formFields={formFields} signUpAttributes={[
           'name',
