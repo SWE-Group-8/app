@@ -18,7 +18,13 @@ function Copyright(props) {
     );
   }
 
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+        background: {
+          default: "#ffe8d6"
+        }
+      }
+});
 const Cart = () => {
     return (
     <ThemeProvider theme={theme}>

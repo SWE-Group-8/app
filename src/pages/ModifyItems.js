@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
 function createData(ItemName, Description, Price, Amount) {
   return { ItemName, Description, Price, Amount };
 }
@@ -22,6 +23,7 @@ const rows = [
 export default function BasicTable() {
   return (
     <>
+    <CssBaseline />
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

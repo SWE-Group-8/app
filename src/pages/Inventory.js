@@ -23,7 +23,7 @@ import { Component } from 'react';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="body2" color="text.secondary" align="center" >
       {'Copyright © '}
       <Link color="inherit" href="https://github.com/SWE-Group-8">
         Group8 Repo
@@ -38,7 +38,13 @@ function Copyright() {
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "#ffe8d6"
+    }
+  }
+});
 
 export default function Album() {
   return (
@@ -49,7 +55,7 @@ export default function Album() {
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: '#ffe8d6',
             pt: 8,
             pb: 6,
           }}
@@ -110,7 +116,7 @@ export default function Album() {
         </Container>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+      <Box sx={{ bgcolor: "#ffe8d6", p: 6 }} component="footer">
         
         <Typography
           variant="subtitle1"

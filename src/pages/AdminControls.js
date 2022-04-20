@@ -10,6 +10,7 @@ import tools from '../images/Tools-Silhouette.png';
 import history from '../images/Vector-History-PNG-Image.png';
 import add from '../images/Plus-Symbol-Vector-PNG-Images-HD.png';
 import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const adminCards = [
   {
@@ -43,11 +44,17 @@ const adminCards = [
     link: "http://localhost:3000/HistoryOfOrders",
   },
 ];
-
+const theme = createTheme({
+  palette: {
+      background: {
+        default: "#ffe8d6"
+      }
+    }
+});
 export default function About() {
   
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box p={20} pl={40} pt={10} pb={10}>
       <Grid container spacing={10}>
@@ -59,8 +66,8 @@ export default function About() {
           );
         })}
       </Grid>
-      </Box>
-    </>
+      </Box></ThemeProvider>
+    
     
   );
 }

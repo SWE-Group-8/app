@@ -55,7 +55,13 @@ function a11yProps(index) {
   };
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "#ffe8d6"
+    }
+  }
+});
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
@@ -77,10 +83,14 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       {/*Personal Info Tab Content */}
-      <TabPanel value={value} index={0}>
-      <Container centered>
-        <Card>
-          <CardContent>
+      <TabPanel value={value} index={0} sx={{
+        bgcolor: "#6B705C"
+      }}>
+      <Container centered >
+        <Card >
+          <CardContent sx={{
+            bgcolor: "#A5A58D"
+          }}>
           <Typography>Name:</Typography>
           <Typography>Phone Number:</Typography>
           <Typography>Email:</Typography>
@@ -95,10 +105,14 @@ export default function BasicTabs() {
       </TabPanel>
 
       {/*Order History Tab Content */}
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={1} sx={{
+        bgcolor: "#6B705C"
+      }}>
         <Container centered>
           <Card>
-            <CardContent>
+            <CardContent sx={{
+            bgcolor: "#A5A58D"
+          }}>
             <Typography>Order History Cards Here</Typography>
             </CardContent>
           </Card>
@@ -106,9 +120,13 @@ export default function BasicTabs() {
       </TabPanel>
 
       {/*Account management Tab Content */}
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={2} sx={{
+        bgcolor: "#6B705C"
+      }}>
         <Container centered>
-          <Card>
+          <Card sx={{
+            bgcolor: "#A5A58D"
+          }}>
             <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
             <Typography>Account Information:</Typography>
             </CardContent>
@@ -116,7 +134,9 @@ export default function BasicTabs() {
            
             </CardActions>
           </Card>
-          <Card>
+          <Card sx={{
+            bgcolor: "#A5A58D"
+          }}>
             <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
             <Typography>Payment Management:</Typography>
             </CardContent>
@@ -124,13 +144,20 @@ export default function BasicTabs() {
            
             </CardActions>
           </Card>
-          <Card>
-            <CardContent>
+          <Card sx={{
+            bgcolor: "#A5A58D"
+          }}>
+            <CardContent sx={{
+            bgcolor: "#A5A58D"
+          }}>
             <Typography onClick ={() => alert("from Account Info")/*insert page link */} >Security:</Typography>
-            </CardContent>
-            <CardActions>
-      
+            <CardActions sx={{
+            bgcolor: "#A5A58D"
+          }}>
+              <button>Edit</button>
             </CardActions>
+            </CardContent>
+            
           </Card>
         </Container>
       </TabPanel>
