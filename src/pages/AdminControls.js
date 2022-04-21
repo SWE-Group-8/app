@@ -20,13 +20,13 @@ const adminCards = [
   {
     image: discount,
     button: "Discount Codes",
-    link: "http://localhost:3000/DiscountCodes",
-  },
+    link: "http://localhost:3000/AddDiscountCodes",
+  },//replaced DiscountCodes with AddDiscountCodes
   {
     image: add,
     button: "Add Items",
-    link: "http://localhost:3000/AddItems",
-  },
+    link: "http://localhost:3000/AddItemsTests",
+  },//replaced AddItems with AddItemsTest page
   {
     image: people,
     button: "Modify Users",

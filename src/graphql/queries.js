@@ -10,6 +10,12 @@ export const getDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }
@@ -29,6 +35,43 @@ export const listDansInventories = /* GraphQL */ `
         price
         fabric
         type
+        image
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getDiscountCode = /* GraphQL */ `
+  query GetDiscountCode($id: ID!) {
+    getDiscountCode(id: $id) {
+      id
+      description
+      code
+      discountDecimal
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listDiscountCodes = /* GraphQL */ `
+  query ListDiscountCodes(
+    $filter: ModelDiscountCodeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDiscountCodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        description
+        code
+        discountDecimal
         createdAt
         updatedAt
       }
