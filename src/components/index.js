@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -67,6 +68,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+const [inputText, setInputText] = useState("");
+let inputHandler = (e) => {
+  //convert input text to lower case
+  var lowerCase = e.target.value.toLowerCase();
+  setInputText(lowerCase);
+};
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -74,7 +82,7 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
-    Auth.signOut();
+    setAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -107,7 +115,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/Profile"}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -178,15 +186,12 @@ export default function PrimarySearchAppBar() {
           <NavLink to='/cart' activeStyle>
             Cart
           </NavLink>
-          <NavLink to='/Profile' activeStyle>
-            Profile
-          </NavLink>
           <NavLink to='/SignIn' activeStyle>
             SignIn
           </NavLink>
           
         </NavMenu>
-          <Search>
+          <Search onchange={inputHandler}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>

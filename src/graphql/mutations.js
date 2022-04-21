@@ -13,6 +13,12 @@ export const createDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }
@@ -30,6 +36,12 @@ export const updateDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
+      file {
+        bucket
+        region
+        key
+      }
       createdAt
       updatedAt
     }
@@ -47,6 +59,57 @@ export const deleteDansInventory = /* GraphQL */ `
       price
       fabric
       type
+      image
+      file {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createDiscountCode = /* GraphQL */ `
+  mutation CreateDiscountCode(
+    $input: CreateDiscountCodeInput!
+    $condition: ModelDiscountCodeConditionInput
+  ) {
+    createDiscountCode(input: $input, condition: $condition) {
+      id
+      description
+      code
+      discountDecimal
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDiscountCode = /* GraphQL */ `
+  mutation UpdateDiscountCode(
+    $input: UpdateDiscountCodeInput!
+    $condition: ModelDiscountCodeConditionInput
+  ) {
+    updateDiscountCode(input: $input, condition: $condition) {
+      id
+      description
+      code
+      discountDecimal
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDiscountCode = /* GraphQL */ `
+  mutation DeleteDiscountCode(
+    $input: DeleteDiscountCodeInput!
+    $condition: ModelDiscountCodeConditionInput
+  ) {
+    deleteDiscountCode(input: $input, condition: $condition) {
+      id
+      description
+      code
+      discountDecimal
       createdAt
       updatedAt
     }

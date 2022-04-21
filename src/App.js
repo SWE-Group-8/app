@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import About from './pages/about';
+import AboutTemp from './pages/aboutTemp';
 import Cart from './pages/cart';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
@@ -15,13 +16,20 @@ import HistoryOfOrders from './pages/HistoryOfOrders';
 import ModifyItems from './pages/ModifyItems';
 import ModifyUsers from './pages/ModifyUsers';
 import PlacedOrders from './pages/PlacedOrders';
+import AddItemsTest from './pages/AddItemsTest';
+import AddDiscountCodes from "./pages/AddDiscountCodes";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import {Amplify} from "aws-amplify";
 
+//import Amplify from "aws-amplify";
+//import {AmplifyAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react'
+import awsExports from "./use-this-aws-exports"
+Amplify.configure(awsExports);
 
 
 function App() {
-  
+
   const { route, error, signOut } = useAuthenticator(context => [context.route]);
 
   return (
@@ -41,10 +49,14 @@ function App() {
         <Route path='/ModifyUsers' element={<ModifyUsers/>} />
         <Route path='/PlacedOrders' element={<PlacedOrders/>} />
         <Route path='/HistoryOfOrders' element={<HistoryOfOrders/>} />
+        <Route path='/aboutTemp' element={<AboutTemp/>} />
+        <Route path='/AddItemsTests' element={<AddItemsTest/>} />
+        <Route path='/AddDiscountCodes' element={<AddDiscountCodes/>} />
       </Routes>
     </Router>
   );
 }
 //testset
-  
+
+
 export default App;

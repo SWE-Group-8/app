@@ -12,6 +12,7 @@ import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
 
+
 const mediaCards = [
   {
     image: AngeloPic,

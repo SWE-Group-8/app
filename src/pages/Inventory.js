@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
