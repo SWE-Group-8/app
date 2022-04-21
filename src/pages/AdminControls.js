@@ -25,7 +25,7 @@ const adminCards = [
   {
     image: add,
     button: "Add Items",
-    link: "http://localhost:3000/AddItemsTest",
+    link: "http://localhost:3000/AddItemsTests",
   },//replaced AddItems with AddItemsTest page
   {
     image: people,
