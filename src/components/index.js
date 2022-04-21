@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -82,7 +82,7 @@ let inputHandler = (e) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
-    Auth.signOut();
+    setAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -115,7 +115,7 @@ let inputHandler = (e) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/Profile"}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -186,9 +186,6 @@ let inputHandler = (e) => {
           <NavLink to='/cart' activeStyle>
             Cart
           </NavLink>
-          <NavLink to='/Profile' activeStyle>
-            Profile
-          </NavLink>
           <NavLink to='/SignIn' activeStyle>
             SignIn
           </NavLink>
@@ -205,20 +202,7 @@ let inputHandler = (e) => {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+    
             <IconButton
               size="large"
               edge="end"

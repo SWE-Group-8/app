@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import About from './pages/about';
+import AboutTemp from './pages/aboutTemp';
 import Cart from './pages/cart';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
@@ -41,6 +42,7 @@ function App() {
         <Route path='/ModifyUsers' element={<ModifyUsers/>} />
         <Route path='/PlacedOrders' element={<PlacedOrders/>} />
         <Route path='/HistoryOfOrders' element={<HistoryOfOrders/>} />
+        <Route path='/aboutTemp' element={<AboutTemp/>} />
       </Routes>
     </Router>
   );

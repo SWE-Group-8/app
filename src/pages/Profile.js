@@ -93,6 +93,7 @@ export default function BasicTabs() {
           <Typography>State:</Typography>
           <Typography>Zip:</Typography>
           </CardContent>
+          <Button style={{marginRight:30, marginBottom: 30, float: 'right'}}>Edit</Button>
           </Card>
         </Container>
       </TabPanel>
@@ -112,16 +113,18 @@ export default function BasicTabs() {
       <TabPanel value={value} index={2}>
         <Container centered>
           <Card>
-            <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
+            <CardContent>
             <Typography>Account Information:</Typography>
+            <Button onClick ={() => alert("from Account Information")/*insert page link */} > Edit</Button>
             </CardContent>
             <CardActions>
            
             </CardActions>
           </Card>
           <Card>
-            <CardContent onClick ={() => alert("from Payment Management")/*insert page link */} >
+            <CardContent>
             <Typography>Payment Management:</Typography>
+            <Button onClick ={() => alert("from Payment Management")/*insert page link */} > Edit</Button>
             </CardContent>
             <CardActions>
            
@@ -130,7 +133,7 @@ export default function BasicTabs() {
           <Card>
             <CardContent >
             <Typography>Security:</Typography>
-            <Button onClick ={() => alert("from Payment Management")/*insert page link */} > Edit</Button>
+            <Button onClick ={() => alert("from Security")/*insert page link */} > Edit</Button>
             </CardContent>
             <CardActions>
       
