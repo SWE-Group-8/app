@@ -71,18 +71,19 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs"sx={{
-        pt: 20,
-        bgcolor: "#ffe8d6",
-      }
-      }>
+      <Container component="main" maxWidth="xs" sx={{
+        pt: 20 ,
+        bgcolor: "#ffe8d6"
+      }}>
         <CssBaseline />
         <Authenticator formFields={formFields} signUpAttributes={[
           'name',
           'address',
           'email',
           'phone_number',
-        ]}/>
+        ]} sx={{
+          bgcolor: "#ffe8d6"
+        }}/>
         
         
         {/* <Box
@@ -151,7 +152,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box> */}
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 8, mb: 4 , bgcolor: "#ffe8d6"}} />
       </Container>
     </ThemeProvider>
   );

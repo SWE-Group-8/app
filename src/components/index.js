@@ -174,7 +174,7 @@ let inputHandler = (e) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style= {{background: '#2E3B55' }}>
+      <AppBar position="static" style= {{background: '#6B705C' }}>
         <Toolbar>
         <NavMenu>
             <NavLink to='/' activeStyle>
@@ -202,7 +202,7 @@ let inputHandler = (e) => {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-    
+            
             <IconButton
               size="large"
               edge="end"
