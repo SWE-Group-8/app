@@ -212,6 +212,13 @@ let inputHandler = (e) => {
             >
               <AccountCircle />
             </IconButton>
+            <button onClick={() => {
+
+              console.log(route);
+              route === 'authenticated' ? Auth.signOut(): navigate('/SignIn');
+
+            }}>{ route === 'authenticated' ? 'Sign out' : 'Sign in' }
+            </button>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
