@@ -8,11 +8,18 @@ export type AmplifyDependentResourcesAttributes = {
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string"
+        },
+        "userPoolGroups": {
+            "AdminsGroupRole": "string"
         }
     },
     "api": {
+        "AdminQueries": {
+            "RootUrl": "string",
+            "ApiName": "string",
+            "ApiId": "string"
+        },
         "swegroup8API": {
-            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
@@ -21,6 +28,14 @@ export type AmplifyDependentResourcesAttributes = {
         "inventoryImageStorage": {
             "BucketName": "string",
             "Region": "string"
+        }
+    },
+    "function": {
+        "AdminQueries5242e83f": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     }
 }
