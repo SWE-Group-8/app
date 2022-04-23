@@ -11,6 +11,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -60,10 +61,14 @@ function SwipeableTextMobileStepper() {
     setActiveStep(step);
   };
 
+  
+
   return (
     <ThemeProvider theme={theme}>
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Container pl="20%">
       <CssBaseline />
+    <Box  sx={{ maxWidth: 900, flexGrow: 1, alignItems: "center"}}>
+      
       <h1>Hottest Items</h1>
       <Paper
         variant="outlined"
@@ -74,7 +79,7 @@ function SwipeableTextMobileStepper() {
           alignItems: 'center',
           height: 50,
           pl: 2,
-          bgcolor: 'background.default',
+          bgcolor: '#A5A58D',
         }}
         style={{
           border: '.5px solid'
@@ -147,7 +152,7 @@ function SwipeableTextMobileStepper() {
       />
     </Box>
 
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box sx={{ maxWidth: 900, flexGrow: 1 }}>
       <CssBaseline />
       <h1>Least Bought</h1>
       <Paper
@@ -232,7 +237,7 @@ function SwipeableTextMobileStepper() {
       />
     </Box>
 
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box sx={{ maxWidth: 900, flexGrow: 1 }}>
       <CssBaseline />
       <h1>All Items</h1>
       <Paper
@@ -316,6 +321,7 @@ function SwipeableTextMobileStepper() {
         }
       />
     </Box>
+    </Container>
     </ThemeProvider>
   );
 }

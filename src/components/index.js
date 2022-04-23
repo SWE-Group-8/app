@@ -116,7 +116,7 @@ let inputHandler = (e) => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose} component={Link} to={"/Profile"}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose} component={Link} to={"/SignIn"}>SignIn</MenuItem>
     </Menu>
   );
 
@@ -180,15 +180,13 @@ let inputHandler = (e) => {
             <NavLink to='/' activeStyle>
             Home
             </NavLink>
-          <NavLink to='/about' activeStyle>
+          <NavLink to='/aboutTemp' activeStyle>
             About
           </NavLink>
           <NavLink to='/cart' activeStyle>
             Cart
           </NavLink>
-          <NavLink to='/SignIn' activeStyle>
-            SignIn
-          </NavLink>
+          
           
         </NavMenu>
           <Search onchange={inputHandler}>

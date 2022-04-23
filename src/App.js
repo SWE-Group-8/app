@@ -21,10 +21,11 @@ import AddDiscountCodes from "./pages/AddDiscountCodes";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import {Amplify} from "aws-amplify";
-
+import { CssBaseline } from '@mui/material';
 //import Amplify from "aws-amplify";
 //import {AmplifyAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react'
 import awsExports from "./use-this-aws-exports"
+import { Css } from '@mui/icons-material';
 Amplify.configure(awsExports);
 
 
@@ -34,11 +35,11 @@ function App() {
 
   return (
     <Router>
+      <CssBaseline />
       <Navbar />
       <Routes>
         <Route path='/' exact element={<Inventory/>} />
-        <Route path='/about' element={<About/>} />
-        <Route path='/cart' element={<Cart/>} />//i want this an image and moved to the right of the navbar
+        <Route path='/cart' element={<Cart/>} />
         <Route path='/Profile' element={<Profile/>} />
         <Route path='/SignIn' element={route === 'authenticated' ? <Navigate to='/' /> : <SignIn/>} />
         <Route path='/SignUp' element={<SignUp/>} />
