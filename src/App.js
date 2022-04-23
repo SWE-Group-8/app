@@ -31,7 +31,7 @@ import { Css } from '@mui/icons-material';
 
 function App() {
 
-  const { route, error, signOut } = useAuthenticator(context => [context.route]);
+  const { route, signOut } = useAuthenticator(context => [context.route]);
 
   return (
     <Router>
