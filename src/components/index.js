@@ -219,8 +219,7 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
             <button onClick={() => {
-
-              console.log(route);
+              
               route === 'authenticated' ? Auth.signOut(): navigate('/SignIn');
 
             }}>{ route === 'authenticated' ? 'Sign out' : 'Sign in' }

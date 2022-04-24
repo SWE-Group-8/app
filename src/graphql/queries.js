@@ -79,3 +79,63 @@ export const listDiscountCodes = /* GraphQL */ `
     }
   }
 `;
+export const getOrder = /* GraphQL */ `
+  query GetOrder($id: ID!) {
+    getOrder(id: $id) {
+      id
+      user
+      date
+      total
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listOrders = /* GraphQL */ `
+  query ListOrders(
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        user
+        date
+        total
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getDansOrder = /* GraphQL */ `
+  query GetDansOrder($id: ID!) {
+    getDansOrder(id: $id) {
+      id
+      order_id
+      dans_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listDansOrders = /* GraphQL */ `
+  query ListDansOrders(
+    $filter: ModelDansOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listDansOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        order_id
+        dans_id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
