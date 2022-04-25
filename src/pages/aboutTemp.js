@@ -16,6 +16,7 @@ export default function About() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+<<<<<<< Updated upstream
     <Box m={3} pt={3}>
       <Grid>
     <Card sx={{ maxWidth: 345 }}>
@@ -70,6 +71,63 @@ export default function About() {
     </Card>
     </Grid>
     </Box>
+=======
+      <Box
+          sx={{
+            justify: 'center',
+            bgcolor: '#ffe8d6',
+            pt: 8,
+            pb: 2,
+          }}
+        >
+          <Container maxWidth="sm" >
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
+              Meet The Team!
+            </Typography>
+            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+              This is Group 8 and what roles each one of us took!
+            </Typography>
+            
+          </Container>
+        </Box>
+      <Box sx={{ justify: 'center', transform: 'scale(0.8)' }}>
+        <Grid container spacing={5} pl={5} column={{ xs: 4, sm: 8, md: 12}}>
+          {mediaCards.map((card, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index}>
+              <Card variant="outlined" style={{ margin: 10}}>
+              <CardMedia
+              style={{height: 640, width: '100%'}}
+              image={card.image} 
+              title={card.title}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {card.title}
+                </Typography>
+                <Typography variant="body2" component="p" style={{
+                  color: "#000000"
+                }}>
+                  {card.description}
+                  <Button>
+                    <td onClick={() => window.open(card.linkedinLink, "_blank")}>
+                      <LinkedInIcon />
+                    </td>
+                  </Button>
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+            ))}
+        </Grid>
+      </Box>
+      <Copyright sx={{ mt: 8, mb: 4 }}/>
+>>>>>>> Stashed changes
     </ThemeProvider>
   );
 }
