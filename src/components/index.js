@@ -115,13 +115,9 @@ let inputHandler = (e) => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose} component={Link} to={"/Profile"}>Profile</MenuItem>
-<<<<<<< Updated upstream
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-=======
 
       <MenuItem onClick={() => { route === 'authenticated' ? Auth.signOut(): navigate('/SignIn');}}>
         { route === 'authenticated' ? 'Sign out' : 'Sign in' }</MenuItem>
->>>>>>> Stashed changes
     </Menu>
   );
 
@@ -159,19 +155,12 @@ let inputHandler = (e) => {
             <NavLink to='/' activeStyle>
             Home
             </NavLink>
-          <NavLink to='/about' activeStyle>
+          <NavLink to='/aboutTemp' activeStyle>
             About
           </NavLink>
           <NavLink to='/cart' activeStyle>
             Cart
           </NavLink>
-<<<<<<< Updated upstream
-          <NavLink to='/SignIn' activeStyle>
-            SignIn
-          </NavLink>
-          
-=======
->>>>>>> Stashed changes
         </NavMenu>
           <Search onchange={inputHandler}>
             <SearchIconWrapper>
