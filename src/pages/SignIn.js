@@ -81,7 +81,7 @@ export default function SignIn() {
           'address',
           'email',
           'phone_number',
-        ]} sx={{
+        ]} style={{
           bgcolor: "#ffe8d6"
         }}/>
         

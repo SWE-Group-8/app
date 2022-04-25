@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -13,84 +13,55 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { Link } from '@mui/material';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import hat from '../images/chickenDance.gif';
+import ZaqPic from '../images/zaquariah-holland.jpg';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid'
+import { API, graphqlOperation } from 'aws-amplify'
+import {listDansInventories} from '../graphql/queries'
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const hottestProducts = [
+const mediaCards = [
   {
-    name: 'hat 1',
-    price: 99.99,
-    desc: 'hat number 1 of 19',
-    imgPath: ''
+    image: hat,
+    title: "Angelo Middleton",
+    description: `Database Management Lead`,
+    
   },
   {
-    name: 'hat 4',
-    price: 99.99,
-    desc: 'hat number 4 of 19',
-    imgPath: ''
+    image: hat,
+    title: "Bond Blanton",
+    description: `Items & Inventory Manager`,
   },
   {
-    name: 'hat 3',
-    price: 99.99,
-    desc: 'hat number 3 of 19',
-    imgPath: ''
+    image: hat,
+    title: "Eric Por",
+    description: `Lead UI Designer`,
+    
   },
   {
-    name: 'hat 2',
-    price: 99.99,
-    desc: 'hat number 2 of 19',
-    imgPath: ''
-  },
-]
-
-const cheapestProducts = [
-  {
-    name: 'hat 1',
-    price: 99.99,
-    desc: 'hat number 1 of 19',
-    imgPath: ''
+    image: hat,
+    title: "Javier Delarosa Quiros",
+    description: `Accounts & Carts Manager`,
   },
   {
-    name: 'hat 4',
-    price: 99.99,
-    desc: 'hat number 4 of 19',
-    imgPath: ''
+    image: hat,
+    title: "Jose Torres",
+    description: `Lead UX Designer`,
+    
   },
   {
-    name: 'hat 3',
-    price: 99.99,
-    desc: 'hat number 3 of 19',
-    imgPath: ''
-  },
-  {
-    name: 'hat 2',
-    price: 99.99,
-    desc: 'hat number 2 of 19',
-    imgPath: ''
-  },
-]
-
-const images = [
-  {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
-    imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bird',
-    imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bali, Indonesia',
-    imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-  },
-  {
-    label: 'Goč, Serbia',
-    imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+    image: hat,
+    title: "Zaquariah Holland",
+    description: `Project Manager`,
   },
 ];
+
+
+    
 
 function SwipeableTextMobileStepper() {
   const theme = createTheme({
@@ -101,7 +72,7 @@ function SwipeableTextMobileStepper() {
     }
   });
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
+  const maxSteps = mediaCards.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -114,33 +85,34 @@ function SwipeableTextMobileStepper() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
   
+  const [Inv, setInv] = useState([])
+  const HandleSubmit = async () => {
+        
+        try {
+          const object = await API.graphql({
+            query: listDansInventories,
+            variables: { filter: {name: {contains: ""}} },
+            authMode: 'AWS_IAM'
+          })
+          setInv(object.data.listDansInventories.items);
+          console.log('Items:', Inv)
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
+      }
+    
+  return [
 
-  return (
+    
+    
     <ThemeProvider theme={theme}>
     <Container pl="20%">
       <CssBaseline />
-    <Box  sx={{ maxWidth: 900, flexGrow: 1, alignItems: "center"}}>
+    {/* <Box  sx={{ maxWidth: 1500, flexGrow: 1, alignItems: "center"}}>
       
-      <h1>Hottest Items</h1>
-      <Paper
-        variant="outlined"
-        square
-        elevation={12}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          bgcolor: '#A5A58D',
-        }}
-        style={{
-          border: '.5px solid'
-        }}
-      >
-        <Typography>{images[activeStep].label}</Typography>
-      </Paper>
+      
+      
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
@@ -151,7 +123,7 @@ function SwipeableTextMobileStepper() {
         }}
         
       >
-        {images.map((step, index) => (
+        {mediaCards.map((step, index) => (
           <div key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
@@ -163,7 +135,7 @@ function SwipeableTextMobileStepper() {
                   overflow: 'hidden',
                   width: '100%',
                 }}
-                src={step.imgPath}
+                src={ZaqPic}
                 alt={step.label}
               />
             ) : null}
@@ -205,16 +177,46 @@ function SwipeableTextMobileStepper() {
           </Button>
         }
       ></MobileStepper>
-    </Box>
-    <Button >
-      <Link color="inherit" href="http://localhost:3000/Product" variant="body2">
-        AddItem
-      </Link>
+    </Box> */}
+    <Button onClick={HandleSubmit}>
+      populateArray
     </Button>
+    <Box sx={{ justify: 'center', transform: 'scale(0.8)'}}>
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          {Inv.map((card, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index}>
+              <Card variant="outlined" style={{ margin: 10 }} >
+                <CardMedia
+                style={{height: 640, width: "100%", alignContent: 'center', objectFit: 'cover'}}
+                
+                image={card.image} 
+                title={card.title}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body2" component="p" style={{
+                    color: "#000000"
+                  }}>
+                    {card.description}
+                    <Button>
+                      <td onClick={() => window.open(card.linkedinLink, "_blank")}>
+                        Add To Cart
+                      </td>
+                    </Button>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+
     
     </Container>
     </ThemeProvider>
-  );
+  ];
 }
 
 export default SwipeableTextMobileStepper;
