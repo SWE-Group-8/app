@@ -16,6 +16,8 @@ import EricPic from '../images/Eric-P.jpg';
 import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
+import { API, graphqlOperation } from 'aws-amplify'
+import {listDansInventories} from '../graphql/queries'
 
 function Copyright(props) {
   return (
@@ -77,6 +79,23 @@ const theme = createTheme({
 
 
 export default function About() {
+
+  const handleSubmit = async () => {
+    try {
+      const data = await API.graphql({
+        query: listDansInventories,
+        variables: { filter: {name: {contains: ""}} },
+        authMode: 'AWS_IAM'
+      })
+      console.log('Items:', data)
+    } catch (err) {
+        console.log('error getting inventory:', err)
+    }
+  }
+
+  handleSubmit();
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

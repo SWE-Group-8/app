@@ -14,7 +14,22 @@
     "categories": {
       "auth": {
         "swegroup8c3e4f6f6": {},
-        "true": {}
+        "true": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "AdminQueries5242e83f": {
+          "deploymentBucketName": "amplify-swegroup8-dev-204603-deployment",
+          "s3Key": "amplify-builds/AdminQueries5242e83f-526c6632785174303656-build.zip"
+        },
+        "processPayment": {
+          "deploymentBucketName": "amplify-swegroup8-dev-204603-deployment",
+          "s3Key": "amplify-builds/processPayment-7476346869634239662b-build.zip"
+        },
+        "createOrder": {
+          "deploymentBucketName": "amplify-swegroup8-dev-204603-deployment",
+          "s3Key": "amplify-builds/createOrder-37542f66393165486e6a-build.zip"
+        }
       }
     }
   }

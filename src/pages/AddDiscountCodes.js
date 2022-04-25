@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {API, graphqlOperation} from 'aws-amplify';
 import { createDiscountCode } from '../graphql/mutations'
-import config from '../use-this-aws-exports'
+//import config from '../use-this-aws-exports';
+import config from '../aws-exports';
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import {createTheme, ThemeProvider} from "@mui/material/styles";

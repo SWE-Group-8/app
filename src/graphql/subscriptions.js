@@ -97,3 +97,72 @@ export const onDeleteDiscountCode = /* GraphQL */ `
     }
   }
 `;
+export const onCreateOrder = /* GraphQL */ `
+  subscription OnCreateOrder {
+    onCreateOrder {
+      id
+      user
+      date
+      total
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateOrder = /* GraphQL */ `
+  subscription OnUpdateOrder {
+    onUpdateOrder {
+      id
+      user
+      date
+      total
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteOrder = /* GraphQL */ `
+  subscription OnDeleteOrder {
+    onDeleteOrder {
+      id
+      user
+      date
+      total
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateDansOrder = /* GraphQL */ `
+  subscription OnCreateDansOrder {
+    onCreateDansOrder {
+      id
+      order_id
+      dans_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateDansOrder = /* GraphQL */ `
+  subscription OnUpdateDansOrder {
+    onUpdateDansOrder {
+      id
+      order_id
+      dans_id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteDansOrder = /* GraphQL */ `
+  subscription OnDeleteDansOrder {
+    onDeleteDansOrder {
+      id
+      order_id
+      dans_id
+      createdAt
+      updatedAt
+    }
+  }
+`;

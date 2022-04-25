@@ -17,6 +17,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Auth } from 'aws-amplify'
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
     Nav,
@@ -68,18 +70,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-const [inputText, setInputText] = useState("");
-let inputHandler = (e) => {
-  //convert input text to lower case
-  var lowerCase = e.target.value.toLowerCase();
-  setInputText(lowerCase);
-};
+  const [inputText, setInputText] = useState("");
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  // Authentication and Navigation Hooks
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -212,6 +218,12 @@ let inputHandler = (e) => {
             >
               <AccountCircle />
             </IconButton>
+            <button onClick={() => {
+              
+              route === 'authenticated' ? Auth.signOut(): navigate('/SignIn');
+
+            }}>{ route === 'authenticated' ? 'Sign out' : 'Sign in' }
+            </button>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

@@ -20,19 +20,19 @@ import AddItemsTest from './pages/AddItemsTest';
 import AddDiscountCodes from "./pages/AddDiscountCodes";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import {Amplify} from "aws-amplify";
+//import {Amplify} from "aws-amplify";
 import { CssBaseline } from '@mui/material';
 import Product from './pages/Product.js';
 //import Amplify from "aws-amplify";
 //import {AmplifyAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react'
-import awsExports from "./use-this-aws-exports"
+//import awsExports from "./use-this-aws-exports"
 import { Css } from '@mui/icons-material';
-Amplify.configure(awsExports);
+//Amplify.configure(awsExports);
 
 
 function App() {
 
-  const { route, error, signOut } = useAuthenticator(context => [context.route]);
+  const { route, signOut } = useAuthenticator(context => [context.route]);
 
   return (
     <Router>
