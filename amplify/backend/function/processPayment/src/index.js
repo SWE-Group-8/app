@@ -1,7 +1,9 @@
+//import config from '../aws-exports';
+//const { aws_user_pools_id } = config
 const { CognitoIdentityServiceProvider } = require("aws-sdk");
 const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
-const USER_POOL_ID = "<userpool_id>";
-const stripe = require("stripe")("<strip_private_key>");
+const USER_POOL_ID = "us-east-1_GNjkn1yhb";
+const stripe = require("stripe")("sk_test_51KsGSpExUMlfZ1zN4S9inrum89ZVRK9OIgmlk8bNT1FSdd1H7BwVInWYHLNlJBhljJtEKuvJKacabUZx2YnPJoMT00961lhTmL");
 
 const getUserEmail = async (event) => {
     const params = {

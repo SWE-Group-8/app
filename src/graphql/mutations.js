@@ -19,6 +19,20 @@ export const createDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      orders {
+        items {
+          order_id
+          id
+          dans_id
+          createdAt
+          updatedAt
+          dansInventoryOrdersId
+          orderDansId
+          dansOrderDansId
+          dansOrderOrderId
+        }
+        nextToken
+      }
       file {
         bucket
         region
@@ -42,6 +56,20 @@ export const updateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      orders {
+        items {
+          order_id
+          id
+          dans_id
+          createdAt
+          updatedAt
+          dansInventoryOrdersId
+          orderDansId
+          dansOrderDansId
+          dansOrderOrderId
+        }
+        nextToken
+      }
       file {
         bucket
         region
@@ -65,6 +93,20 @@ export const deleteDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      orders {
+        items {
+          order_id
+          id
+          dans_id
+          createdAt
+          updatedAt
+          dansInventoryOrdersId
+          orderDansId
+          dansOrderDansId
+          dansOrderOrderId
+        }
+        nextToken
+      }
       file {
         bucket
         region
@@ -130,6 +172,20 @@ export const createOrder = /* GraphQL */ `
       user
       date
       total
+      dans {
+        items {
+          order_id
+          id
+          dans_id
+          createdAt
+          updatedAt
+          dansInventoryOrdersId
+          orderDansId
+          dansOrderDansId
+          dansOrderOrderId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -145,6 +201,20 @@ export const updateOrder = /* GraphQL */ `
       user
       date
       total
+      dans {
+        items {
+          order_id
+          id
+          dans_id
+          createdAt
+          updatedAt
+          dansInventoryOrdersId
+          orderDansId
+          dansOrderDansId
+          dansOrderOrderId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -160,6 +230,20 @@ export const deleteOrder = /* GraphQL */ `
       user
       date
       total
+      dans {
+        items {
+          order_id
+          id
+          dans_id
+          createdAt
+          updatedAt
+          dansInventoryOrdersId
+          orderDansId
+          dansOrderDansId
+          dansOrderOrderId
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -171,11 +255,45 @@ export const createDansOrder = /* GraphQL */ `
     $condition: ModelDansOrderConditionInput
   ) {
     createDansOrder(input: $input, condition: $condition) {
-      id
       order_id
+      id
       dans_id
+      dans {
+        id
+        name
+        color
+        price
+        fabric
+        type
+        image
+        orders {
+          nextToken
+        }
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      order {
+        id
+        user
+        date
+        total
+        dans {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      dansInventoryOrdersId
+      orderDansId
+      dansOrderDansId
+      dansOrderOrderId
     }
   }
 `;
@@ -185,11 +303,45 @@ export const updateDansOrder = /* GraphQL */ `
     $condition: ModelDansOrderConditionInput
   ) {
     updateDansOrder(input: $input, condition: $condition) {
-      id
       order_id
+      id
       dans_id
+      dans {
+        id
+        name
+        color
+        price
+        fabric
+        type
+        image
+        orders {
+          nextToken
+        }
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      order {
+        id
+        user
+        date
+        total
+        dans {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      dansInventoryOrdersId
+      orderDansId
+      dansOrderDansId
+      dansOrderOrderId
     }
   }
 `;
@@ -199,11 +351,45 @@ export const deleteDansOrder = /* GraphQL */ `
     $condition: ModelDansOrderConditionInput
   ) {
     deleteDansOrder(input: $input, condition: $condition) {
-      id
       order_id
+      id
       dans_id
+      dans {
+        id
+        name
+        color
+        price
+        fabric
+        type
+        image
+        orders {
+          nextToken
+        }
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      order {
+        id
+        user
+        date
+        total
+        dans {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      dansInventoryOrdersId
+      orderDansId
+      dansOrderDansId
+      dansOrderOrderId
     }
   }
 `;

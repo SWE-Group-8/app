@@ -4,7 +4,7 @@
 
 type DansInventory @model
     @auth(rules: [{ allow: groups, groups: ["Admins"] },
-                  { allow: private, operations: [read] },
+                  { allow: private, operations: [read, delete] },
                   { allow: private, provider: iam, operations: [read] },
                   { allow: public, provider: iam, operations: [read] }]
 
@@ -17,6 +17,7 @@ type DansInventory @model
     type: String!
     image: String
 
+    orders: [DansOrder] @hasMany
     file: S3Object
 } #CreateDansInventory
 
@@ -43,10 +44,11 @@ type Order @model
 #@key(name: "byUser", fields: ["user"])
 {
     id: ID!
-    user: String!
+    user: String! #@primaryKey @index(name: "byUser", sortKeyFields: ["dans"])
     date: String
     total: Float
-    #    dans: [DansOrder] @connection(keyName: "byOrder", fields: ["id"])
+    #dans: [DansOrder] @connection(keyName: "byOrder", fields: ["id"])
+    dans: [DansOrder] @hasMany
 } #CreateOrder
 
 
@@ -59,18 +61,22 @@ type DansOrder @model
         { allow: public, provider: iam, operations: [read] }]
 )
 {
+    #dans_id: ID! @primaryKey @index(name: "byDans", sortKeyFields: [order_id])
+    order_id: ID! @index(name: "byOrder", sortKeyFields: ["dans_id"])
     id: ID!
-    order_id: ID!
-    dans_id: ID!
-    #    dans: DansInventory @connection(fields: ["dans_id"])
-    #    order: Order @connection(fields: ["order_id"])
+    #order_id: ID!
+    dans_id: ID! @index(name: "byDans", sortKeyFields: ["order_id"])
+    #dans: DansInventory @connection(fields: ["dans_id"])
+    dans: DansInventory @hasOne
+    #order: Order @connection(fields: ["order_id"])
+    order: Order @hasOne
 } #CreateDansOrderTable
 
 
 type Mutation {
     processOrder(input: ProcessOrderInput!): OrderStatus
-    # @function(name: "processPayment-${env}")
-    # @function(name: "createOrder-${env}")
+    @function(name: "processPayment-${env}")
+    @function(name: "createOrder-${env}")
 }
 
 enum OrderStatus {

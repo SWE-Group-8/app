@@ -24,11 +24,11 @@
         },
         "processPayment": {
           "deploymentBucketName": "amplify-swegroup8-dev-204603-deployment",
-          "s3Key": "amplify-builds/processPayment-7476346869634239662b-build.zip"
+          "s3Key": "amplify-builds/processPayment-4a61706776314738764b-build.zip"
         },
         "createOrder": {
           "deploymentBucketName": "amplify-swegroup8-dev-204603-deployment",
-          "s3Key": "amplify-builds/createOrder-37542f66393165486e6a-build.zip"
+          "s3Key": "amplify-builds/createOrder-756c613634555a2f5654-build.zip"
         }
       }
     }

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import {Storage, API, graphqlOperation} from 'aws-amplify';
 import { createDansInventory } from '../graphql/mutations'
-//import config from '../use-this-aws-exports';
 import config from '../aws-exports';
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";

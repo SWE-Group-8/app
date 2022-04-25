@@ -16,8 +16,10 @@ import EricPic from '../images/Eric-P.jpg';
 import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
-import { API, graphqlOperation } from 'aws-amplify'
+import { Auth, API } from 'aws-amplify'
 import {listDansInventories} from '../graphql/queries'
+//import { withAuthenticator } from 'aws-amplify-react';
+//import awsconfig from '../aws-exports';
 
 function Copyright(props) {
   return (
@@ -79,21 +81,45 @@ const theme = createTheme({
 
 
 export default function About() {
+  
 
   const handleSubmit = async () => {
     try {
-      const data = await API.graphql({
+      const object = await API.graphql({
         query: listDansInventories,
         variables: { filter: {name: {contains: ""}} },
         authMode: 'AWS_IAM'
       })
-      console.log('Items:', data)
+      const items = object.data.listDansInventories.items
+      console.log('Items:', object)
     } catch (err) {
         console.log('error getting inventory:', err)
     }
   }
 
+  let nextToken;
+
+  async function listEditors(limit){
+  let apiName = 'AdminQueries';
+  let path = '/listUsers';
+  let myInit = { 
+      queryStringParameters: {
+        "limit": limit,
+        "token": nextToken
+      },
+      headers: {
+        'Content-Type' : 'application/json',
+        Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+      }
+  }
+  const { NextToken, ...rest } =  await API.get(apiName, path, myInit);
+  nextToken = NextToken;
+  return rest;
+  }
+
   handleSubmit();
+  console.log('here')
+  console.log('Admins:', listEditors(10))
 
 
   return (
