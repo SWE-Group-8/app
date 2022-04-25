@@ -32,7 +32,7 @@ export const Bars = styled(FaBars)`
         position: absolute;
         top: 0;
         right: 0;
-        transform: translate(-100%, 75%);
+        transform: translate(-100%, 25%);
         font-size: 1.8rem;
         cursor: pointer;
     }
@@ -42,7 +42,7 @@ export const NavMenu = styled.div`
     display: flex;
     align-itmes: center;
     margin-right: -24px;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 100%) {
         display: none;
     }
 

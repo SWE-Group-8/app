@@ -103,31 +103,34 @@ export default function About() {
             
           </Container>
         </Box>
-      <Box alignItems= 'center'>
-        <Grid container spacing={5}  pl={5}>
-          {mediaCards.map(card => (
-            <Card variant="outlined" style={{ margin: 10 }}>
-              <CardMedia
-              style={{height: 640, width: 480}}
-              image={card.image} 
-              title={card.title}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {card.title}
-                </Typography>
-                <Typography variant="body2" component="p" style={{
-                  color: "#000000"
-                }}>
-                  {card.description}
-                  <Button>
-                    <td onClick={() => window.open(card.linkedinLink, "_blank")}>
-                      <LinkedInIcon />
-                    </td>
-                  </Button>
-                </Typography>
-              </CardContent>
-            </Card>
+      <Box sx={{ justify: 'center', transform: 'scale(0.8)'}}>
+        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          {mediaCards.map((card, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index}>
+              <Card variant="outlined" style={{ margin: 10 }} >
+                <CardMedia
+                style={{height: 640, width: "100%", alignContent: 'center', objectFit: 'cover'}}
+                
+                image={card.image} 
+                title={card.title}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body2" component="p" style={{
+                    color: "#000000"
+                  }}>
+                    {card.description}
+                    <Button>
+                      <td onClick={() => window.open(card.linkedinLink, "_blank")}>
+                        <LinkedInIcon />
+                      </td>
+                    </Button>
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
           ))}
         </Grid>
       </Box>

@@ -22,6 +22,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import {Amplify} from "aws-amplify";
 import { CssBaseline } from '@mui/material';
+import Product from './pages/Product.js';
 //import Amplify from "aws-amplify";
 //import {AmplifyAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react'
 import awsExports from "./use-this-aws-exports"
@@ -41,6 +42,7 @@ function App() {
         <Route path='/' exact element={<Inventory/>} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/Profile' element={<Profile/>} />
+        <Route path='/Product' element={<Product/>} />
         <Route path='/SignIn' element={route === 'authenticated' ? <Navigate to='/' /> : <SignIn/>} />
         <Route path='/SignUp' element={<SignUp/>} />
         <Route path='/AdminControls' element={<AdminControls/>} />

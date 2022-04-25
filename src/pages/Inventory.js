@@ -12,8 +12,62 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-
+import { Link } from '@mui/material';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const hottestProducts = [
+  {
+    name: 'hat 1',
+    price: 99.99,
+    desc: 'hat number 1 of 19',
+    imgPath: ''
+  },
+  {
+    name: 'hat 4',
+    price: 99.99,
+    desc: 'hat number 4 of 19',
+    imgPath: ''
+  },
+  {
+    name: 'hat 3',
+    price: 99.99,
+    desc: 'hat number 3 of 19',
+    imgPath: ''
+  },
+  {
+    name: 'hat 2',
+    price: 99.99,
+    desc: 'hat number 2 of 19',
+    imgPath: ''
+  },
+]
+
+const cheapestProducts = [
+  {
+    name: 'hat 1',
+    price: 99.99,
+    desc: 'hat number 1 of 19',
+    imgPath: ''
+  },
+  {
+    name: 'hat 4',
+    price: 99.99,
+    desc: 'hat number 4 of 19',
+    imgPath: ''
+  },
+  {
+    name: 'hat 3',
+    price: 99.99,
+    desc: 'hat number 3 of 19',
+    imgPath: ''
+  },
+  {
+    name: 'hat 2',
+    price: 99.99,
+    desc: 'hat number 2 of 19',
+    imgPath: ''
+  },
+]
 
 const images = [
   {
@@ -95,6 +149,7 @@ function SwipeableTextMobileStepper() {
         style={{
           border: '.5px solid'
         }}
+        
       >
         {images.map((step, index) => (
           <div key={step.label}>
@@ -149,178 +204,14 @@ function SwipeableTextMobileStepper() {
             Back
           </Button>
         }
-      />
+      ></MobileStepper>
     </Box>
-
-    <Box sx={{ maxWidth: 900, flexGrow: 1 }}>
-      <CssBaseline />
-      <h1>Least Bought</h1>
-      <Paper
-        variant="outlined"
-        square
-        elevation={12}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          bgcolor: 'background.default',
-        }}
-        style={{
-          border: '.5px solid'
-        }}
-      >
-        <Typography>{images[activeStep].label}</Typography>
-      </Paper>
-      <AutoPlaySwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={activeStep}
-        onChangeIndex={handleStepChange}
-        enableMouseEvents
-        style={{
-          border: '.5px solid'
-        }}
-      >
-        {images.map((step, index) => (
-          <div key={step.label}>
-            {Math.abs(activeStep - index) <= 2 ? (
-              <Box
-                component="img"
-                sx={{
-                  height: 500,
-                  display: 'block',
-                  Width: 900,
-                  overflow: 'hidden',
-                  width: '100%',
-                }}
-                src={step.imgPath}
-                alt={step.label}
-              />
-            ) : null}
-          </div>
-        ))}
-      </AutoPlaySwipeableViews>
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        style={{
-          border: '.5px solid'
-        }}
-        sx={{
-          bgcolor: '#CB997E',
-        }}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-          >
-            Next
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
-          </Button>
-        }
-      />
-    </Box>
-
-    <Box sx={{ maxWidth: 900, flexGrow: 1 }}>
-      <CssBaseline />
-      <h1>All Items</h1>
-      <Paper
-        variant="outlined"
-        square
-        elevation={12}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          bgcolor: 'background.default',
-        }}
-        style={{
-          border: '.5px solid'
-        }}
-      >
-        <Typography>{images[activeStep].label}</Typography>
-      </Paper>
-      <AutoPlaySwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={activeStep}
-        onChangeIndex={handleStepChange}
-        enableMouseEvents
-        style={{
-          border: '.5px solid'
-        }}
-      >
-        {images.map((step, index) => (
-          <div key={step.label}>
-            {Math.abs(activeStep - index) <= 2 ? (
-              <Box
-                component="img"
-                sx={{
-                  height: 500,
-                  display: 'block',
-                  Width: 900,
-                  overflow: 'hidden',
-                  width: '100%',
-                }}
-                src={step.imgPath}
-                alt={step.label}
-              />
-            ) : null}
-          </div>
-        ))}
-      </AutoPlaySwipeableViews>
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        style={{
-          border: '.5px solid',
-        }}
-        sx={{
-          bgcolor: '#DDBEA9',
-        }}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
-          >
-            Next
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
-          </Button>
-        }
-      />
-    </Box>
+    <Button >
+      <Link color="inherit" href="http://localhost:3000/Product" variant="body2">
+        AddItem
+      </Link>
+    </Button>
+    
     </Container>
     </ThemeProvider>
   );
