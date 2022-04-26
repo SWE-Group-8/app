@@ -14,7 +14,8 @@
     "categories": {
       "auth": {
         "swegroup8c3e4f6f6": {},
-        "true": {}
+        "true": {},
+        "userPoolGroups": {}
       }
     }
   }
