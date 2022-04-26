@@ -37,6 +37,7 @@ export const Bars = styled(FaBars)`
         cursor: pointer;
     }
 `;
+                                                                                                                                                                                    
 
 export const NavMenu = styled.div`
     display: flex;

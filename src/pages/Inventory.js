@@ -19,9 +19,13 @@ import ZaqPic from '../images/zaquariah-holland.jpg';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid'
-import { API, graphqlOperation } from 'aws-amplify'
-import {listDansInventories} from '../graphql/queries'
+import Grid from '@mui/material/Grid';
+import { API, graphqlOperation } from 'aws-amplify';
+import { Auth, CognitoAuthSession } from 'aws-amplify';
+import {listDansInventories} from '../graphql/queries';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const mediaCards = [
@@ -64,6 +68,7 @@ const mediaCards = [
     
 
 function SwipeableTextMobileStepper() {
+  
   const theme = createTheme({
     palette: {
       background: {
@@ -87,29 +92,42 @@ function SwipeableTextMobileStepper() {
   };
   
   const [Inv, setInv] = useState([])
-  const HandleSubmit = async () => {
-        
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const HandleSubmit = async (  ) => {
+    
         try {
-          const object = await API.graphql({
-            query: listDansInventories,
-            variables: { filter: {name: {contains: ""}} },
-            authMode: 'AWS_IAM'
-          })
-          setInv(object.data.listDansInventories.items);
-          console.log('Items:', Inv)
+          if(route === 'authenticated'){
+            const object = await API.graphql({
+              query: listDansInventories,
+              variables: { filter: {name: {contains: ""}} },
+              authMode: 'AMAZON_COGNITO_USER_POOLS'
+            })
+            setInv(object.data.listDansInventories.items);
+            console.log('Items:', Inv)
+          }
+          else{
+            const object = await API.graphql({
+              query: listDansInventories,
+              variables: { filter: {name: {contains: ""}} },
+              authMode: 'AWS_IAM'
+            })
+            setInv(object.data.listDansInventories.items);
+            console.log('Items:', Inv)
+          }
         } catch (err) {
             console.log('error getting inventory:', err)
         }
       }
     
+      
   return [
 
     
-    
+    <body onload="HandleSubmit()">
     <ThemeProvider theme={theme}>
     <Container pl="20%">
       <CssBaseline />
-    {/* <Box  sx={{ maxWidth: 1500, flexGrow: 1, alignItems: "center"}}>
+    <Box  sx={{ maxWidth: 1500, flexGrow: 1, alignItems: "center"}}>
       
       
       
@@ -123,7 +141,7 @@ function SwipeableTextMobileStepper() {
         }}
         
       >
-        {mediaCards.map((step, index) => (
+        {Inv.map((step, index) => (
           <div key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
@@ -135,8 +153,8 @@ function SwipeableTextMobileStepper() {
                   overflow: 'hidden',
                   width: '100%',
                 }}
-                src={ZaqPic}
-                alt={step.label}
+                src={step.image}
+                alt={step.name}
               />
             ) : null}
           </div>
@@ -177,7 +195,7 @@ function SwipeableTextMobileStepper() {
           </Button>
         }
       ></MobileStepper>
-    </Box> */}
+    </Box>
     <Button onClick={HandleSubmit}>
       populateArray
     </Button>
@@ -194,12 +212,12 @@ function SwipeableTextMobileStepper() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {card.title}
+                    {card.name}
                   </Typography>
                   <Typography variant="body2" component="p" style={{
                     color: "#000000"
                   }}>
-                    {card.description}
+                    {card.fabric}
                     <Button>
                       <td onClick={() => window.open(card.linkedinLink, "_blank")}>
                         Add To Cart
@@ -216,6 +234,7 @@ function SwipeableTextMobileStepper() {
     
     </Container>
     </ThemeProvider>
+    </body>
   ];
 }
 
