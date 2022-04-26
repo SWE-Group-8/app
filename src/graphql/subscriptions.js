@@ -11,17 +11,22 @@ export const onCreateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -32,6 +37,7 @@ export const onCreateDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -45,17 +51,22 @@ export const onUpdateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -66,6 +77,7 @@ export const onUpdateDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -79,17 +91,22 @@ export const onDeleteDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -100,16 +117,17 @@ export const onDeleteDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
 export const onCreateDiscountCode = /* GraphQL */ `
   subscription OnCreateDiscountCode {
     onCreateDiscountCode {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -118,10 +136,10 @@ export const onCreateDiscountCode = /* GraphQL */ `
 export const onUpdateDiscountCode = /* GraphQL */ `
   subscription OnUpdateDiscountCode {
     onUpdateDiscountCode {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -130,10 +148,10 @@ export const onUpdateDiscountCode = /* GraphQL */ `
 export const onDeleteDiscountCode = /* GraphQL */ `
   subscription OnDeleteDiscountCode {
     onDeleteDiscountCode {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -142,24 +160,20 @@ export const onDeleteDiscountCode = /* GraphQL */ `
 export const onCreateOrder = /* GraphQL */ `
   subscription OnCreateOrder {
     onCreateOrder {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
@@ -168,24 +182,20 @@ export const onCreateOrder = /* GraphQL */ `
 export const onUpdateOrder = /* GraphQL */ `
   subscription OnUpdateOrder {
     onUpdateOrder {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
@@ -194,36 +204,32 @@ export const onUpdateOrder = /* GraphQL */ `
 export const onDeleteOrder = /* GraphQL */ `
   subscription OnDeleteOrder {
     onDeleteOrder {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
   }
 `;
-export const onCreateDansOrder = /* GraphQL */ `
-  subscription OnCreateDansOrder {
-    onCreateDansOrder {
-      order_id
+export const onCreateInventoryOrder = /* GraphQL */ `
+  subscription OnCreateInventoryOrder {
+    onCreateInventoryOrder {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -231,6 +237,15 @@ export const onCreateDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -241,34 +256,31 @@ export const onCreateDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;
-export const onUpdateDansOrder = /* GraphQL */ `
-  subscription OnUpdateDansOrder {
-    onUpdateDansOrder {
-      order_id
+export const onUpdateInventoryOrder = /* GraphQL */ `
+  subscription OnUpdateInventoryOrder {
+    onUpdateInventoryOrder {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -276,6 +288,15 @@ export const onUpdateDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -286,34 +307,31 @@ export const onUpdateDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;
-export const onDeleteDansOrder = /* GraphQL */ `
-  subscription OnDeleteDansOrder {
-    onDeleteDansOrder {
-      order_id
+export const onDeleteInventoryOrder = /* GraphQL */ `
+  subscription OnDeleteInventoryOrder {
+    onDeleteInventoryOrder {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -321,6 +339,15 @@ export const onDeleteDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -331,24 +358,21 @@ export const onDeleteDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;

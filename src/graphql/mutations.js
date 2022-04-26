@@ -1,11 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const processOrder = /* GraphQL */ `
-  mutation ProcessOrder($input: ProcessOrderInput!) {
-    processOrder(input: $input)
-  }
-`;
 export const createDansInventory = /* GraphQL */ `
   mutation CreateDansInventory(
     $input: CreateDansInventoryInput!
@@ -19,17 +14,22 @@ export const createDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -40,6 +40,7 @@ export const createDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -56,17 +57,22 @@ export const updateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -77,6 +83,7 @@ export const updateDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -93,17 +100,22 @@ export const deleteDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -114,6 +126,7 @@ export const deleteDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -123,10 +136,10 @@ export const createDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     createDiscountCode(input: $input, condition: $condition) {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -138,10 +151,10 @@ export const updateDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     updateDiscountCode(input: $input, condition: $condition) {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -153,10 +166,10 @@ export const deleteDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     deleteDiscountCode(input: $input, condition: $condition) {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -168,24 +181,20 @@ export const createOrder = /* GraphQL */ `
     $condition: ModelOrderConditionInput
   ) {
     createOrder(input: $input, condition: $condition) {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
@@ -197,24 +206,20 @@ export const updateOrder = /* GraphQL */ `
     $condition: ModelOrderConditionInput
   ) {
     updateOrder(input: $input, condition: $condition) {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
@@ -226,39 +231,35 @@ export const deleteOrder = /* GraphQL */ `
     $condition: ModelOrderConditionInput
   ) {
     deleteOrder(input: $input, condition: $condition) {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
   }
 `;
-export const createDansOrder = /* GraphQL */ `
-  mutation CreateDansOrder(
-    $input: CreateDansOrderInput!
-    $condition: ModelDansOrderConditionInput
+export const createInventoryOrder = /* GraphQL */ `
+  mutation CreateInventoryOrder(
+    $input: CreateInventoryOrderInput!
+    $condition: ModelInventoryOrderConditionInput
   ) {
-    createDansOrder(input: $input, condition: $condition) {
-      order_id
+    createInventoryOrder(input: $input, condition: $condition) {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -266,6 +267,15 @@ export const createDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -276,37 +286,34 @@ export const createDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;
-export const updateDansOrder = /* GraphQL */ `
-  mutation UpdateDansOrder(
-    $input: UpdateDansOrderInput!
-    $condition: ModelDansOrderConditionInput
+export const updateInventoryOrder = /* GraphQL */ `
+  mutation UpdateInventoryOrder(
+    $input: UpdateInventoryOrderInput!
+    $condition: ModelInventoryOrderConditionInput
   ) {
-    updateDansOrder(input: $input, condition: $condition) {
-      order_id
+    updateInventoryOrder(input: $input, condition: $condition) {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -314,6 +321,15 @@ export const updateDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -324,37 +340,34 @@ export const updateDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;
-export const deleteDansOrder = /* GraphQL */ `
-  mutation DeleteDansOrder(
-    $input: DeleteDansOrderInput!
-    $condition: ModelDansOrderConditionInput
+export const deleteInventoryOrder = /* GraphQL */ `
+  mutation DeleteInventoryOrder(
+    $input: DeleteInventoryOrderInput!
+    $condition: ModelInventoryOrderConditionInput
   ) {
-    deleteDansOrder(input: $input, condition: $condition) {
-      order_id
+    deleteInventoryOrder(input: $input, condition: $condition) {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -362,6 +375,15 @@ export const deleteDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -372,24 +394,21 @@ export const deleteDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;

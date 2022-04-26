@@ -11,17 +11,22 @@ export const getDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
       orders {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
@@ -32,6 +37,7 @@ export const getDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -50,6 +56,15 @@ export const listDansInventories = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -60,6 +75,7 @@ export const listDansInventories = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       nextToken
     }
@@ -68,10 +84,10 @@ export const listDansInventories = /* GraphQL */ `
 export const getDiscountCode = /* GraphQL */ `
   query GetDiscountCode($id: ID!) {
     getDiscountCode(id: $id) {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -85,10 +101,10 @@ export const listDiscountCodes = /* GraphQL */ `
   ) {
     listDiscountCodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
         description
         code
         discountDecimal
+        id
         createdAt
         updatedAt
       }
@@ -99,24 +115,20 @@ export const listDiscountCodes = /* GraphQL */ `
 export const getOrder = /* GraphQL */ `
   query GetOrder($id: ID!) {
     getOrder(id: $id) {
-      id
       user
-      date
-      total
-      dans {
+      totalPrice
+      tax
+      iventoriesItems {
         items {
-          order_id
           id
-          dans_id
+          dansInventoryID
+          orderID
           createdAt
           updatedAt
-          dansInventoryOrdersId
-          orderDansId
-          dansOrderDansId
-          dansOrderOrderId
         }
         nextToken
       }
+      id
       createdAt
       updatedAt
     }
@@ -130,13 +142,13 @@ export const listOrders = /* GraphQL */ `
   ) {
     listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
@@ -144,13 +156,13 @@ export const listOrders = /* GraphQL */ `
     }
   }
 `;
-export const getDansOrder = /* GraphQL */ `
-  query GetDansOrder($id: ID!) {
-    getDansOrder(id: $id) {
-      order_id
+export const getInventoryOrder = /* GraphQL */ `
+  query GetInventoryOrder($id: ID!) {
+    getInventoryOrder(id: $id) {
       id
-      dans_id
-      dans {
+      dansInventoryID
+      orderID
+      dansInventory {
         id
         name
         color
@@ -158,6 +170,15 @@ export const getDansOrder = /* GraphQL */ `
         fabric
         type
         image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
         orders {
           nextToken
         }
@@ -168,39 +189,36 @@ export const getDansOrder = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        dansInventoryDiscountCodeId
       }
       order {
-        id
         user
-        date
-        total
-        dans {
+        totalPrice
+        tax
+        iventoriesItems {
           nextToken
         }
+        id
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
-      dansInventoryOrdersId
-      orderDansId
-      dansOrderDansId
-      dansOrderOrderId
     }
   }
 `;
-export const listDansOrders = /* GraphQL */ `
-  query ListDansOrders(
-    $filter: ModelDansOrderFilterInput
+export const listInventoryOrders = /* GraphQL */ `
+  query ListInventoryOrders(
+    $filter: ModelInventoryOrderFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listDansOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listInventoryOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        order_id
         id
-        dans_id
-        dans {
+        dansInventoryID
+        orderID
+        dansInventory {
           id
           name
           color
@@ -208,23 +226,21 @@ export const listDansOrders = /* GraphQL */ `
           fabric
           type
           image
+          quantity
           createdAt
           updatedAt
+          dansInventoryDiscountCodeId
         }
         order {
-          id
           user
-          date
-          total
+          totalPrice
+          tax
+          id
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
-        dansInventoryOrdersId
-        orderDansId
-        dansOrderDansId
-        dansOrderOrderId
       }
       nextToken
     }

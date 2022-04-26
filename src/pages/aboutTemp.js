@@ -41,8 +41,6 @@ const theme = createTheme({
     }
   }
 });
-
-
     const mediaCards = [
       {
         image: AngeloPic,
@@ -82,7 +80,6 @@ const theme = createTheme({
 
 export default function About() {
   
-
   const handleSubmit = async () => {
     try {
       const object = await API.graphql({
@@ -99,12 +96,11 @@ export default function About() {
 
   let nextToken;
 
-  async function listEditors(limit){
+  async function listEditors(){
   let apiName = 'AdminQueries';
   let path = '/listUsers';
   let myInit = { 
       queryStringParameters: {
-        "limit": limit,
         "token": nextToken
       },
       headers: {
