@@ -36,12 +36,14 @@
     "sharedId": "c3e4f6f6",
     "resourceName": "swegroup8c3e4f6f6",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
     "triggers": {},
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+      "Admins"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
@@ -58,6 +60,16 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [],
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "hostedUI": false,
+    "adminQueryGroup": "Admins",
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }
