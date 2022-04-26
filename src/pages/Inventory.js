@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -24,8 +24,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Auth, CognitoAuthSession } from 'aws-amplify';
 import {listDansInventories} from '../graphql/queries';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-
-
+import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
+import { styled, alpha } from '@mui/material/styles';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const mediaCards = [
@@ -64,10 +65,104 @@ const mediaCards = [
   },
 ];
 
+const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-function SwipeableTextMobileStepper() {
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+          size="large"
+          aria-label="show 17 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+
+function Iventory() {
   
   const theme = createTheme({
     palette: {
@@ -94,42 +189,50 @@ function SwipeableTextMobileStepper() {
   const [Inv, setInv] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
   const HandleSubmit = async (  ) => {
-    
-        try {
-          if(route === 'authenticated'){
-            const object = await API.graphql({
-              query: listDansInventories,
-              variables: { filter: {name: {contains: ""}} },
-              authMode: 'AMAZON_COGNITO_USER_POOLS'
-            })
-            setInv(object.data.listDansInventories.items);
-            console.log('Items:', Inv)
-          }
-          else{
-            const object = await API.graphql({
-              query: listDansInventories,
-              variables: { filter: {name: {contains: ""}} },
-              authMode: 'AWS_IAM'
-            })
-            setInv(object.data.listDansInventories.items);
-            console.log('Items:', Inv)
-          }
-        } catch (err) {
-            console.log('error getting inventory:', err)
-        }
+    try {
+      if(route === 'authenticated'){
+        const object = await API.graphql({
+          query: listDansInventories,
+          variables: { filter: {name: {contains: ""}} },
+          authMode: 'AMAZON_COGNITO_USER_POOLS'
+        })
+        setInv(object.data.listDansInventories.items);
+        console.log('Items:', Inv)
       }
-    
-      
-  return [
+      else{
+        const object = await API.graphql({
+          query: listDansInventories,
+          variables: { filter: {name: {contains: ""}} },
+          authMode: 'AWS_IAM'
+        })
+        setInv(object.data.listDansInventories.items);
+        console.log('Items:', Inv)
+      }
+    } catch (err) {
+        console.log('error getting inventory:', err)
+    }
+  }
+  
 
-    
-    <body onload="HandleSubmit()">
+  return [
     <ThemeProvider theme={theme}>
+      <body>
+        InNFSDJNJKFSNDKF
+        <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+      </body>
+      {renderMobileMenu}
+      {renderMenu}
     <Container pl="20%">
       <CssBaseline />
-    <Box  sx={{ maxWidth: 1500, flexGrow: 1, alignItems: "center"}}>
-      
-      
+    <Box onload={HandleSubmit()} sx={{ maxWidth: 1500, flexGrow: 1, alignItems: "center"}}>
       
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -196,9 +299,7 @@ function SwipeableTextMobileStepper() {
         }
       ></MobileStepper>
     </Box>
-    <Button onClick={HandleSubmit}>
-      populateArray
-    </Button>
+    
     <Box sx={{ justify: 'center', transform: 'scale(0.8)'}}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {Inv.map((card, index) => (
@@ -234,8 +335,8 @@ function SwipeableTextMobileStepper() {
     
     </Container>
     </ThemeProvider>
-    </body>
+    
   ];
 }
 
-export default SwipeableTextMobileStepper;
+export default Iventory;

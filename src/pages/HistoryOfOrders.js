@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { useDemoData } from '@mui/x-data-grid-generator';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -31,13 +31,7 @@ export default function ToolbarGrid() {
   });
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'idd',
-      headerName: 'IDD',
-      type: 'number',
-      width: 200,
-      editable: true,
-    },
+    
     {
       field: 'order_id',
       headerName: 'ORDER_ID',
@@ -73,7 +67,7 @@ export default function ToolbarGrid() {
     
         try {
           if(route === 'authenticated'){
-            const object = await API.graphql({
+            const object = API.graphql({
               query: listDansOrders,
               authMode: 'AMAZON_COGNITO_USER_POOLS'
             })
@@ -84,14 +78,15 @@ export default function ToolbarGrid() {
             console.log('error getting inventory:', err)
         }
       }
+
+      
+
   return (
-    <ThemeProvider theme={theme}>
-    <div style={{ height: 400, width: '100%' }}>
+    <ThemeProvider theme={theme} >
+    <div onload={HandleSubmit()} style={{ height: 400, width: '100%' }}>
       <CssBaseline />
       <ThemeProvider theme={innertheme}>
-      <Button onClick={HandleSubmit}>
-        populateArray
-      </Button>
+      
       <DataGrid
         rows={orders}
         columns={columns}

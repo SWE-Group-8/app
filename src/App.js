@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState, Component } from 'react';
 import './App.css';
 import Navbar from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -28,18 +28,18 @@ import Product from './pages/Product.js';
 //import awsExports from "./use-this-aws-exports"
 import { Css } from '@mui/icons-material';
 //Amplify.configure(awsExports);
-
+import {listDansInventories} from './graphql/queries';
+import { API, graphqlOperation } from 'aws-amplify';
 
 function App() {
-
-  const { route, signOut } = useAuthenticator(context => [context.route]);
-
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  
   return (
     <Router>
       <CssBaseline />
       <Navbar />
       <Routes>
-        <Route path='/' exact element={<Inventory/>} />
+        <Route path='/' exact element={<Inventory />} />
         <Route path='/cart' element={<Cart/>} />
         <Route path='/Profile' element={<Profile/>} />
         <Route path='/Product' element={<Product/>} />

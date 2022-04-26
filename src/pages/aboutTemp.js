@@ -74,6 +74,7 @@ const theme = createTheme({
         image: ZaqPic,
         title: "Zaquariah Holland",
         description: `Project Manager`,
+        linkedinLink: 'https://www.linkedin.com/in/zaquariah-holland/'
       },
     ];
 
