@@ -46,12 +46,6 @@ type Order @model
     iventoriesItems: [DansInventory] @manyToMany(relationName: "InventoryOrder")
 } #CreateOrder
 
-type Order @model
-    @auth(rules: [{ allow: groups, groups: ["Admins"] },
-        { allow: private, operations: [read] },
-        { allow: private, provider: iam, operations: [read] },
-        { allow: public, provider: iam, operations: [read] }]
-)
 #@key(name: "byUser", fields: ["user"])
 {
     id: ID!
