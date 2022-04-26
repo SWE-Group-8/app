@@ -66,20 +66,22 @@ const theme = createTheme({
   }
 });
 
+
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  
 
   return (
     
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'Typographyider' }}>
-        <Tabs value={value} centered onChange={handleChange} aria-label="basic tabs example">
+      <Box sx={{borderBottom: 1, borderColor: 'Typographyider' }}>
+        <Tabs value={value} centered onChange={handleChange}>
           <Tab label="Personal Information" {...a11yProps(0)} />
           <Tab label="Order History" {...a11yProps(1)} />
           <Tab label="Account Management" {...a11yProps(2)} />
@@ -90,10 +92,10 @@ export default function BasicTabs() {
         bgcolor: "#6B705C"
       }}>
       <Container centered >
-        <Card >
-          <CardContent sx={{
+        <Card  sx={{
             bgcolor: "#A5A58D"
           }}>
+          <CardContent>
           <Typography>Name:</Typography>
           <Typography>Phone Number:</Typography>
           <Typography>Email:</Typography>
@@ -103,7 +105,7 @@ export default function BasicTabs() {
           <Typography>State:</Typography>
           <Typography>Zip:</Typography>
           </CardContent>
-          <Button style={{marginRight:30, marginBottom: 30, float: 'right'}}>Edit</Button>
+          <Button style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}>Edit</Button>
           </Card>
         </Container>
       </TabPanel>
@@ -131,9 +133,12 @@ export default function BasicTabs() {
           <Card sx={{
             bgcolor: "#A5A58D"
           }}>
-            <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
+            <CardContent>
             <Typography>Account Information:</Typography>
-            <Button onClick ={() => alert("from Account Information")/*insert page link */} > Edit</Button>
+            <Button 
+            onClick ={() => alert("from Account Information")/*insert page link */} 
+            style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}
+            > Edit</Button>
             </CardContent>
             <CardActions>
            
@@ -142,9 +147,12 @@ export default function BasicTabs() {
           <Card sx={{
             bgcolor: "#A5A58D"
           }}>
-            <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
+            <CardContent>
             <Typography>Payment Management:</Typography>
-            <Button onClick ={() => alert("from Payment Management")/*insert page link */} > Edit</Button>
+            <Button 
+            onClick ={() => alert("from Payment Management")/*insert page link */} 
+            style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}
+            > Edit</Button>
             </CardContent>
             <CardActions>
            
@@ -153,17 +161,16 @@ export default function BasicTabs() {
           <Card sx={{
             bgcolor: "#A5A58D"
           }}>
-            <CardContent sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <Typography onClick ={() => alert("from Account Info")/*insert page link */} >Security:</Typography>
-            <CardActions sx={{
-            bgcolor: "#A5A58D"
-          }}>
-              <button>Edit</button>
-            </CardActions>
+            <CardContent>
+            <Typography>Security:</Typography>
+            <Button  
+            onClick ={() => alert("from Security Info")/*insert page link */} 
+            style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}
+            >Edit</Button>
             </CardContent>
-            
+            <CardActions>
+              
+            </CardActions>
           </Card>
         </Container>
       </TabPanel>
@@ -172,3 +179,4 @@ export default function BasicTabs() {
     </ThemeProvider>
   );
 }
+    
