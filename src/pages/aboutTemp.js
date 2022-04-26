@@ -17,7 +17,6 @@ import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
 
-
 function Copyright(props) {
   return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>

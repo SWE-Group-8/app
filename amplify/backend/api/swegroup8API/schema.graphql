@@ -4,7 +4,7 @@
 
 type DansInventory @model
     @auth(rules: [{ allow: groups, groups: ["Admins"] },
-                  { allow: private, operations: [read, delete] },
+                  { allow: private },
                   { allow: private, provider: iam, operations: [read] },
                   { allow: public, provider: iam, operations: [read] }]
 
@@ -16,24 +16,35 @@ type DansInventory @model
     fabric: String!
     type: String!
     image: String
-
-    orders: [DansOrder] @hasMany
+    quantity: Int!
+    discountCode: DiscountCode @hasOne
+    orders: [Order] @manyToMany(relationName: "InventoryOrder")
     file: S3Object
 } #CreateDansInventory
 
 type DiscountCode @model
     @auth(rules: [{ allow: groups, groups: ["Admins"] },
-                  { allow: private, operations: [read] },
+                  { allow: private },
                   { allow: private, provider: iam, operations: [read] },
                   { allow: public, provider: iam, operations: [read] }]
 
 ) {
-    id: ID!
     description: String!
     code: String!
     discountDecimal: Float!
 } #CreateDiscountCodes
 
+type Order @model
+    @auth(rules: [{ allow: groups, groups: ["Admins"] },
+        { allow: private },
+        { allow: private, provider: iam, operations: [read] },
+        { allow: public, provider: iam, operations: [read] }]
+) {
+    user: String!
+    totalPrice: Float!
+    tax: Float
+    iventoriesItems: [DansInventory] @manyToMany(relationName: "InventoryOrder")
+} #CreateOrder
 
 type Order @model
     @auth(rules: [{ allow: groups, groups: ["Admins"] },
