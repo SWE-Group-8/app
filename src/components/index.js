@@ -80,6 +80,10 @@ let inputHandler = (e) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  // Authentication and Navigation Hooks
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const navigate = useNavigate();
+
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
