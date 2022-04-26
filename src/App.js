@@ -26,6 +26,8 @@ import { CssBaseline } from '@mui/material';
 //import {AmplifyAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react'
 import { Css } from '@mui/icons-material';
 //Amplify.configure(awsExports);
+import awsExports from "./aws-exports"
+// Amplify.configure(awsExports);
 
 
 function App() {
