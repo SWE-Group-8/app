@@ -18,7 +18,6 @@ const mediaCards = [
     image: AngeloPic,
     title: "Angelo Middleton",
     description: `Database Management Lead`,
-    linkedinLink: 'https://www.linkedin.com/in/angelo-middleton-9b2486133/'
   },
   {
     image: BondPic,
@@ -29,7 +28,6 @@ const mediaCards = [
     image: EricPic,
     title: "Eric Por",
     description: `Lead UI Designer`,
-    linkedinLink: 'https://www.linkedin.com/in/eric-por'
   },
   {
     image: JavierPic,
@@ -40,7 +38,6 @@ const mediaCards = [
     image: JJPic,
     title: "Jose Torres",
     description: `Lead UX Designer`,
-    linkedinLink: 'https://www.linkedin.com/in/jose-torres-954378224/'
   },
   {
     image: ZaqPic,

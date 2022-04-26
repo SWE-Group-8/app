@@ -32,7 +32,7 @@ export default function BasicTable() {
   return (
     <ThemeProvider theme = {theme}>
     <CssBaseline />
-    <TableContainer component={Paper} sx={{
+    <TableContainer component={Paper}sx={{
         pt: 10,
         bgcolor: "#ffe8d6",
       }}>
