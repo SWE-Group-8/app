@@ -1,69 +1,42 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { useDemoData } from '@mui/x-data-grid-generator';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-function createData(ItemName, Description, Price, Amount) {
-  return { ItemName, Description, Price, Amount };
-}
 
-const rows = [
-  createData('CAP1', 'green special cap', 999.99, 1),
-  createData('CAP', 'yellow cap', 17.99, 20),
-  createData('CAP', 'red cap', 30.99, 50),
-  createData('CAP', 'blue cap', 20.99, 45),
-  createData('CAP', 'black cap', 20.99, 78),
-];
-
-const theme = createTheme({
-  palette: {
-    background: {
-      default: "#ffe8d6"
+export default function ToolbarGrid() {
+  const { data } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+    maxColumns: 6,
+  });
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: "#ffe8d6"
+      }
     }
-  }
-});
-
-export default function BasicTable() {
+  });
+  const innertheme = createTheme({
+    palette: {
+      background: {
+        default: "#6B705C"
+      }
+    }
+  });
   return (
-    <ThemeProvider theme = {theme}>
-    <CssBaseline />
-    <TableContainer component={Paper}sx={{
-        pt: 10,
-        bgcolor: "#ffe8d6",
-      }}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell >Item Name</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Amount in stock</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{row.ItemName}</TableCell>
-              <TableCell align="right">{row.Description}</TableCell>
-              <TableCell align="right">{row.Price}</TableCell>
-              <TableCell align="right">{row.Amount}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <Button>
-        Edit
-    </Button>
-    </ThemeProvider>
+    <ThemeProvider theme={theme}>
+    <div style={{ height: 400, width: '100%' }}>
+      <CssBaseline />
+      <ThemeProvider theme={innertheme}>
+      <DataGrid
+        {...data}
+        components={{
+          Toolbar: GridToolbar,
+        }}
+      />
+      </ThemeProvider>
+    </div>
+    </ ThemeProvider>
   );
 }
