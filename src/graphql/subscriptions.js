@@ -11,25 +11,6 @@ export const onCreateDansInventory = /* GraphQL */ `
       fabric
       type
       image
-      quantity
-      discountCode {
-        description
-        code
-        discountDecimal
-        id
-        createdAt
-        updatedAt
-      }
-      orders {
-        items {
-          id
-          dansInventoryID
-          orderID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       file {
         bucket
         region
@@ -37,7 +18,6 @@ export const onCreateDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -51,25 +31,6 @@ export const onUpdateDansInventory = /* GraphQL */ `
       fabric
       type
       image
-      quantity
-      discountCode {
-        description
-        code
-        discountDecimal
-        id
-        createdAt
-        updatedAt
-      }
-      orders {
-        items {
-          id
-          dansInventoryID
-          orderID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       file {
         bucket
         region
@@ -77,7 +38,6 @@ export const onUpdateDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -91,25 +51,6 @@ export const onDeleteDansInventory = /* GraphQL */ `
       fabric
       type
       image
-      quantity
-      discountCode {
-        description
-        code
-        discountDecimal
-        id
-        createdAt
-        updatedAt
-      }
-      orders {
-        items {
-          id
-          dansInventoryID
-          orderID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       file {
         bucket
         region
@@ -117,17 +58,16 @@ export const onDeleteDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      dansInventoryDiscountCodeId
     }
   }
 `;
 export const onCreateDiscountCode = /* GraphQL */ `
   subscription OnCreateDiscountCode {
     onCreateDiscountCode {
+      id
       description
       code
       discountDecimal
-      id
       createdAt
       updatedAt
     }
@@ -136,10 +76,10 @@ export const onCreateDiscountCode = /* GraphQL */ `
 export const onUpdateDiscountCode = /* GraphQL */ `
   subscription OnUpdateDiscountCode {
     onUpdateDiscountCode {
+      id
       description
       code
       discountDecimal
-      id
       createdAt
       updatedAt
     }
@@ -148,229 +88,10 @@ export const onUpdateDiscountCode = /* GraphQL */ `
 export const onDeleteDiscountCode = /* GraphQL */ `
   subscription OnDeleteDiscountCode {
     onDeleteDiscountCode {
+      id
       description
       code
       discountDecimal
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateOrder = /* GraphQL */ `
-  subscription OnCreateOrder {
-    onCreateOrder {
-      user
-      totalPrice
-      tax
-      iventoriesItems {
-        items {
-          id
-          dansInventoryID
-          orderID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateOrder = /* GraphQL */ `
-  subscription OnUpdateOrder {
-    onUpdateOrder {
-      user
-      totalPrice
-      tax
-      iventoriesItems {
-        items {
-          id
-          dansInventoryID
-          orderID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteOrder = /* GraphQL */ `
-  subscription OnDeleteOrder {
-    onDeleteOrder {
-      user
-      totalPrice
-      tax
-      iventoriesItems {
-        items {
-          id
-          dansInventoryID
-          orderID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateInventoryOrder = /* GraphQL */ `
-  subscription OnCreateInventoryOrder {
-    onCreateInventoryOrder {
-      id
-      dansInventoryID
-      orderID
-      dansInventory {
-        id
-        name
-        color
-        price
-        fabric
-        type
-        image
-        quantity
-        discountCode {
-          description
-          code
-          discountDecimal
-          id
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-        }
-        file {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-        dansInventoryDiscountCodeId
-      }
-      order {
-        user
-        totalPrice
-        tax
-        iventoriesItems {
-          nextToken
-        }
-        id
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateInventoryOrder = /* GraphQL */ `
-  subscription OnUpdateInventoryOrder {
-    onUpdateInventoryOrder {
-      id
-      dansInventoryID
-      orderID
-      dansInventory {
-        id
-        name
-        color
-        price
-        fabric
-        type
-        image
-        quantity
-        discountCode {
-          description
-          code
-          discountDecimal
-          id
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-        }
-        file {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-        dansInventoryDiscountCodeId
-      }
-      order {
-        user
-        totalPrice
-        tax
-        iventoriesItems {
-          nextToken
-        }
-        id
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteInventoryOrder = /* GraphQL */ `
-  subscription OnDeleteInventoryOrder {
-    onDeleteInventoryOrder {
-      id
-      dansInventoryID
-      orderID
-      dansInventory {
-        id
-        name
-        color
-        price
-        fabric
-        type
-        image
-        quantity
-        discountCode {
-          description
-          code
-          discountDecimal
-          id
-          createdAt
-          updatedAt
-        }
-        orders {
-          nextToken
-        }
-        file {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-        dansInventoryDiscountCodeId
-      }
-      order {
-        user
-        totalPrice
-        tax
-        iventoriesItems {
-          nextToken
-        }
-        id
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }

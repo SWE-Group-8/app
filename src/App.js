@@ -30,7 +30,6 @@ function App() {
   const { route, error, signOut } = useAuthenticator(context => [context.route]);
   return (
     <Router>
-      <CssBaseline />
       <Navbar />
       <Routes>
         <Route path='/' exact element={<Inventory />} />
