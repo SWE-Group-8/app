@@ -3,11 +3,10 @@ import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import {Storage, API, graphqlOperation} from 'aws-amplify';
 import { createDansInventory } from '../graphql/mutations'
-import config from '../aws-exports';
+import config from '../aws-exports'
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import CssBaseline from '@mui/material/CssBaseline';
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -26,13 +25,7 @@ function Copyright(props) {
         </Typography>
     );
 }
-const theme = createTheme({
-    palette: {
-        background: {
-          default: "#ffe8d6"
-        }
-      }
-});
+const theme = createTheme();
 
 const Admin = () => {
     const [image, setImage] = useState(null);
@@ -75,7 +68,6 @@ const Admin = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline />
         <section className="admin-wrapper">
 
                 <section>
@@ -125,7 +117,6 @@ const Admin = () => {
                             <div className="type-form">
                                 <p><label htmlFor="type">Type</label></p>
                                 <p><input
-                                    size={35}
                                     name="type"
                                     type="text"
                                     placeholder="Type of Hat(Visor, Baseball, Boonie, etc..)"
@@ -136,7 +127,6 @@ const Admin = () => {
                             <div className="price-form">
                                 <p><label htmlFor="price">Price ($)</label>
                                     <input
-                                        
                                         name="price"
                                         type="number"
                                         placeholder="What is the Price of the Dans? (USD)"

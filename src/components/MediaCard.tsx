@@ -7,9 +7,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState } from "react";
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { Button } from "@mui/material";
 
 const useStyles = makeStyles({
   root: {
@@ -25,10 +22,9 @@ interface Props{
     image: string;
     title: string;
     description: string;
-    linkedinLink: string;
 }
 
-export default function MediaCard({ image, title, description, linkedinLink}: Props) {
+export default function MediaCard({ image, title, description}: Props) {
   const classes = useStyles();
   return (
     <Card variant="outlined" style={{border: '1px solid'}}className={classes.root}>
@@ -38,24 +34,13 @@ export default function MediaCard({ image, title, description, linkedinLink}: Pr
         image={image} 
         title={title}
         />
-        <CardContent style={{
-          backgroundColor: "#DDBEA9"
-        }}>
+        <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography variant="body2" component="p" style={{
-            color: "#000000"
-          }}>
+          <Typography variant="body2" color="textSecondary" component="p">
             {description}
-            <Button>
-              <td onClick={() => window.open(linkedinLink, "_blank")}>
-                <LinkedInIcon />
-              </td>
-            </Button>
           </Typography>
-          
-          
         </CardContent>
       </CardActionArea>
     </Card>

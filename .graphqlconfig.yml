@@ -1,6 +1,6 @@
 projects:
   swegroup8API:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/swegroup8API/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
