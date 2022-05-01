@@ -1,16 +1,24 @@
 {
   "resourceName": "inventoryImageStorage",
-  "policyUUID": "761df02b",
-  "bucketName": "swegroup881e0b11fd3194ff5ac63390f054d158f",
+  "policyUUID": "42c24266",
+  "bucketName": "swegroup8c34ce5711975444e92e9dd7a92e2c59f",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "CREATE_AND_UPDATE",
-    "READ"
+    "READ",
+    "DELETE"
   ],
   "authAccess": [
     "CREATE_AND_UPDATE",
     "READ",
     "DELETE"
   ],
-  "groupAccess": {}
+  "triggerFunction": "NONE",
+  "groupAccess": {
+    "Admins": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ]
+  }
 }

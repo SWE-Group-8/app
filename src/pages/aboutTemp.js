@@ -18,6 +18,7 @@ import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
 import { Auth, API } from 'aws-amplify'
 import {listDansInventories} from '../graphql/queries'
+import { useAuthenticator } from '@aws-amplify/ui-react';
 //import { withAuthenticator } from 'aws-amplify-react';
 //import awsconfig from '../aws-exports';
 
@@ -80,12 +81,14 @@ const theme = createTheme({
 
 export default function About() {
   
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+
   const handleSubmit = async () => {
     try {
       const object = await API.graphql({
         query: listDansInventories,
         variables: { filter: {name: {contains: ""}} },
-        authMode: 'AWS_IAM'
+        authMode: route === 'authenticated' ? 'AMAZON_COGNITO_USER_POOLS' : 'AWS_IAM'
       })
       const items = object.data.listDansInventories.items
       console.log('Items:', object)

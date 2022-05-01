@@ -58,7 +58,7 @@
         },
         {
           "category": "function",
-          "resourceName": "AdminQueries5242e83f",
+          "resourceName": "AdminQueries26e23dbe",
           "attributes": [
             "Arn",
             "Name"
@@ -99,7 +99,22 @@
     "inventoryImageStorage": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "swegroup8c3e4f6f6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "AdminsGroupRole"
+          ]
+        }
+      ]
     }
   },
   "function": {
@@ -126,6 +141,20 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "AdminQueries26e23dbe": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "swegroup8c3e4f6f6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
     }
   }
 }
