@@ -1,69 +1,105 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { useDemoData } from '@mui/x-data-grid-generator';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-function createData(ItemName, Description, Price, Amount) {
-  return { ItemName, Description, Price, Amount };
-}
+import { API, graphqlOperation } from 'aws-amplify';
+import { Auth, CognitoAuthSession } from 'aws-amplify';
+import {listInventoryOrders} from '../graphql/queries';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Button } from '@mui/material';
 
-const rows = [
-  createData('CAP1', 'green special cap', 999.99, 1),
-  createData('CAP', 'yellow cap', 17.99, 20),
-  createData('CAP', 'red cap', 30.99, 50),
-  createData('CAP', 'blue cap', 20.99, 45),
-  createData('CAP', 'black cap', 20.99, 78),
-];
-
-const theme = createTheme({
-  palette: {
-    background: {
-      default: "#ffe8d6"
+export default function ToolbarGrid() {
+  const { data } = useDemoData({
+    dataSet: 'Commodity',
+    rowLength: 100,
+    maxColumns: 6,
+  });
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: "#ffe8d6"
+      }
     }
-  }
-});
+  });
+  const innertheme = createTheme({
+    palette: {
+      background: {
+        default: "#6B705C"
+      }
+    }
+  });
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 90 },
+    
+    {
+      field: 'order_id',
+      headerName: 'ORDER ID',
+      type: 'number',
+      width: 200,
+      editable: true,
+    },
+    {
+      field: 'dans_id',
+      headerName: 'DANS ID',
+      type: 'number',
+      width: 200,
+      editable: true,
+    },
+    {
+      field: 'createdAt',
+      headerName: 'CREATE AT',
+      type: 'number',
+      width: 200,
+      editable: true,
+    },
+    {
+      field: 'updateAt',
+      headerName: 'UPDATED AT',
+      type: 'number',
+      width: 200,
+      editable: true,
+    },
+  ];
+  const [orders, setOrders] = useState([])
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const HandleSubmit = async (  ) => {
+    
+        try {
+          if(route === 'authenticated'){
+            const object = API.graphql({
+              query: listInventoryOrders,
+              authMode: 'AMAZON_COGNITO_USER_POOLS'
+            })
+            setOrders(object.data.listInventoryOrders.items);
+            console.log('Items:', orders)
+          }
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
+      }
 
-export default function BasicTable() {
+      
+
   return (
-    <ThemeProvider theme = {theme}>
-    <CssBaseline />
-    <TableContainer component={Paper}sx={{
-        pt: 10,
-        bgcolor: "#ffe8d6",
-      }}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell >Item Name</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Amount in stock</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{row.ItemName}</TableCell>
-              <TableCell align="right">{row.Description}</TableCell>
-              <TableCell align="right">{row.Price}</TableCell>
-              <TableCell align="right">{row.Amount}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <Button>
-        Edit
-    </Button>
-    </ThemeProvider>
+    <ThemeProvider theme={theme} >
+    <div  style={{ height: 400, width: '100%' }}>
+      <CssBaseline />
+      <Button onClick={HandleSubmit}>
+        PopulateArray
+      </Button>
+      <ThemeProvider theme={innertheme}>
+      
+      <DataGrid
+        rows={orders}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+        disableSelectionOnClick
+      />
+      </ThemeProvider>
+    </div>
+    </ ThemeProvider>
   );
 }

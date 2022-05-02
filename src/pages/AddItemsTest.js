@@ -7,7 +7,7 @@ import config from '../aws-exports'
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-
+import { CssBaseline } from '@mui/material';
 const {
     aws_user_files_s3_bucket_region: region,
     aws_user_files_s3_bucket: bucket
@@ -25,7 +25,13 @@ function Copyright(props) {
         </Typography>
     );
 }
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+    background: {
+        default: "#ffe8d6"
+    }
+    }
+});
 
 const Admin = () => {
     const [image, setImage] = useState(null);
@@ -68,6 +74,7 @@ const Admin = () => {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
         <section className="admin-wrapper">
 
                 <section>

@@ -9,29 +9,29 @@ import hat from '../images/hat.jpg';
 import {
     makeStyles,
     createMuiTheme,
-  } from "@material-ui/core/styles";
+} from "@material-ui/core/styles";
 
 function Copyright(props) {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright Â© '}
         <Link color="inherit" href="https://github.com/SWE-Group-8">
-          Group 8 Repo
+        Group 8 Repo
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
-      </Typography>
+    </Typography>
     );
-  }
+}
 
-  const theme = createTheme({
+const theme = createTheme({
     palette: {
-      background: {
+    background: {
         default: "#ffe8d6"
-      }
     }
-  });
-  
+    }
+});
+
     const PAGE_PRODUCTS = 'products';
     const PAGE_CART = 'cart';
 
@@ -67,7 +67,7 @@ function Cart(){
 
     const addToCart = (product) => {
         setCart([...cart, {...product}]);
-      };
+    };
 
     const removeFromCart = (productToRemove) => {
         setCart(
@@ -81,9 +81,9 @@ function Cart(){
     }
     const total = getTotalSum()
     
-      const clearCart = () => {
+    const clearCart = () => {
         setCart([]);
-      };
+    };
     
 
     const navigateTo = (nextPage) => {

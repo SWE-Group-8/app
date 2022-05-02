@@ -49,23 +49,32 @@ const theme = createTheme({
 });
 
 export default function Album() {
-  const [orders, setOrders] = useState([])
+  const [Inv, setInv] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
   const HandleSubmit = async (  ) => {
-    
-        try {
-          if(route === 'authenticated'){
-            const object = API.graphql({
-              query: listDansInventories,
-              authMode: 'AMAZON_COGNITO_USER_POOLS'
-            })
-            setOrders(object.data.listDansInventories.items);
-            console.log('Items:', orders)
-          }
-        } catch (err) {
-            console.log('error getting inventory:', err)
-        }
+    try {
+      if(route === 'authenticated'){
+        const object = await API.graphql({
+          query: listDansInventories,
+          variables: { filter: {name: {contains: ""}} },
+          authMode: 'AMAZON_COGNITO_USER_POOLS'
+        })
+        setInv(object.data.listDansInventories.items);
+        console.log('Items:', Inv)
       }
+      else{
+        const object = await API.graphql({
+          query: listDansInventories,
+          variables: { filter: {name: {contains: ""}} },
+          authMode: 'AWS_IAM'
+        })
+        setInv(object.data.listDansInventories.items);
+        console.log('Items:', Inv)
+      }
+    } catch (err) {
+        console.log('error getting inventory:', err)
+    }
+  }
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -101,7 +110,7 @@ export default function Album() {
         <Container sx={{ py: 0 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {orders.map((card) => (
+            {Inv.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2}}

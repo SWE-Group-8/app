@@ -155,9 +155,6 @@ let inputHandler = (e) => {
             <NavLink to='/' activeStyle>
             Home
             </NavLink>
-          <NavLink to='/aboutTemp' activeStyle>
-            About
-          </NavLink>
           <NavLink to='/cart' activeStyle>
             Cart
           </NavLink>
