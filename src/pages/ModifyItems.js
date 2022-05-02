@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -10,7 +8,6 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Button } from '@mui/material';
 
 export default function ToolbarGrid() {
-  
   const theme = createTheme({
     palette: {
       background: {
@@ -99,15 +96,6 @@ export default function ToolbarGrid() {
         PopulateArray
       </Button>
       <ThemeProvider theme={innertheme}>
-      
-      <DataGrid
-        rows={orders}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
       </ThemeProvider>
     </div>
     </ ThemeProvider>
