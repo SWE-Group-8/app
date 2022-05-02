@@ -87,15 +87,6 @@ export default function ToolbarGrid() {
         PopulateArray
       </Button>
       <ThemeProvider theme={innertheme}>
-      
-      <DataGrid
-        rows={orders}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
       </ThemeProvider>
     </div>
     </ ThemeProvider>

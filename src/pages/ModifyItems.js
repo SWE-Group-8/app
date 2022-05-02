@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -103,15 +101,6 @@ export default function ToolbarGrid() {
         PopulateArray
       </Button>
       <ThemeProvider theme={innertheme}>
-      
-      <DataGrid
-        rows={orders}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
       </ThemeProvider>
     </div>
     </ ThemeProvider>
