@@ -18,15 +18,14 @@ import AddItemsTest from './pages/AddItemsTest';
 import AddDiscountCodes from "./pages/AddDiscountCodes";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import {Amplify} from "aws-amplify";
 import { CssBaseline } from '@mui/material';
-import awsExports from "./use-this-aws-exports"
-
-Amplify.configure(awsExports);
 
 
 function App() {
   const { route, error, signOut } = useAuthenticator(context => [context.route]);
+  const { user } = useAuthenticator(context => [context.user]);
+  console.log(user.attributes.email)
+
   return (
     <Router>
       <Navbar />
