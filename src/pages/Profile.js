@@ -77,7 +77,7 @@ export default function BasicTabs() {
     setValue(newValue);
   };
   const { user } = useAuthenticator(context => [context.user]);
-  console.log(user.attributes.email)
+  console.log(user.attributes)
 
   const [Inv, setInv] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
@@ -96,7 +96,6 @@ export default function BasicTabs() {
           console.log('error getting inventory:', err)
       }
   }
-
   return (
     
     <ThemeProvider theme={theme}>
@@ -118,34 +117,41 @@ export default function BasicTabs() {
             bgcolor: "#A5A58D"
           }}>
           <CardContent>
-          <Typography>Name:</Typography>
-          <Typography>Phone Number:</Typography>
-          <Typography>Email:</Typography>
-          <Typography>Address:</Typography>
-          <Typography>Address2:</Typography>
-          <Typography>City:</Typography>
-          <Typography>State:</Typography>
-          <Typography>Zip:</Typography>
+            <Typography>Name: {user.attributes.name}</Typography>
+            <Typography>Phone Number: {user.attributes.phone_number}</Typography>
+            <Typography>Email: {user.attributes.email}</Typography>
+            <Typography>Address: {user.attributes.address}</Typography>
+            
           </CardContent>
-          <Button style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}>Edit</Button>
-          </Card>
-        </Container>
-      </TabPanel>
+        </Card>
+      </Container>
+    </TabPanel>
 
       {/*Order History Tab Content */}
       <TabPanel value={value} index={1} sx={{
         bgcolor: "#6B705C"
       }}>
         <Container centered>
+          <Button onClick={HandleSubmit}>
+              PopulateArray
+          </Button>
           <Card>
             <CardContent sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <Button onClick={HandleSubmit}>
-              PopulateArray
-            </Button>
-            <Typography>Order History Cards Here</Typography>
-            <Typography>{Inv.id}</Typography>
+              bgcolor: "#A5A58D"
+            }}>
+              <Typography>Order History</Typography>
+            {Inv.map((card) => (
+              <Card>
+                <CardContent sx={{
+              bgcolor: "#B7B7A4"
+            }}>
+                  <Typography>Order: {card.id}</Typography>
+                  <Typography>Price: {card.totalPrice}</Typography>
+                </CardContent>
+              </Card>
+            ))
+            }
+            
             </CardContent>
           </Card>
         </Container>

@@ -64,7 +64,6 @@ export default function ToolbarGrid() {
   const [orders, setOrders] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
   const HandleSubmit = async (  ) => {
-    
         try {
           if(route === 'authenticated'){
             const object = API.graphql({
@@ -79,7 +78,6 @@ export default function ToolbarGrid() {
         }
       }
 
-      
 
   return (
     <ThemeProvider theme={theme} >

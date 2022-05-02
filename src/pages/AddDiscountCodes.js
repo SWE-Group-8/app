@@ -45,7 +45,7 @@ const Discount = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline/>
+            <CssBaseline />
             <section className="admin-wrapper">
 
                 <section>
