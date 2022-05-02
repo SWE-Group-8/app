@@ -41,6 +41,7 @@ const theme = createTheme({
 
     const PAGE_PRODUCTS = 'products';
     const PAGE_CART = 'cart';
+    const PAGE_CONFIRMATION = 'confirmation';
 
 
 function Cart(){  
@@ -178,20 +179,58 @@ function Cart(){
                 <Button onClick={clearCart}
                 style={{color: '#000000', backgroundColor: '#A5A58D', marginLeft:30}}>Clear Cart</Button>
             )}
-            <div className='products'>
-                {cart.map((product, idx) => (
-                <div className='product' key={idx}>
-                    <h3>{product.name}</h3>
-                    <h4>${product.price}</h4>
-                    <img src={product.image} alt={product.name} />
-                    <h5>
-                        <Button onClick={() => removeFromCart(product)}
+            
+            <Grid container spacing={4}>
+                {cart.map((card, idx) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Card
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2}}
+                    >
+                    <CardMedia
+                        component="img"
+                        sx={{
+                        // 16:9
+                        pt: '56.25%',
+                        }}
+                        image={card.image}
+                        alt={card.name}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                        {card.name}
+                        </Typography>
+                        <Typography>
+                        {card.fabric}
+                        
+                        </Typography>
+                        <Typography>
+                        Price: {card.price}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                    <Button onClick={() => removeFromCart(card)}
                         style={{color: '#000000', backgroundColor: '#A5A58D'}}>Remove</Button>
-                    </h5>
-                </div>  
-            ))}
-            </div>
+                        
+                    </CardActions>
+                    </Card>
+                </Grid>
+                ))}
+            </Grid>
+            <Button onClick={() => navigateTo(PAGE_CONFIRMATION)}
+                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>CheckOut</Button>
             <div align='center'><b>Total Cost: ${total}</b></div>
+        </ThemeProvider>
+    );
+
+    const renderConfirmation = () =>(
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Card>
+                <CardContent>
+                    <h2>Confirmed Purchase</h2>
+                    <Typography>Order ID: </Typography>
+                </CardContent>
+            </Card>
         </ThemeProvider>
     );
 
@@ -214,6 +253,7 @@ function Cart(){
                 </header>
                 {page === PAGE_CART && renderCart()}
                 {page === PAGE_PRODUCTS && renderProducts()}
+                {page === PAGE_CONFIRMATION && renderConfirmation()}
 
             </div>
             

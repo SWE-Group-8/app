@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -10,11 +10,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Button } from '@mui/material';
 
 export default function ToolbarGrid() {
-  const { data } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 100,
-    maxColumns: 6,
-  });
+  
   const theme = createTheme({
     palette: {
       background: {
