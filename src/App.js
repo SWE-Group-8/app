@@ -20,11 +20,9 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { CssBaseline } from '@mui/material';
 
-
 function App() {
   const { route, error, signOut } = useAuthenticator(context => [context.route]);
   const { user } = useAuthenticator(context => [context.user]);
-  console.log(user.attributes.email)
 
   return (
     <Router>
