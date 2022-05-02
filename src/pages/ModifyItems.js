@@ -8,11 +8,6 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Button } from '@mui/material';
 
 export default function ToolbarGrid() {
-  const { data } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 100,
-    maxColumns: 6,
-  });
   const theme = createTheme({
     palette: {
       background: {
