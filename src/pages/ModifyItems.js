@@ -30,33 +30,49 @@ export default function ToolbarGrid() {
     }
   });
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    
+    { 
+      field: 'id', 
+      headerName: 'ID', 
+      width: 90 },
     {
-      field: 'order_id',
-      headerName: 'ORDER ID',
+      field: 'name',
+      headerName: 'NAME',
+      type: 'string',
+      width: 200,
+      editable: true,
+    },
+    {
+      field: 'color',
+      headerName: 'COLOR',
+      type: 'string',
+      width: 200,
+      editable: true,
+    },
+    {
+      field: 'price',
+      headerName: 'PRICE',
       type: 'number',
       width: 200,
       editable: true,
     },
     {
-      field: 'dans_id',
-      headerName: 'DANS ID',
-      type: 'number',
+      field: 'fabric',
+      headerName: 'FABRIC',
+      type: 'string',
       width: 200,
       editable: true,
     },
     {
-      field: 'createdAt',
-      headerName: 'CREATE AT',
-      type: 'number',
+      field: 'type',
+      headerName: 'TYPE',
+      type: 'string',
       width: 200,
       editable: true,
     },
     {
-      field: 'updateAt',
-      headerName: 'UPDATED AT',
-      type: 'number',
+      field: 'image',
+      headerName: 'IMAGE',
+      type: 'string',
       width: 200,
       editable: true,
     },

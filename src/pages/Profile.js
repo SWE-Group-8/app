@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -10,7 +10,10 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AdminControls from '../pages/AdminControls';
-
+import { API, graphqlOperation } from 'aws-amplify';
+import { Auth, CognitoAuthSession } from 'aws-amplify';
+import {listOrders} from '../graphql/queries';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 function Copyright(props) {
   return (
@@ -73,7 +76,26 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+  const { user } = useAuthenticator(context => [context.user]);
+  console.log(user.attributes.email)
+
+  const [Inv, setInv] = useState([])
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const HandleSubmit = async (  ) => {
+      try {
+      if(route === 'authenticated'){
+          const object = await API.graphql({
+          query: listOrders,
+          variables: { filter: {user: {contains: user.attributes.email}} },
+          authMode: 'AMAZON_COGNITO_USER_POOLS'
+          })
+          setInv(object.data.listOrders.items);
+          console.log('Items:', Inv)
+      }
+      } catch (err) {
+          console.log('error getting inventory:', err)
+      }
+  }
 
   return (
     
@@ -119,7 +141,11 @@ export default function BasicTabs() {
             <CardContent sx={{
             bgcolor: "#A5A58D"
           }}>
+            <Button onClick={HandleSubmit}>
+              PopulateArray
+            </Button>
             <Typography>Order History Cards Here</Typography>
+            <Typography>{Inv.id}</Typography>
             </CardContent>
           </Card>
         </Container>
