@@ -96,6 +96,7 @@ export default function BasicTabs() {
           console.log('error getting inventory:', err)
       }
   }
+  
   return (
     
     <ThemeProvider theme={theme}>
