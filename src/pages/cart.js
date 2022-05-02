@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Button, CardActionArea, CardActions, Container } from '@mui/material';
+import { Button, CardActions, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Link from "@mui/material/Link";
 import './Cart.css';
-import hat from '../images/hat.jpg';
-import {
-    makeStyles,
-    createMuiTheme,
-} from "@material-ui/core/styles";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+
+
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import {listDansInventories} from '../graphql/queries';
+import { API } from 'aws-amplify';
 function Copyright(props) {
     return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -38,32 +43,37 @@ const theme = createTheme({
 
 function Cart(){  
 
+    const [Inv, setInv] = useState([])
+    const { route , signOut } = useAuthenticator((context) => [context.user]);
+    const HandleSubmit = async (  ) => {
+        try {
+        if(route === 'authenticated'){
+            const object = await API.graphql({
+            query: listDansInventories,
+            variables: { filter: {name: {contains: ""}} },
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
+            })
+            setInv(object.data.listDansInventories.items);
+            console.log('Items:', Inv)
+        }
+        else{
+            const object = await API.graphql({
+            query: listDansInventories,
+            variables: { filter: {name: {contains: ""}} },
+            authMode: 'AWS_IAM'
+            })
+            setInv(object.data.listDansInventories.items);
+            console.log('Items:', Inv)
+        }
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
+    }
+
     const [cart, setCart] = useState([]);
     const [page, setPage] = useState(PAGE_PRODUCTS);
     
-    const [products] = useState([   
-        {
-            name: 'chicken hat',
-            cost: 10.99,
-            image: hat,
-        },
-        {
-            name: 'gnome',
-            cost: 49.99,
-            image: 'https://m.media-amazon.com/images/I/41SdMJ+5mxL._AC_.jpg',
-        },
-        {
-            name: 'taco',
-            cost: 19.99,
-            image: 'https://partycity.scene7.com/is/image/PartyCity/_sq_?$_500x500_$&$product=PartyCity/740144_full',
-        },
-        {
-            name: 'eggplant',
-            cost: 19.99,
-            image: 'https://static.boredpanda.com/blog/wp-content/uploads/2015/06/funny-crochet-food-hats-phil-ferguson-131.jpg',
-        },
-        
-    ]);
+    
 
     const addToCart = (product) => {
         setCart([...cart, {...product}]);
@@ -76,7 +86,8 @@ function Cart(){
     }
     function getTotalSum(){
         let total = 0;
-        cart.map(({cost}) => total = total + cost)
+        cart.map(({price}) => total = (total + price) + ((total + price) * .0825))
+        total = Math.round(total * 100) / 100
         return total;
     }
     const total = getTotalSum()
@@ -91,23 +102,75 @@ function Cart(){
     };
 
     const renderProducts = () => (
-        <>
-            <h1 align='center'>Products</h1>
-            <div className='products'>
-                {products.map((product, idx) => (
-                <div className="product" key={idx}>
-                    <h3>{product.name}</h3>
-                    <h4>{product.cost}</h4>
-                    <img src={product.image} alt={product.name} />
-                    <Button onClick={() => addToCart(product)}
-                    style={{color: '#000000', backgroundColor: '#A5A58D'}}>Add to Cart</Button>
-                </div>  
-            ))}
-            </div>
-        </>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box
+                sx={{
+                    bgcolor: '#ffe8d6',
+                    pt: 8,
+                    pb: 6,
+                }}
+            >
+                <Container maxWidth="sm">
+                    <Typography
+                        component="h1"
+                        variant="h2"
+                        align="center"
+                        color="text.primary"
+                        gutterBottom
+                    >
+                        Cap Inventory
+                    </Typography>
+                    <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                    We are a company that supplies quality caps that last and look great. BUY ONE TODAY OFFER ONLY LAST FOR THE NEXT 20 MINUTEsS
+                    </Typography>
+            
+                </Container>
+            </Box>
+            <Container sx={{ py: 0 }} maxWidth="md">
+          {/* End hero unit */}
+            <Grid container spacing={4}>
+                {Inv.map((card, idx) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Card
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2}}
+                    >
+                    <CardMedia
+                        component="img"
+                        sx={{
+                        // 16:9
+                        pt: '56.25%',
+                        }}
+                        image={card.image}
+                        alt={card.name}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                        {card.name}
+                        </Typography>
+                        <Typography>
+                        {card.fabric}
+                        
+                        </Typography>
+                        <Typography>
+                        Price: {card.price}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button onClick={() => addToCart(card)}
+                        style={{color: '#000000', backgroundColor: '#A5A58D'}}>Add to Cart</Button>
+                        
+                    </CardActions>
+                    </Card>
+                </Grid>
+                ))}
+            </Grid>
+            </Container>
+        </ThemeProvider>
     );
     const renderCart = () => (
-        <>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             <h1 align='center'>Cart</h1>
             {cart.length > 0 && (
                 <Button onClick={clearCart}
@@ -117,33 +180,43 @@ function Cart(){
                 {cart.map((product, idx) => (
                 <div className='product' key={idx}>
                     <h3>{product.name}</h3>
-                    <h4>{product.cost}</h4>
+                    <h4>${product.price}</h4>
                     <img src={product.image} alt={product.name} />
-                    <Button onClick={() => removeFromCart(product)}
-                    style={{color: '#000000', backgroundColor: '#A5A58D'}}>Remove</Button>
+                    <h5>
+                        <Button onClick={() => removeFromCart(product)}
+                        style={{color: '#000000', backgroundColor: '#A5A58D'}}>Remove</Button>
+                    </h5>
                 </div>  
             ))}
             </div>
             <div align='center'><b>Total Cost: ${total}</b></div>
-        </>
+        </ThemeProvider>
     );
+
+
+    
     return(
         
-            <ThemeProvider theme={theme}>
+        <>
             <CssBaseline />
             <div className="Cart">
                 <header align="center">
                     <Button onClick={() => navigateTo(PAGE_CART)}
                     style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>Go to Cart ({cart.length})</Button>
                     <Button onClick={() => navigateTo(PAGE_PRODUCTS)}
-                    style={{color: '#000000', backgroundColor: '#A5A58D'}}>View Products</Button>
+                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>View Products</Button>
+                    <Button onClick={HandleSubmit}
+                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>
+                        Populate Array
+                    </Button>
                 </header>
                 {page === PAGE_CART && renderCart()}
                 {page === PAGE_PRODUCTS && renderProducts()}
 
             </div>
+            
             <Copyright sx={{ mt: 8, mb: 4 }} />
-        </ThemeProvider>
+        </>
     );
 
 }

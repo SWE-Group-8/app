@@ -57,12 +57,7 @@ const adminCards = [
     image: people,     
     button: "Modify Users",     
     link: "http://localhost:3000/ModifyUsers",   
-  },   
-  {     
-    image: basket,     
-    button: "Placed Orders",     
-    link: "http://localhost:3000/PlacedOrders",   
-  },   
+  },      
   {     
     image: history,     
     button: "History of Orders",     

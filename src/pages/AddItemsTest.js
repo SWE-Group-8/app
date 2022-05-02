@@ -77,7 +77,7 @@ const Admin = () => {
             <CssBaseline />
         <section className="admin-wrapper">
 
-                <section>
+                <section p={10}>
                     <header className="form-header">
                         <h3>Add New Dans</h3>
 

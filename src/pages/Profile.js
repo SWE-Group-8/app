@@ -84,7 +84,7 @@ export default function BasicTabs() {
         <Tabs value={value} centered onChange={handleChange}>
           <Tab label="Personal Information" {...a11yProps(0)} />
           <Tab label="Order History" {...a11yProps(1)} />
-          <Tab label="Account Management" {...a11yProps(2)} />
+          
         </Tabs>
       </Box>
       {/*Personal Info Tab Content */}
@@ -126,54 +126,7 @@ export default function BasicTabs() {
       </TabPanel>
 
       {/*Account management Tab Content */}
-      <TabPanel value={value} index={2} sx={{
-        bgcolor: "#6B705C"
-      }}>
-        <Container centered>
-          <Card sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <CardContent>
-            <Typography>Account Information:</Typography>
-            <Button 
-            onClick ={() => alert("from Account Information")/*insert page link */} 
-            style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}
-            > Edit</Button>
-            </CardContent>
-            <CardActions>
-           
-            </CardActions>
-          </Card>
-          <Card sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <CardContent>
-            <Typography>Payment Management:</Typography>
-            <Button 
-            onClick ={() => alert("from Payment Management")/*insert page link */} 
-            style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}
-            > Edit</Button>
-            </CardContent>
-            <CardActions>
-           
-            </CardActions>
-          </Card>
-          <Card sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <CardContent>
-            <Typography>Security:</Typography>
-            <Button  
-            onClick ={() => alert("from Security Info")/*insert page link */} 
-            style={{color: '#000000', marginRight:30, marginBottom: 30, float: 'right'}}
-            >Edit</Button>
-            </CardContent>
-            <CardActions>
-              
-            </CardActions>
-          </Card>
-        </Container>
-      </TabPanel>
+      
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Box>
     </ThemeProvider>
