@@ -15,6 +15,45 @@ export const createDansInventory = /* GraphQL */ `
       type
       image
       quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
+      orders {
+        items {
+          id
+          dansInventoryID
+          orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       file {
         bucket
         region
@@ -22,6 +61,7 @@ export const createDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -39,6 +79,45 @@ export const updateDansInventory = /* GraphQL */ `
       type
       image
       quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
+      orders {
+        items {
+          id
+          dansInventoryID
+          orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       file {
         bucket
         region
@@ -46,6 +125,7 @@ export const updateDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -62,6 +142,46 @@ export const deleteDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
+      discountCode {
+        description
+        code
+        discountDecimal
+        id
+        createdAt
+        updatedAt
+      }
+      orders {
+        items {
+          id
+          dansInventoryID
+          orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       file {
         bucket
         region
@@ -69,6 +189,7 @@ export const deleteDansInventory = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      dansInventoryDiscountCodeId
     }
   }
 `;
@@ -78,10 +199,10 @@ export const createDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     createDiscountCode(input: $input, condition: $condition) {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -93,10 +214,10 @@ export const updateDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     updateDiscountCode(input: $input, condition: $condition) {
-      id
       description
       code
       discountDecimal
+      id
       createdAt
       updatedAt
     }
@@ -108,10 +229,352 @@ export const deleteDiscountCode = /* GraphQL */ `
     $condition: ModelDiscountCodeConditionInput
   ) {
     deleteDiscountCode(input: $input, condition: $condition) {
-      id
       description
       code
       discountDecimal
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createOrder = /* GraphQL */ `
+  mutation CreateOrder(
+    $input: CreateOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    createOrder(input: $input, condition: $condition) {
+      user
+      totalPrice
+      tax
+      iventoriesItems {
+        items {
+          id
+          dansInventoryID
+          orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateOrder = /* GraphQL */ `
+  mutation UpdateOrder(
+    $input: UpdateOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    updateOrder(input: $input, condition: $condition) {
+      user
+      totalPrice
+      tax
+      iventoriesItems {
+        items {
+          id
+          dansInventoryID
+          orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteOrder = /* GraphQL */ `
+  mutation DeleteOrder(
+    $input: DeleteOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    deleteOrder(input: $input, condition: $condition) {
+      user
+      totalPrice
+      tax
+      iventoriesItems {
+        items {
+          id
+          dansInventoryID
+          orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createInventoryOrder = /* GraphQL */ `
+  mutation CreateInventoryOrder(
+    $input: CreateInventoryOrderInput!
+    $condition: ModelInventoryOrderConditionInput
+  ) {
+    createInventoryOrder(input: $input, condition: $condition) {
+      id
+      dansInventoryID
+      orderID
+      dansInventory {
+        id
+        name
+        color
+        price
+        fabric
+        type
+        image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
+        orders {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        dansInventoryDiscountCodeId
+      }
+      order {
+        user
+        totalPrice
+        tax
+        iventoriesItems {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateInventoryOrder = /* GraphQL */ `
+  mutation UpdateInventoryOrder(
+    $input: UpdateInventoryOrderInput!
+    $condition: ModelInventoryOrderConditionInput
+  ) {
+    updateInventoryOrder(input: $input, condition: $condition) {
+      id
+      dansInventoryID
+      orderID
+      dansInventory {
+        id
+        name
+        color
+        price
+        fabric
+        type
+        image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
+        orders {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        dansInventoryDiscountCodeId
+      }
+      order {
+        user
+        totalPrice
+        tax
+        iventoriesItems {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        id
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteInventoryOrder = /* GraphQL */ `
+  mutation DeleteInventoryOrder(
+    $input: DeleteInventoryOrderInput!
+    $condition: ModelInventoryOrderConditionInput
+  ) {
+    deleteInventoryOrder(input: $input, condition: $condition) {
+      id
+      dansInventoryID
+      orderID
+      dansInventory {
+        id
+        name
+        color
+        price
+        fabric
+        type
+        image
+        quantity
+        discountCode {
+          description
+          code
+          discountDecimal
+          id
+          createdAt
+          updatedAt
+        }
+        orders {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        file {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        dansInventoryDiscountCodeId
+      }
+      order {
+        user
+        totalPrice
+        tax
+        iventoriesItems {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        id
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

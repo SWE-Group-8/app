@@ -25,6 +25,27 @@ export const getDansInventory = /* GraphQL */ `
           id
           dansInventoryID
           orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -66,6 +87,13 @@ export const listDansInventories = /* GraphQL */ `
           updatedAt
         }
         orders {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         file {
@@ -123,6 +151,27 @@ export const getOrder = /* GraphQL */ `
           id
           dansInventoryID
           orderID
+          dansInventory {
+            id
+            name
+            color
+            price
+            fabric
+            type
+            image
+            quantity
+            createdAt
+            updatedAt
+            dansInventoryDiscountCodeId
+          }
+          order {
+            user
+            totalPrice
+            tax
+            id
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -146,6 +195,13 @@ export const listOrders = /* GraphQL */ `
         totalPrice
         tax
         iventoriesItems {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         id
@@ -180,6 +236,13 @@ export const getInventoryOrder = /* GraphQL */ `
           updatedAt
         }
         orders {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         file {
@@ -196,6 +259,13 @@ export const getInventoryOrder = /* GraphQL */ `
         totalPrice
         tax
         iventoriesItems {
+          items {
+            id
+            dansInventoryID
+            orderID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         id
@@ -227,6 +297,22 @@ export const listInventoryOrders = /* GraphQL */ `
           type
           image
           quantity
+          discountCode {
+            description
+            code
+            discountDecimal
+            id
+            createdAt
+            updatedAt
+          }
+          orders {
+            nextToken
+          }
+          file {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
           dansInventoryDiscountCodeId
@@ -235,6 +321,9 @@ export const listInventoryOrders = /* GraphQL */ `
           user
           totalPrice
           tax
+          iventoriesItems {
+            nextToken
+          }
           id
           createdAt
           updatedAt
