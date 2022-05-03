@@ -12,10 +12,10 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 
-
+import { createOrder, createInventoryOrder } from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import {listDansInventories} from '../graphql/queries';
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 function Copyright(props) {
     return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -45,26 +45,12 @@ const theme = createTheme({
 
 
 function Cart(){  
-
+    const { user } = useAuthenticator(context => [context.user]);
     const [Inv, setInv] = useState([])
     const { route , signOut } = useAuthenticator((context) => [context.user]);
 
     const [order, setOrder] = useState([])
-    const createOrder = async (  ) => {
-        try {
-        if(route === 'authenticated'){
-            const object = await API.graphql({
-            query: listDansInventories,
-            variables: { filter: {name: {contains: ""}} },
-            authMode: 'AMAZON_COGNITO_USER_POOLS'
-            })
-            setInv(object.data.listDansInventories.items);
-            console.log('Testing Items:', order)
-        }
-        } catch (err) {
-            console.log('error getting inventory:', err)
-        }
-    }
+    
 
     
 
@@ -82,6 +68,7 @@ function Cart(){
             cart.filter((product) => product !== productToRemove)
         );
     }
+    
     function getTotalSum(){
         let total = 0;
         cart.map(({price}) => total = (total + price) + ((total + price) * .0825))
@@ -89,7 +76,25 @@ function Cart(){
         return total;
     }
     const total = getTotalSum()
-    
+    const tax = (total*.0825)
+
+    const [ordid, setordid] = useState([])
+    const createNewOrder = async (  ) => {
+        try {
+        if(route !== 'authenticated') return 
+        const userEmail = user.attributes.email
+        const order = await API.graphql(graphqlOperation(createOrder, { input: {tax: tax, totalPrice: total, user: userEmail} }))
+        const orderId = order.data.createOrder.id
+        setordid(orderId)
+        console.log('orderid: ', ordid)
+        console.log('Testing object:', order.data.createOrder.id)
+
+        cart.map(async ({id}) => console.log(await API.graphql(graphqlOperation(createInventoryOrder, { input: {dansInventoryID: id, orderID: orderId} }))))
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
+    }
+
     const clearCart = () => {
         setCart([]);
     };
@@ -218,7 +223,15 @@ function Cart(){
                 ))}
             </Grid>
             <Button onClick={() => navigateTo(PAGE_CONFIRMATION)}
-                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>CheckOut</Button>
+            style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}
+            >
+                View Confirmation Page
+            </Button>
+            <Button onClick={createNewOrder}
+            style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}
+            >
+                CheckOut
+            </Button>
             <div align='center'><b>Total Cost: ${total}</b></div>
         </ThemeProvider>
     );
@@ -229,7 +242,7 @@ function Cart(){
             <Card>
                 <CardContent>
                     <h2>Confirmed Purchase</h2>
-                    <Typography>Order ID: </Typography>
+                    <Typography>Order ID: {ordid}</Typography>
                     <Typography>Total: {total}</Typography>
                 </CardContent>
             </Card>
