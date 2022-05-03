@@ -342,6 +342,15 @@ function Cart(){
                     setInv(object.data.listDansInventories.items);
                     console.log('Testing Items:', Inv)
                 }
+                else{
+                    const object = await API.graphql({
+                      query: listDansInventories,
+                      variables: { filter: {name: {contains: ""}} },
+                      authMode: 'AWS_IAM'
+                    })
+                    setInv(object.data.listDansInventories.items);
+                    console.log('Items:', Inv)
+                  }
             }catch (err) {
                     console.log('error getting inventory:', err)
                 }
