@@ -159,7 +159,7 @@ let inputHandler = (e) => {
             Cart
           </NavLink>
         </NavMenu>
-          <Search onchange={inputHandler}>
+          {/* <Search onchange={inputHandler}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -167,7 +167,7 @@ let inputHandler = (e) => {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             

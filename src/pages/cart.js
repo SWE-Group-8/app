@@ -8,14 +8,17 @@ import './Cart.css';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-
+import { styled, alpha } from '@mui/material/styles';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
-
+import SearchIcon from '@mui/icons-material/Search';
 import { createOrder, createInventoryOrder } from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import {listDansInventories} from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
+import InputBase from '@mui/material/InputBase';
+
+
 function Copyright(props) {
     return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,7 +32,45 @@ function Copyright(props) {
     );
 }
 
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  }));
 
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '20ch',
+      },
+    },
+  }));
 
 const theme = createTheme({
     palette: {
@@ -45,6 +86,13 @@ const theme = createTheme({
 
 
 function Cart(){  
+    const [inputText, setInputText] = useState("");
+    let inputHandler = (e) => {
+        //convert input text to lower case
+        var lowerCase = e.target.value.toLowerCase();
+        setInputText(lowerCase);
+      };
+
     const { user } = useAuthenticator(context => [context.user]);
     const [Inv, setInv] = useState([])
     const { route , signOut } = useAuthenticator((context) => [context.user]);
@@ -131,6 +179,17 @@ function Cart(){
                     </Typography>
             
                 </Container>
+            </Box>
+            <Box>
+                <Search onchange={inputHandler}>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
             </Box>
             <Container sx={{ py: 0 }} maxWidth="md">
           {/* End hero unit */}
@@ -269,6 +328,27 @@ function Cart(){
         }
         fetchData();
         console.log("yes")
+        //.catch(console.error)
+    }, [])
+    useEffect(() => {
+        const fetchData2 = async () =>{
+            try {
+                if(route === 'authenticated'){
+                    const object = await API.graphql({
+                    query: listDansInventories,
+                    variables: { filter: {name: {contains: {inputText}}} },
+                    authMode: 'AMAZON_COGNITO_USER_POOLS'
+                    })
+                    setInv(object.data.listDansInventories.items);
+                    console.log('Testing Items:', Inv)
+                }
+            }catch (err) {
+                    console.log('error getting inventory:', err)
+                }
+        }
+        fetchData2();
+        console.log("yes")
+        {page === PAGE_PRODUCTS && renderProducts()}
         //.catch(console.error)
     }, [])
     
