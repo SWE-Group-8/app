@@ -6,6 +6,7 @@ import { Auth, CognitoAuthSession } from 'aws-amplify';
 import {listDansInventories} from '../graphql/queries';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Button } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import { Search } from '@mui/icons-material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -163,6 +164,16 @@ export default function ToolbarGrid() {
         PopulateArray
       </Button> */}
       <ThemeProvider theme={innertheme}>
+      
+      <DataGrid
+        rows={users}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+        disableSelectionOnClick
+        editRowsModel={true}
+      />
       
       </ThemeProvider>
       <ThemeProvider theme={innertheme}>
