@@ -29,29 +29,29 @@ export default function ToolbarGrid() {
     { field: 'id', headerName: 'ID', width: 90 },
     
     {
-      field: 'order_id',
-      headerName: 'ORDER ID',
+      field: 'dansInventoryID',
+      headerName: 'dansInventoryID',
       type: 'number',
       width: 200,
       editable: true,
     },
     {
-      field: 'dans_id',
-      headerName: 'DANS ID',
+      field: 'orderID',
+      headerName: 'orderID',
       type: 'number',
       width: 200,
       editable: true,
     },
     {
       field: 'createdAt',
-      headerName: 'CREATE AT',
+      headerName: 'createdAt',
       type: 'number',
       width: 200,
       editable: true,
     },
     {
-      field: 'updateAt',
-      headerName: 'UPDATED AT',
+      field: 'updatedAt',
+      headerName: 'updatedAt',
       type: 'number',
       width: 200,
       editable: true,
@@ -59,29 +59,49 @@ export default function ToolbarGrid() {
   ];
   const [orders, setOrders] = useState()
   const { route , signOut } = useAuthenticator((context) => [context.user]);
-  const HandleSubmit = async (  ) => {
-        try {
-          if(route === 'authenticated'){
-            const object = API.graphql({
-              query: listInventoryOrders,
-              authMode: 'AMAZON_COGNITO_USER_POOLS'
-            })
-            setOrders(object.data.listInventoryOrders.items);
-            console.log('Items:', orders)
-          }
-        } catch (err) {
-            console.log('error getting inventory:', err)
-        }
-      }
+  // const HandleSubmit = async (  ) => {
+  //       try {
+  //         if(route === 'authenticated'){
+  //           const object = API.graphql({
+  //             query: listInventoryOrders,
+  //             authMode: 'AMAZON_COGNITO_USER_POOLS'
+  //           })
+  //           setOrders(object.data.listInventoryOrders.items);
+  //           console.log('Items:', orders)
+  //         }
+  //       } catch (err) {
+  //           console.log('error getting inventory:', err)
+  //       }
+  //     }
 
+      useEffect(() => {
+        const fetchData = async () =>{
+            try {
+                if(route === 'authenticated'){
+                    const object = await API.graphql({
+                    query: listInventoryOrders,
+                    
+                    authMode: 'AMAZON_COGNITO_USER_POOLS'
+                    })
+                    setOrders(object.data.listInventoryOrders.items);
+                    console.log('Testing Items:', orders)
+                }
+            }catch (err) {
+                    console.log('error getting inventory:', err)
+                }
+        }
+        fetchData();
+        console.log("yes")
+        //.catch(console.error)
+    }, [])
 
   return (
     <ThemeProvider theme={theme} >
     <div  style={{ height: 400, width: '100%' }}>
       <CssBaseline />
-      <Button onClick={HandleSubmit}>
+      {/* <Button onClick={HandleSubmit}>
         PopulateArray
-      </Button>
+      </Button> */}
       <ThemeProvider theme={innertheme}>
       
       <DataGrid

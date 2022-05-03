@@ -13,6 +13,7 @@ const {
     aws_user_files_s3_bucket: bucket
 } = config
 
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -35,14 +36,16 @@ const theme = createTheme({
 
 const Admin = () => {
     const [image, setImage] = useState(null);
-    const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "" });
+    const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "" });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
             if (!dansDetails.name || !dansDetails.price) return
             await API.graphql(graphqlOperation(createDansInventory, { input: dansDetails }))
-            setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "" })
+            console.log(dansDetails)
+            setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "" })
         } catch (err) {
             console.log('error creating todo:', err)
         }
@@ -70,8 +73,7 @@ const Admin = () => {
         }
     }
 
-
-
+    
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -138,6 +140,16 @@ const Admin = () => {
                                         type="number"
                                         placeholder="What is the Price of the Dans? (USD)"
                                         onChange={(e) => setDansDetails({ ...dansDetails, price: e.target.value })}
+                                        required
+                                    /></p>
+                            </div>
+                            <div className="quantity-form">
+                                <p><label htmlFor="quantity">Quantity </label>
+                                    <input
+                                        name="quantity"
+                                        type="number"
+                                        placeholder="Quantity of item?"
+                                        onChange={(e) => setDansDetails({ ...dansDetails, quantity: e.target.value })}
                                         required
                                     /></p>
                             </div>

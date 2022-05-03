@@ -14,6 +14,7 @@ export const createDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
       file {
         bucket
         region
@@ -37,6 +38,7 @@ export const updateDansInventory = /* GraphQL */ `
       fabric
       type
       image
+      quantity
       file {
         bucket
         region

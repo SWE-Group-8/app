@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button, CardActions, Container } from '@mui/material';
@@ -48,7 +48,9 @@ function Cart(){
 
     const [Inv, setInv] = useState([])
     const { route , signOut } = useAuthenticator((context) => [context.user]);
-    const HandleSubmit = async (  ) => {
+
+    const [order, setOrder] = useState([])
+    const createOrder = async (  ) => {
         try {
         if(route === 'authenticated'){
             const object = await API.graphql({
@@ -57,21 +59,14 @@ function Cart(){
             authMode: 'AMAZON_COGNITO_USER_POOLS'
             })
             setInv(object.data.listDansInventories.items);
-            console.log('Items:', Inv)
-        }
-        else{
-            const object = await API.graphql({
-            query: listDansInventories,
-            variables: { filter: {name: {contains: ""}} },
-            authMode: 'AWS_IAM'
-            })
-            setInv(object.data.listDansInventories.items);
-            console.log('Items:', Inv)
+            console.log('Testing Items:', order)
         }
         } catch (err) {
             console.log('error getting inventory:', err)
         }
     }
+
+    
 
     const [cart, setCart] = useState([]);
     const [page, setPage] = useState(PAGE_PRODUCTS);
@@ -105,6 +100,7 @@ function Cart(){
     };
 
     const renderProducts = () => (
+        <body >
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box
@@ -113,6 +109,7 @@ function Cart(){
                     pt: 8,
                     pb: 6,
                 }}
+                
             >
                 <Container maxWidth="sm">
                     <Typography
@@ -158,6 +155,9 @@ function Cart(){
                         <Typography>
                         Price: {card.price}
                         </Typography>
+                        <Typography>
+                        Quantity: {card.quantity}
+                        </Typography>
                     </CardContent>
                     <CardActions>
                         <Button onClick={() => addToCart(card)}
@@ -170,6 +170,7 @@ function Cart(){
             </Grid>
             </Container>
         </ThemeProvider>
+        </body>
     );
     const renderCart = () => (
         <ThemeProvider theme={theme}>
@@ -229,27 +230,49 @@ function Cart(){
                 <CardContent>
                     <h2>Confirmed Purchase</h2>
                     <Typography>Order ID: </Typography>
+                    <Typography>Total: {total}</Typography>
                 </CardContent>
             </Card>
         </ThemeProvider>
     );
+    
+    
 
-
+    useEffect(() => {
+        const fetchData = async () =>{
+            try {
+                if(route === 'authenticated'){
+                    const object = await API.graphql({
+                    query: listDansInventories,
+                    variables: { filter: {name: {contains: ""}} },
+                    authMode: 'AMAZON_COGNITO_USER_POOLS'
+                    })
+                    setInv(object.data.listDansInventories.items);
+                    console.log('Testing Items:', Inv)
+                }
+            }catch (err) {
+                    console.log('error getting inventory:', err)
+                }
+        }
+        fetchData();
+        console.log("yes")
+        //.catch(console.error)
+    }, [])
     
     return(
         
         <>
             <CssBaseline />
-            <div className="Cart">
-                <header align="center">
+            <div className="Cart" >
+                <header align="center" >
                     <Button onClick={() => navigateTo(PAGE_CART)}
                     style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>Go to Cart ({cart.length})</Button>
                     <Button onClick={() => navigateTo(PAGE_PRODUCTS)}
                     style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>View Products</Button>
-                    <Button onClick={HandleSubmit}
+                    {/* <Button onClick={loadData}
                     style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>
                         Populate Array
-                    </Button>
+                    </Button> */}
                 </header>
                 {page === PAGE_CART && renderCart()}
                 {page === PAGE_PRODUCTS && renderProducts()}

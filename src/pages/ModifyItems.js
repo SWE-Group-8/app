@@ -12,6 +12,8 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Box } from '@mui/system';
+import { daDK } from '@mui/material/locale';
+import { updateDansInventory } from '../graphql/mutations';
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -56,7 +58,7 @@ export default function ToolbarGrid() {
     { 
       field: 'id', 
       headerName: 'ID', 
-      width: 90 },
+      width: 300 },
     {
       field: 'name',
       headerName: 'NAME',
@@ -99,37 +101,89 @@ export default function ToolbarGrid() {
       width: 200,
       editable: true,
     },
+    {
+      field: 'quantity',
+      headerName: 'QUANTITY',
+      type: 'string',
+      width: 200,
+      editable: true,
+    },
   ];
   const [orders, setOrders] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
-  const HandleSubmit = async (  ) => {
+  useEffect(() => {
+    const fetchData = async () =>{
         try {
-          if(route === 'authenticated'){
-            const object = API.graphql({
-              query: listDansInventories,
-              authMode: 'AMAZON_COGNITO_USER_POOLS'
-            })
-            setOrders(object.data.listDansInventories.items);
-            console.log('Items:', orders)
-          }
-        } catch (err) {
-            console.log('error getting inventory:', err)
-        }
-      }
-
+            if(route === 'authenticated'){
+                const object = await API.graphql({
+                query: listDansInventories,
+                
+                authMode: 'AMAZON_COGNITO_USER_POOLS'
+                })
+                setOrders(object.data.listDansInventories.items);
+                console.log('Testing Items:', orders)
+            }
+        }catch (err) {
+                console.log('error getting inventory:', err)
+            }
+    }
+    fetchData();
+    console.log("no")
+    //.catch(console.error)
+}, [])
       const [inputText, setInputText] = useState("");
       let inputHandler = (e) => {
         //convert input text to lower case
         var lowerCase = e.target.value.toLowerCase();
         setInputText(lowerCase);
       };
+    
+    const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "", id: "" });
+    const handleSubmit = async (e) => {
+        var inputInv = {}
+        inputInv.id = dansDetails.id
+        if(dansDetails.name !== ""){
+          inputInv.name = dansDetails.name
+        }
+        if(dansDetails.color !== ""){
+          inputInv.color = dansDetails.color
+        }
+        if(dansDetails.price !== ""){
+          inputInv.price = dansDetails.price
+        }
+        if(dansDetails.fabric !== ""){
+          inputInv.fabric = dansDetails.fabric
+        }
+        if(dansDetails.type !== ""){
+          inputInv.type = dansDetails.type
+        }
+        if(dansDetails.image !== ""){
+          inputInv.image = dansDetails.image
+        }
+        if(dansDetails.quantity !== ""){
+          inputInv.quantity = dansDetails.quantity
+        }
+
+        e.preventDefault();
+        try {
+            if(inputInv.id === "")return
+            await API.graphql(graphqlOperation(updateDansInventory, { input: inputInv}))
+            setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "", id: "" })
+        } catch (err) {
+            console.log('error creating todo:', err)
+        }
+    }
+    
+    
+    
+
   return (
     <ThemeProvider theme={theme} >
     <div  style={{ height: 400, width: '100%' }}>
       <CssBaseline />
-      <Button onClick={HandleSubmit}>
+      {/* <Button onClick={HandleSubmit}>
         PopulateArray
-      </Button>
+      </Button> */}
       <ThemeProvider theme={innertheme}>
       
       <DataGrid
@@ -139,11 +193,12 @@ export default function ToolbarGrid() {
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
+        editRowsModel={true}
       />
       
       </ThemeProvider>
       <ThemeProvider theme={innertheme}>
-        <Search onchange={inputHandler}>
+        {/* <Search onchange={inputHandler}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -151,33 +206,52 @@ export default function ToolbarGrid() {
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
           />
-        </Search>
+        </Search> */}
         <Box>
           <StyledInputBase 
-            placeholder="name..."
-            inputProps={{ 'aria-label': 'name' }}
+            placeholder="id..."
+            inputProps={{ 'aria-label': 'id' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, id: e.target.value })}
+            required
+            fullWidth={true}
           />
           <StyledInputBase 
             placeholder="name..."
             inputProps={{ 'aria-label': 'name' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, name: e.target.value })}
+          />
+          <StyledInputBase 
+            placeholder="color..."
+            inputProps={{ 'aria-label': 'color' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, color: e.target.value })}
+          />
+          <StyledInputBase 
+            placeholder="price..."
+            inputProps={{ 'aria-label': 'price' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, price: e.target.value })}
+          />
+          <StyledInputBase 
+            placeholder="fabric..."
+            inputProps={{ 'aria-label': 'fabric' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, fabric: e.target.value })}
+          />
+          <StyledInputBase 
+            placeholder="type..."
+            inputProps={{ 'aria-label': 'type' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, type: e.target.value })}
           />
           <StyledInputBase 
             placeholder="name..."
             inputProps={{ 'aria-label': 'name' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, image: e.target.value })}
           />
           <StyledInputBase 
-            placeholder="name..."
-            inputProps={{ 'aria-label': 'name' }}
+            placeholder="quantity..."
+            inputProps={{ 'aria-label': 'quantity' }}
+            onChange={(e) => setDansDetails({ ...dansDetails, quantity: e.target.value })}
           />
-          <StyledInputBase 
-            placeholder="name..."
-            inputProps={{ 'aria-label': 'name' }}
-          />
-          <StyledInputBase 
-            placeholder="name..."
-            inputProps={{ 'aria-label': 'name' }}
-          />
-          <Button variant="contained">
+
+          <Button variant="contained" onClick={handleSubmit}>
             Submit Edit
           </Button>
         </Box>
