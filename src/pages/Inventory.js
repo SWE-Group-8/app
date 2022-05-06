@@ -1,23 +1,19 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pant from '../images/hat.jpg';
-
-import { Component } from 'react';
-// import { connect } from 'react-redux' commented out since there is *not* a reference to this yet
+import {listDansInventories} from '../graphql/queries';
+import { API, } from 'aws-amplify';
 
 
 function Copyright() {
@@ -46,10 +42,25 @@ const theme = createTheme({
 });
 
 export default function Album() {
+  const [Inv, setInv] = useState([])
+  const HandleSubmit = async () => {
+        
+        try {
+          const object = await API.graphql({
+            query: listDansInventories,
+            variables: { filter: {name: {contains: ""}} },
+            authMode: 'AWS_IAM'
+          })
+          setInv(object.data.listDansInventories.items);
+          console.log('Items:', Inv)
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
+      }
+    
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      
       <main>
         {/* Hero unit */}
         <Box

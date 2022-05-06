@@ -7,16 +7,17 @@ import config from '../aws-exports'
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-
+import { CssBaseline } from '@mui/material';
 const {
     aws_user_files_s3_bucket_region: region,
     aws_user_files_s3_bucket: bucket
 } = config
 
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright Â© '}
+            {'Copyright © '}
             <Link color="inherit" href="https://github.com/SWE-Group-8">
                 Group 8 Repo
             </Link>{' '}
@@ -25,18 +26,26 @@ function Copyright(props) {
         </Typography>
     );
 }
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+    background: {
+        default: "#ffe8d6"
+    }
+    }
+});
 
 const Admin = () => {
     const [image, setImage] = useState(null);
-    const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "" });
+    const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "" });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
             if (!dansDetails.name || !dansDetails.price) return
             await API.graphql(graphqlOperation(createDansInventory, { input: dansDetails }))
-            setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "" })
+            console.log(dansDetails)
+            setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "" })
         } catch (err) {
             console.log('error creating todo:', err)
         }
@@ -64,13 +73,13 @@ const Admin = () => {
         }
     }
 
-
-
+    
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
         <section className="admin-wrapper">
 
-                <section>
+                <section p={10}>
                     <header className="form-header">
                         <h3>Add New Dans</h3>
 
@@ -131,6 +140,16 @@ const Admin = () => {
                                         type="number"
                                         placeholder="What is the Price of the Dans? (USD)"
                                         onChange={(e) => setDansDetails({ ...dansDetails, price: e.target.value })}
+                                        required
+                                    /></p>
+                            </div>
+                            <div className="quantity-form">
+                                <p><label htmlFor="quantity">Quantity </label>
+                                    <input
+                                        name="quantity"
+                                        type="number"
+                                        placeholder="Quantity of item?"
+                                        onChange={(e) => setDansDetails({ ...dansDetails, quantity: e.target.value })}
                                         required
                                     /></p>
                             </div>

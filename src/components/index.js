@@ -5,18 +5,15 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Auth } from 'aws-amplify'
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
     Nav,
@@ -74,6 +71,8 @@ let inputHandler = (e) => {
   var lowerCase = e.target.value.toLowerCase();
   setInputText(lowerCase);
 };
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -116,7 +115,9 @@ let inputHandler = (e) => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose} component={Link} to={"/Profile"}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
+      <MenuItem onClick={() => { route === 'authenticated' ? Auth.signOut(): navigate('/SignIn');}}>
+        { route === 'authenticated' ? 'Sign out' : 'Sign in' }</MenuItem>
     </Menu>
   );
 
@@ -137,61 +138,28 @@ let inputHandler = (e) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      
+      
+      <MenuItem onClick={handleMobileMenuClose} component={Link} to={"/Profile"}>Profile</MenuItem>
+      <MenuItem onClick={() => { route === 'authenticated' ? Auth.signOut(): navigate('/SignIn');}}>
+        { route === 'authenticated' ? 'Sign out' : 'Sign in' }</MenuItem>
+      
     </Menu>
   );
-
+  console.log(route);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style= {{background: '#6B705C' }}>
         <Toolbar>
         <NavMenu>
-            <NavLink to='/' activeStyle>
+          <NavLink to='/' activeStyle>
             Home
-            </NavLink>
-          <NavLink to='/about' activeStyle>
-            About
           </NavLink>
           <NavLink to='/cart' activeStyle>
-            Cart
+            Inventory
           </NavLink>
-          <NavLink to='/SignIn' activeStyle>
-            SignIn
-          </NavLink>
-          
         </NavMenu>
-          <Search onchange={inputHandler}>
+          {/* <Search onchange={inputHandler}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -199,7 +167,7 @@ let inputHandler = (e) => {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
@@ -214,6 +182,7 @@ let inputHandler = (e) => {
             >
               <AccountCircle />
             </IconButton>
+            
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

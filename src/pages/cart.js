@@ -1,226 +1,403 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Link from '@mui/material/Link';
+import { Button, CardActions, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import payments from '../images/payments.png';
+import Link from "@mui/material/Link";
+import './Cart.css';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import { styled, alpha } from '@mui/material/styles';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+import SearchIcon from '@mui/icons-material/Search';
+import { createOrder, createInventoryOrder } from '../graphql/mutations';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import {listDansInventories} from '../graphql/queries';
+import { API, graphqlOperation } from 'aws-amplify';
+import InputBase from '@mui/material/InputBase';
+import { useNavigate } from 'react-router-dom';
+import { NavLink, NavMenu } from '../components/NavbarElements';
 
 function Copyright(props) {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright Â© '}
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
         <Link color="inherit" href="https://github.com/SWE-Group-8">
-          Group 8 Repo
+            Group 8 Repo
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
-      </Typography>
+    </Typography>
     );
-  }
+}
+
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  }));
+
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '20ch',
+      },
+    },
+  }));
 
 const theme = createTheme({
     palette: {
-        background: {
-          default: "#ffe8d6"
-        }
-      }
+    background: {
+        default: "#ffe8d6"
+    }
+    }
 });
-const Cart = () => {
-    return (
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
-        <div className="App">
-            <header class="section-header">
-            </header> 
 
-            <section class="section-pagetop bg">
-            <div class="container">
-                <h2 class="title-page">Shopping cart</h2>
-            </div> 
-            </section>
-            
-            <section class="section-content padding-y">
-            <div class="container">
-            
-            <div class="row">
-                <main class="col-md-9">
-            <div class="card">
-            
-            <table class="table table-borderless table-shopping-cart">
-            <thead class="text-muted">
-            <tr class="small text-uppercase">
-            <th scope="col">Product</th>
-            <th scope="col" width="120">Quantity</th>
-            <th scope="col" width="120">Price</th>
-            <th scope="col" class="text-right" width="200"> </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <figure class="itemside">
-                        <div class="aside"><img src="../assets/images/items/1.jpg" class="img-sm" /></div>
-                        <figcaption class="info">
-                            <a href="#" class="title text-dark">Some name of item goes here nice</a>
-                            <p class="text-muted small">Size: XL, Color: blue, <br /> Brand: Gucci</p>
-                        </figcaption>
-                    </figure>
-                </td>
-                <td> 
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>  
-                        <option>3</option>  
-                        <option>4</option>  
-                    </select> 
-                </td>
-                <td> 
-                    <div class="price-wrap"> 
-                        <var class="price">$1156.00</var> 
-                        <small class="text-muted"> $315.20 each </small> 
-                    </div> 
-                </td>
-                <td class="text-right"> 
-                <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light mr-2" data-toggle="tooltip"> <i class="fa fa-heart"></i></a> 
-                <a href="" class="btn btn-light"> Remove</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <figure class="itemside">
-                        <div class="aside"><img src="assets/images/items/2.jpg" class="img-sm" /></div>
-                        <figcaption class="info">
-                            <a href="#" class="title text-dark">Product name  goes here nice</a>
-                            <p class="text-muted small">Size: XL, Color: blue, <br /> Brand: Gucci</p>
-                        </figcaption>
-                    </figure>
-                </td>
-                <td> 
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>  
-                        <option>3</option>  
-                        <option>4</option>  
-                    </select> 
-                </td>
-                <td> 
-                    <div class="price-wrap"> 
-                        <var class="price">$149.97</var> 
-                        <small  class="text-muted"> $75.00 each </small>  
-                    </div> 
-                </td>
-                <td class="text-right"> 
-                <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light mr-2" data-toggle="tooltip"> <i class="fa fa-heart"></i></a> 
-                <a href="" class="btn btn-light btn-round"> Remove</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <figure class="itemside">
-                        <div class="aside"><img src="assets/images/items/3.jpg" class="img-sm" /></div>
-                        <figcaption class="info">
-                            <a href="#" class="title text-dark">Another name of some product goes just here</a>
-                            <p class="small text-muted">Size: XL, Color: blue,  Brand: Tissot</p>
-                        </figcaption>
-                    </figure>
-                </td>
-                <td> 
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>  
-                        <option>3</option>  
-                    </select> 
-                </td>
-                <td> 
-                    <div class="price-wrap"> 
-                        <var class="price">$98.00</var> 
-                        <small class="text-muted"> $578.00 each</small> 
-                    </div> 
-                </td>
-                <td class="text-right"> 
-                    <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light mr-2" data-toggle="tooltip"> <i class="fa fa-heart"></i></a> 
-                    <a href="" class="btn btn-light btn-round"> Remove</a>
-                </td>
-            </tr>
-            </tbody>
-            </table>
-            
-            <div class="card-body border-top">
-                <a href="#" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
-                <a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
-            </div>  
-            </div> 
-            
-            <div class="alert alert-success mt-3">
-                <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
-            </div>
-            
-                </main>
-                <aside class="col-md-3">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Have coupon?</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="" placeholder="Coupon code" />
-                                    <span class="input-group-append"> 
-                                        <button class="btn btn-primary">Apply</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                        </div> 
-                    </div>  
-                    <div class="card">
-                        <div class="card-body">
-                                <dl class="dlist-align">
-                                <dt>Total price:</dt>
-                                <dd class="text-right">USD 568</dd>
-                                </dl>
-                                <dl class="dlist-align">
-                                <dt>Discount:</dt>
-                                <dd class="text-right">USD 658</dd>
-                                </dl>
-                                <dl class="dlist-align">
-                                <dt>Total:</dt>
-                                <dd class="text-right  h5"><strong>$1,650</strong></dd>
-                                </dl>
-                                <hr />
-                                <p class="text-center mb-3">
-                                    <img src='./images/payments.png' height="26" />
-                                </p>
-                                
-                        </div> 
-                    </div>  
-                </aside> 
-            </div>
-            
-            </div> 
-            </section>
-           
-            <section class="section-name bg padding-y">
-            <div class="container">
-            <h6>Payment and refund policy</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            
-            </div>
-            </section>
-        </div>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-        </ThemeProvider>
-      );
+const PAGE_PRODUCTS = 'products';
+const PAGE_CART = 'cart';
+const PAGE_CONFIRMATION = 'confirmation';
+
+function Cart(){
+    const { route , signOut } = useAuthenticator((context) => [context.route]);
+    const navigate = useNavigate();
+
+    const [inputText, setInputText] = useState("");
+    let inputHandler = (e) => {
+        //convert input text to lower case
+        var lowerCase = e.target.value.toLowerCase();
+        setInputText(lowerCase);
+      };
+      const getFilteredItems = (query, items) => {
+        if (!query) {
+          return items;
+        }
+        return items.filter((product) => product.name.includes(query));
+      };
+
+    const { user } = useAuthenticator(context => [context.user]);
+    const [Inv, setInv] = useState([])
+
+    const [order, setOrder] = useState([])
+    
+
+    
+
+    const [cart, setCart] = useState([]);
+    const [page, setPage] = useState(PAGE_PRODUCTS);
+    
+    
+
+    const addToCart = (product) => {
+        setCart([...cart, {...product}]);
+    };
+
+    const removeFromCart = (productToRemove) => {
+        setCart(
+            cart.filter((product) => product !== productToRemove)
+        );
     }
     
+    function getTotalSum(){
+        let total = 0;
+        cart.map(({price}) => total = (total + price) + ((total + price) * .0825))
+        total = Math.round(total * 100) / 100
+        return total;
+    }
+    const total = getTotalSum()
+    const tax = (total*.0825)
+
+    const [ordid, setordid] = useState([])
+    const createNewOrder = async (  ) => {
+        try {
+        if(route !== 'authenticated') return 
+        const userEmail = user.attributes.email
+        const order = await API.graphql(graphqlOperation(createOrder, { input: {tax: tax, totalPrice: total, user: userEmail} }))
+        const orderId = order.data.createOrder.id
+        setordid(orderId)
+        console.log('orderid: ', ordid)
+        console.log('Testing object:', order.data.createOrder.id)
+
+        cart.map(async ({id}) => console.log(await API.graphql(graphqlOperation(createInventoryOrder, { input: {dansInventoryID: id, orderID: orderId} }))))
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
+    }
+
+    const clearCart = () => {
+        setCart([]);
+    };
+    
+
+    const navigateTo = (nextPage) => {
+        setPage(nextPage);
+    };
+
+    const renderProducts = () => (
+        <body >
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box
+                sx={{
+                    bgcolor: '#ffe8d6',
+                    pt: 8,
+                    pb: 6,
+                }}
+                
+            >
+                <Container maxWidth="sm">
+                    <Typography
+                        component="h1"
+                        variant="h2"
+                        align="center"
+                        color="text.primary"
+                        gutterBottom
+                    >
+                        Cap Inventory
+                    </Typography>
+                    <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                    We are a company that supplies quality caps that last and look great. BUY ONE TODAY OFFER ONLY LAST FOR THE NEXT 20 MINUTEsS
+                    </Typography>
+            
+                </Container>
+            </Box>
+            <Box>
+                <Search onchange={event => inputHandler(event.target.value)}>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
+            </Box>
+            <Container sx={{ py: 0 }} maxWidth="md">
+          {/* End hero unit */}
+            <Grid container spacing={4}>
+                {Inv.map((card, idx) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Card
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2}}
+                    >
+                    <CardMedia
+                        component="img"
+                        sx={{
+                        // 16:9
+                        pt: '56.25%',
+                        }}
+                        image={card.image}
+                        alt={card.name}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                        {card.name}
+                        </Typography>
+                        <Typography>
+                        {card.fabric}
+                        
+                        </Typography>
+                        <Typography>
+                        Price: {card.price}
+                        </Typography>
+                        <Typography>
+                        Quantity: {card.quantity}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button onClick={() => addToCart(card)}
+                        style={{color: '#000000', backgroundColor: '#A5A58D'}}>Add to Cart</Button>
+                        
+                    </CardActions>
+                    </Card>
+                </Grid>
+                ))}
+            </Grid>
+            </Container>
+        </ThemeProvider>
+        </body>
+    );
+    const renderCart = () => (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <h1 align='center'>Cart</h1>
+            {cart.length > 0 && (
+                <><Button onClick={clearCart}
+                    style={{ 
+                        color: '#000000', 
+                        backgroundColor: '#A5A58D', 
+                        marginLeft: 30 
+                        }}>Clear Cart</Button>
+
+                    <Button onClick={() => {
+                        createNewOrder();
+                        navigateTo(PAGE_CONFIRMATION);
+                    } }
+                        style={{ color: '#000000'
+                        , backgroundColor: '#A5A58D'
+                        , marginLeft: 30 
+                    }}>CheckOut
+                    </Button></>
+            )}
+            <Container sx={{ py: 0 }} maxWidth="md">
+            <Grid container spacing={4}>
+                {cart.map((card, idx) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                    <Card
+                    sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2}}
+                    >
+                    <CardMedia
+                        component="img"
+                        sx={{
+                        // 16:9
+                        pt: '56.25%',
+                        }}
+                        image={card.image}
+                        alt={card.name}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                        {card.name}
+                        </Typography>
+                        <Typography>
+                        {card.fabric}
+                        
+                        </Typography>
+                        <Typography>
+                        Price: {card.price}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                    <Button onClick={() => removeFromCart(card)}
+                        style={{color: '#000000', backgroundColor: '#A5A58D'}}>Remove</Button>
+                    </CardActions>
+                    </Card>
+                </Grid>
+                ))}
+            </Grid>
+            </Container>
+            <h2 align='center'><b>Total Cost: ${total}</b></h2>
+        </ThemeProvider>
+    );
+
+    const renderConfirmation = () =>(
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Card>
+                <CardContent>
+                    <h2>Confirmed Purchase</h2>
+                    <Typography>Order ID: {ordid}</Typography>
+                    <Typography>Total: {total}</Typography>
+                </CardContent>
+            </Card>
+        </ThemeProvider>
+    );
+    
+    
+
+    useEffect(() => {
+        const fetchData = async () =>{
+            try {
+                if(route === 'authenticated'){
+                    const object = await API.graphql({
+                    query: listDansInventories,
+                    variables: { filter: {name: {contains: ""}} },
+                    authMode: 'AMAZON_COGNITO_USER_POOLS'
+                    })
+                    setInv(object.data.listDansInventories.items);
+                    console.log('Testing Items:', Inv)
+                }
+            }catch (err) {
+                    console.log('error getting inventory:', err)
+                }
+        }
+        fetchData();
+        console.log("yes")
+        //.catch(console.error)
+    }, [])
+    useEffect(() => {
+        const fetchData2 = async () =>{
+            try {
+                if(route === 'authenticated'){
+                    const object = await API.graphql({
+                    query: listDansInventories,
+                    variables: { filter: {name: {contains: {inputText}}} },
+                    authMode: 'AMAZON_COGNITO_USER_POOLS'
+                    })
+                    setInv(object.data.listDansInventories.items);
+                    console.log('Testing Items:', Inv)
+                }
+                else{
+                    const object = await API.graphql({
+                      query: listDansInventories,
+                      variables: { filter: {name: {contains: ""}} },
+                      authMode: 'AWS_IAM'
+                    })
+                    setInv(object.data.listDansInventories.items);
+                    console.log('Items:', Inv)
+                  }
+            }catch (err) {
+                    console.log('error getting inventory:', err)
+                }
+        }
+        fetchData2();
+        console.log("yes")
+        {page === PAGE_PRODUCTS && renderProducts()}
+        //.catch(console.error)
+    }, [])
+
+    return(
+        <>
+            <CssBaseline />
+            <div className="Cart" >
+                <header align="center" >
+                    <Button 
+                    onClick={() => (route !== 'authenticated')? navigate('/SignIn'): navigateTo(PAGE_CART)}
+                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>Go to Cart ({cart.length})</Button>
+                    <Button onClick={() => navigateTo(PAGE_PRODUCTS)}
+                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>View Products</Button>
+                    {/* <Button onClick={loadData}
+                    style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>
+                        Populate Array
+                    </Button> */}
+                </header>
+                {page === PAGE_CART && renderCart()}
+                {page === PAGE_PRODUCTS && renderProducts()}
+                {page === PAGE_CONFIRMATION && renderConfirmation()}
+
+            </div>
+            
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </>
+    );
+
+}
+
 export default Cart;

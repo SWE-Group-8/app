@@ -14,7 +14,14 @@
     "categories": {
       "auth": {
         "swegroup8c3e4f6f6": {},
-        "true": {}
+        "true": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "AdminQueries26e23dbe": {
+          "deploymentBucketName": "amplify-swegroup8-dev-204603-deployment",
+          "s3Key": "amplify-builds/AdminQueries26e23dbe-4d69543631386f774367-build.zip"
+        }
       }
     }
   }

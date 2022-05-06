@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -10,12 +10,16 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AdminControls from '../pages/AdminControls';
-
+import { API, graphqlOperation } from 'aws-amplify';
+import { Auth, CognitoAuthSession } from 'aws-amplify';
+import {listOrders} from '../graphql/queries';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright Â© '}
+      {'Copyright © '}
       <Link color="inherit" href="https://github.com/SWE-Group-8">
         Group 8 Repo
       </Link>{' '}
@@ -66,23 +70,48 @@ const theme = createTheme({
   }
 });
 
+
 export default function BasicTabs() {
+
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const { user } = useAuthenticator(context => [context.user]);
+  console.log(user.attributes)
 
+  const [Inv, setInv] = useState([])
+  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const navigate = useNavigate();
+  
+  const HandleSubmit = async (  ) => {
+      try {
+      if(route === 'authenticated'){
+          const object = await API.graphql({
+          query: listOrders,
+          variables: { filter: {user: {contains: user.attributes.email}} },
+          authMode: 'AMAZON_COGNITO_USER_POOLS'
+          })
+          setInv(object.data.listOrders.items);
+          console.log('Items:', Inv)
+      }
+      } catch (err) {
+          console.log('error getting inventory:', err)
+      }
+  }
+  
   return (
     
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'Typographyider' }}>
-        <Tabs value={value} centered onChange={handleChange} aria-label="basic tabs example">
+      <Box sx={{borderBottom: 1, borderColor: 'Typographyider' }}>
+        <Tabs value={value} centered onChange={handleChange}>
           <Tab label="Personal Information" {...a11yProps(0)} />
-          <Tab label="Order History" {...a11yProps(1)} />
-          <Tab label="Account Management" {...a11yProps(2)} />
+          <Tab label="Order History" onClick={HandleSubmit}{...a11yProps(1)} />
+          
         </Tabs>
       </Box>
       {/*Personal Info Tab Content */}
@@ -90,23 +119,19 @@ export default function BasicTabs() {
         bgcolor: "#6B705C"
       }}>
       <Container centered >
-        <Card >
-          <CardContent sx={{
+        <Card  sx={{
             bgcolor: "#A5A58D"
           }}>
-          <Typography>Name:</Typography>
-          <Typography>Phone Number:</Typography>
-          <Typography>Email:</Typography>
-          <Typography>Address:</Typography>
-          <Typography>Address2:</Typography>
-          <Typography>City:</Typography>
-          <Typography>State:</Typography>
-          <Typography>Zip:</Typography>
+          <CardContent>
+            <Typography>Name: {user.attributes.name}</Typography>
+            <Typography>Phone Number: {user.attributes.phone_number}</Typography>
+            <Typography>Email: {user.attributes.email}</Typography>
+            <Typography>Address: {user.attributes.address}</Typography>
+            
           </CardContent>
-          <Button style={{marginRight:30, marginBottom: 30, float: 'right'}}>Edit</Button>
-          </Card>
-        </Container>
-      </TabPanel>
+        </Card>
+      </Container>
+    </TabPanel>
 
       {/*Order History Tab Content */}
       <TabPanel value={value} index={1} sx={{
@@ -115,60 +140,31 @@ export default function BasicTabs() {
         <Container centered>
           <Card>
             <CardContent sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <Typography>Order History Cards Here</Typography>
+              bgcolor: "#A5A58D"
+            }}>
+              <Typography>Order History</Typography>
+            {Inv.map((card) => (
+              <Card>
+                <CardContent sx={{
+              bgcolor: "#B7B7A4"
+            }}>
+                  <Typography>Order: {card.id}</Typography>
+                  <Typography>Price: {card.totalPrice}</Typography>
+                </CardContent>
+              </Card>
+            ))
+            }
+            
             </CardContent>
           </Card>
         </Container>
       </TabPanel>
 
       {/*Account management Tab Content */}
-      <TabPanel value={value} index={2} sx={{
-        bgcolor: "#6B705C"
-      }}>
-        <Container centered>
-          <Card sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
-            <Typography>Account Information:</Typography>
-            <Button onClick ={() => alert("from Account Information")/*insert page link */} > Edit</Button>
-            </CardContent>
-            <CardActions>
-           
-            </CardActions>
-          </Card>
-          <Card sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <CardContent onClick ={() => alert("from Account Info")/*insert page link */} >
-            <Typography>Payment Management:</Typography>
-            <Button onClick ={() => alert("from Payment Management")/*insert page link */} > Edit</Button>
-            </CardContent>
-            <CardActions>
-           
-            </CardActions>
-          </Card>
-          <Card sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <CardContent sx={{
-            bgcolor: "#A5A58D"
-          }}>
-            <Typography onClick ={() => alert("from Account Info")/*insert page link */} >Security:</Typography>
-            <CardActions sx={{
-            bgcolor: "#A5A58D"
-          }}>
-              <button>Edit</button>
-            </CardActions>
-            </CardContent>
-            
-          </Card>
-        </Container>
-      </TabPanel>
+      
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Box>
     </ThemeProvider>
   );
 }
+    
