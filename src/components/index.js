@@ -152,9 +152,9 @@ let inputHandler = (e) => {
       <AppBar position="static" style= {{background: '#6B705C' }}>
         <Toolbar>
         <NavMenu>
-            <NavLink to='/' activeStyle>
+          <NavLink to='/' activeStyle>
             Home
-            </NavLink>
+          </NavLink>
           <NavLink to='/cart' activeStyle>
             Inventory
           </NavLink>

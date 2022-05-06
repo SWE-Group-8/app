@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Link from "@mui/material/Link";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -16,18 +17,18 @@ import EricPic from '../images/Eric-P.jpg';
 import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
-
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-          {'Copyright Â© '}
-          <Link color="inherit" href="https://github.com/SWE-Group-8">
-              Group 8 Repo
-          </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
-      </Typography>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://github.com/SWE-Group-8">
+        Group 8 Repo
+      </Link>{' '}
+      {new Date().getFullYear()}.
+    </Typography>
   );
 }
 
@@ -39,45 +40,52 @@ const theme = createTheme({
   }
 });
 
-
-    const mediaCards = [
-      {
-        image: AngeloPic,
-        title: "Angelo Middleton",
-        description: `Database Management Lead`,
-        linkedinLink: 'https://www.linkedin.com/in/angelo-middleton-9b2486133/'
-      },
-      {
-        image: BondPic,
-        title: "Bond Blanton",
-        description: `Items & Inventory Manager`,
-      },
-      {
-        image: EricPic,
-        title: "Eric Por",
-        description: `Lead UI Designer`,
-        linkedinLink: 'https://www.linkedin.com/in/eric-por'
-      },
-      {
-        image: JavierPic,
-        title: "Javier Delarosa Quiros",
-        description: `Accounts & Carts Manager`,
-      },
-      {
-        image: JJPic,
-        title: "Jose Torres",
-        description: `Lead UX Designer`,
-        linkedinLink: 'https://www.linkedin.com/in/jose-torres-954378224/'
-      },
-      {
-        image: ZaqPic,
-        title: "Zaquariah Holland",
-        description: `Project Manager`,
-      },
-    ];
+const mediaCards = [
+  {
+    image: AngeloPic,
+    title: "Angelo Middleton",
+    description: `Database Management Lead`,
+    linkedinLink: 'https://www.linkedin.com/in/angelo-middleton-9b2486133/'
+  },
+  {
+    image: BondPic,
+    title: "Bond Blanton",
+    description: `Items & Inventory Manager`,
+  },
+  {
+    image: EricPic,
+    title: "Eric Por",
+    description: `Lead UI Designer`,
+    linkedinLink: 'https://www.linkedin.com/in/eric-por'
+  },
+  {
+    image: JavierPic,
+    title: "Javier Delarosa Quiros",
+    description: `Accounts & Carts Manager`,
+  },
+  {
+    image: JJPic,
+    title: "Jose Torres",
+    description: `Lead UX Designer`,
+    linkedinLink: 'https://www.linkedin.com/in/jose-torres-954378224/'
+  },
+  {
+    image: ZaqPic,
+    title: "Zaquariah Holland",
+    description: `Project Manager`,
+    linkedinLink: 'https://www.linkedin.com/in/zaquariah-holland/'
+  },
+];
 
 
 export default function AboutTemp() {
+  const { route , signOut } = useAuthenticator((context) => [context.route]);
+  const navigate = useNavigate();
+  const [page, setPage] = useState('/AdminControls');
+
+  const navigateTo = (nextPage) => {
+    setPage(nextPage);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -136,6 +144,13 @@ export default function AboutTemp() {
           ))}
         </Grid>
       </Box>
+      
+      {/* temporary button to access admin : IS NOT WORKING */}
+      <Button 
+        onClick={() => (route !== 'authenticated') ? navigate('/SignIn') : navigateTo('/AdminControls')}
+        style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}> ADMIN
+      </Button>
+      
       <Copyright sx={{ mt: 8, mb: 4 }}/>
     </ThemeProvider>
   );

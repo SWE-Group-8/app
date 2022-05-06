@@ -18,14 +18,14 @@ import {listDansInventories} from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import InputBase from '@mui/material/InputBase';
 import { useNavigate } from 'react-router-dom';
-
+import { NavLink, NavMenu } from '../components/NavbarElements';
 
 function Copyright(props) {
     return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright Â© '}
+        {'Copyright © '}
         <Link color="inherit" href="https://github.com/SWE-Group-8">
-        Group 8 Repo
+            Group 8 Repo
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -81,12 +81,11 @@ const theme = createTheme({
     }
 });
 
-    const PAGE_PRODUCTS = 'products';
-    const PAGE_CART = 'cart';
-    const PAGE_CONFIRMATION = 'confirmation';
+const PAGE_PRODUCTS = 'products';
+const PAGE_CART = 'cart';
+const PAGE_CONFIRMATION = 'confirmation';
 
-
-function Cart(){  
+function Cart(){
     const { route , signOut } = useAuthenticator((context) => [context.route]);
     const navigate = useNavigate();
 
@@ -374,10 +373,7 @@ function Cart(){
         //.catch(console.error)
     }, [])
 
-    
-    
     return(
-        
         <>
             <CssBaseline />
             <div className="Cart" >
@@ -404,5 +400,4 @@ function Cart(){
 
 }
 
-    
 export default Cart;

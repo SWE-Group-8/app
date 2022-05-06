@@ -16,18 +16,18 @@ import EricPic from '../images/Eric-P.jpg';
 import JavierPic from '../images/Javier-Rosa.jpg';
 import ZaqPic from '../images/zaquariah-holland.jpg';
 import JJPic from '../images/JJ.jpg';
-
+import { NavLink, NavMenu } from '../components/NavbarElements';
 
 function Copyright(props) {
   return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-          {'Copyright Â© '}
-          <Link color="inherit" href="https://github.com/SWE-Group-8">
-              Group 8 Repo
-          </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
-      </Typography>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://github.com/SWE-Group-8">
+        Group 8 Repo
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   );
 }
 
@@ -137,6 +137,7 @@ export default function AboutTemp() {
         </Grid>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }}/>
+      
     </ThemeProvider>
   );
 }

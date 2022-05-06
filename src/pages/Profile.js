@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright Â© '}
+      {'Copyright © '}
       <Link color="inherit" href="https://github.com/SWE-Group-8">
         Group 8 Repo
       </Link>{' '}
