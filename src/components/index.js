@@ -146,7 +146,7 @@ let inputHandler = (e) => {
       
     </Menu>
   );
-
+  console.log(route);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style= {{background: '#6B705C' }}>
@@ -156,7 +156,7 @@ let inputHandler = (e) => {
             Home
             </NavLink>
           <NavLink to='/cart' activeStyle>
-            Cart
+            Inventory
           </NavLink>
         </NavMenu>
           {/* <Search onchange={inputHandler}>

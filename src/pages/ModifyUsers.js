@@ -88,7 +88,7 @@ export default function ToolbarGrid() {
   const { route , signOut } = useAuthenticator((context) => [context.user]);
   useEffect(() => {
     const fetchUsers = async () =>{
-        let apiName = 'adminQueries';
+        let apiName = 'AdminQueries';
         let path = '/listUsers';
         let nextToken = ""
         let myInit = {

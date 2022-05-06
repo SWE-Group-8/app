@@ -14,6 +14,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Auth, CognitoAuthSession } from 'aws-amplify';
 import {listOrders} from '../graphql/queries';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -71,6 +72,8 @@ const theme = createTheme({
 
 
 export default function BasicTabs() {
+
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -81,6 +84,8 @@ export default function BasicTabs() {
 
   const [Inv, setInv] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const navigate = useNavigate();
+  
   const HandleSubmit = async (  ) => {
       try {
       if(route === 'authenticated'){
@@ -105,7 +110,7 @@ export default function BasicTabs() {
       <Box sx={{borderBottom: 1, borderColor: 'Typographyider' }}>
         <Tabs value={value} centered onChange={handleChange}>
           <Tab label="Personal Information" {...a11yProps(0)} />
-          <Tab label="Order History" {...a11yProps(1)} />
+          <Tab label="Order History" onClick={HandleSubmit}{...a11yProps(1)} />
           
         </Tabs>
       </Box>
@@ -133,9 +138,6 @@ export default function BasicTabs() {
         bgcolor: "#6B705C"
       }}>
         <Container centered>
-          <Button onClick={HandleSubmit}>
-              PopulateArray
-          </Button>
           <Card>
             <CardContent sx={{
               bgcolor: "#A5A58D"

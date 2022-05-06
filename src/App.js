@@ -1,4 +1,3 @@
-
 import './App.css';
 import Navbar from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -14,16 +13,14 @@ import AddItems from './pages/AddItems';
 import HistoryOfOrders from './pages/HistoryOfOrders';
 import ModifyItems from './pages/ModifyItems';
 import ModifyUsers from './pages/ModifyUsers';
+
 import AddItemsTest from './pages/AddItemsTest';
 import AddDiscountCodes from "./pages/AddDiscountCodes";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { CssBaseline } from '@mui/material';
 
 function App() {
   const { route, error, signOut } = useAuthenticator(context => [context.route]);
-  const { user } = useAuthenticator(context => [context.user]);
-
   return (
     <Router>
       <Navbar />
@@ -44,6 +41,7 @@ function App() {
       </Routes>
     </Router>
   );
+
 }
 //testset
 

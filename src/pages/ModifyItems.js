@@ -114,7 +114,7 @@ export default function ToolbarGrid() {
   useEffect(() => {
     const fetchData = async () =>{
         try {
-            if(route === 'authenticated'){
+            if(route === 'authenticated' || route === 'idle'){
                 const object = await API.graphql({
                 query: listDansInventories,
                 

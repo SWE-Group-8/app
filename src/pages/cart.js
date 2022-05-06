@@ -17,6 +17,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import {listDansInventories} from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import InputBase from '@mui/material/InputBase';
+import { useNavigate } from 'react-router-dom';
 
 
 function Copyright(props) {
@@ -86,16 +87,24 @@ const theme = createTheme({
 
 
 function Cart(){  
+    const { route , signOut } = useAuthenticator((context) => [context.route]);
+    const navigate = useNavigate();
+
     const [inputText, setInputText] = useState("");
     let inputHandler = (e) => {
         //convert input text to lower case
         var lowerCase = e.target.value.toLowerCase();
         setInputText(lowerCase);
       };
+      const getFilteredItems = (query, items) => {
+        if (!query) {
+          return items;
+        }
+        return items.filter((product) => product.name.includes(query));
+      };
 
     const { user } = useAuthenticator(context => [context.user]);
     const [Inv, setInv] = useState([])
-    const { route , signOut } = useAuthenticator((context) => [context.user]);
 
     const [order, setOrder] = useState([])
     
@@ -181,7 +190,7 @@ function Cart(){
                 </Container>
             </Box>
             <Box>
-                <Search onchange={inputHandler}>
+                <Search onchange={event => inputHandler(event.target.value)}>
                     <SearchIconWrapper>
                         <SearchIcon />
                     </SearchIconWrapper>
@@ -241,10 +250,24 @@ function Cart(){
             <CssBaseline />
             <h1 align='center'>Cart</h1>
             {cart.length > 0 && (
-                <Button onClick={clearCart}
-                style={{color: '#000000', backgroundColor: '#A5A58D', marginLeft:30}}>Clear Cart</Button>
+                <><Button onClick={clearCart}
+                    style={{ 
+                        color: '#000000', 
+                        backgroundColor: '#A5A58D', 
+                        marginLeft: 30 
+                        }}>Clear Cart</Button>
+
+                    <Button onClick={() => {
+                        createNewOrder();
+                        navigateTo(PAGE_CONFIRMATION);
+                    } }
+                        style={{ color: '#000000'
+                        , backgroundColor: '#A5A58D'
+                        , marginLeft: 30 
+                    }}>CheckOut
+                    </Button></>
             )}
-            
+            <Container sx={{ py: 0 }} maxWidth="md">
             <Grid container spacing={4}>
                 {cart.map((card, idx) => (
                 <Grid item key={card} xs={12} sm={6} md={4}>
@@ -275,23 +298,13 @@ function Cart(){
                     <CardActions>
                     <Button onClick={() => removeFromCart(card)}
                         style={{color: '#000000', backgroundColor: '#A5A58D'}}>Remove</Button>
-                        
                     </CardActions>
                     </Card>
                 </Grid>
                 ))}
             </Grid>
-            <Button onClick={() => navigateTo(PAGE_CONFIRMATION)}
-            style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}
-            >
-                View Confirmation Page
-            </Button>
-            <Button onClick={createNewOrder}
-            style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}
-            >
-                CheckOut
-            </Button>
-            <div align='center'><b>Total Cost: ${total}</b></div>
+            </Container>
+            <h2 align='center'><b>Total Cost: ${total}</b></h2>
         </ThemeProvider>
     );
 
@@ -360,6 +373,8 @@ function Cart(){
         {page === PAGE_PRODUCTS && renderProducts()}
         //.catch(console.error)
     }, [])
+
+    
     
     return(
         
@@ -367,7 +382,8 @@ function Cart(){
             <CssBaseline />
             <div className="Cart" >
                 <header align="center" >
-                    <Button onClick={() => navigateTo(PAGE_CART)}
+                    <Button 
+                    onClick={() => (route !== 'authenticated')? navigate('/SignIn'): navigateTo(PAGE_CART)}
                     style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>Go to Cart ({cart.length})</Button>
                     <Button onClick={() => navigateTo(PAGE_PRODUCTS)}
                     style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}>View Products</Button>

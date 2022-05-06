@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import pant from '../images/hat.jpg';
-import { useAuthenticator } from '@aws-amplify/ui-react';
 import {listDansInventories} from '../graphql/queries';
-import { API, graphqlOperation } from 'aws-amplify';
-
-import { Component } from 'react';
-// import { connect } from 'react-redux' commented out since there is *not* a reference to this yet
+import { API, } from 'aws-amplify';
 
 
 function Copyright() {
@@ -50,38 +43,24 @@ const theme = createTheme({
 
 export default function Album() {
   const [Inv, setInv] = useState([])
-  const { route , signOut } = useAuthenticator((context) => [context.user]);
-  const HandleSubmit = async (  ) => {
-    try {
-      if(route === 'authenticated'){
-        const object = await API.graphql({
-          query: listDansInventories,
-          variables: { filter: {name: {contains: ""}} },
-          authMode: 'AMAZON_COGNITO_USER_POOLS'
-        })
-        setInv(object.data.listDansInventories.items);
-        console.log('Items:', Inv)
+  const HandleSubmit = async () => {
+        
+        try {
+          const object = await API.graphql({
+            query: listDansInventories,
+            variables: { filter: {name: {contains: ""}} },
+            authMode: 'AWS_IAM'
+          })
+          setInv(object.data.listDansInventories.items);
+          console.log('Items:', Inv)
+        } catch (err) {
+            console.log('error getting inventory:', err)
+        }
       }
-      else{
-        const object = await API.graphql({
-          query: listDansInventories,
-          variables: { filter: {name: {contains: ""}} },
-          authMode: 'AWS_IAM'
-        })
-        setInv(object.data.listDansInventories.items);
-        console.log('Items:', Inv)
-      }
-    } catch (err) {
-        console.log('error getting inventory:', err)
-    }
-  }
+    
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Button onClick={HandleSubmit}>
-        PopulateArray
-      </Button>
-      
       <main>
         {/* Hero unit */}
         <Box
@@ -110,7 +89,7 @@ export default function Album() {
         <Container sx={{ py: 0 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {Inv.map((card) => (
+            {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column', padding: 2}}
