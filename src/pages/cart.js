@@ -111,6 +111,7 @@ function Cart(){
     
 
     const addToCart = (product) => {
+        if(product.quantity <= 0) return
         setCart([...cart, {...product}]);
     };
 
