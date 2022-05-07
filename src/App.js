@@ -27,10 +27,10 @@ function App() {
       <Routes>
         <Route path='/' exact element={<AboutTemp />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/Profile' element={<Profile />} />
+        <Route path='/Profile' element={route === 'authenticated' ? <Profile /> : <SignIn />} />
         <Route path='/SignIn' element={route === 'authenticated' ? <Navigate to='/' /> : <SignIn />} />
         <Route path='/SignUp' element={<SignUp />} />
-        <Route path='/AdminControls' element={<AdminControls />} />
+        <Route path='/AdminControls' element={route === 'authenticated' ? <AdminControls />:  <Navigate to='/' />} />
         <Route path='/DiscountCodes' element={<DiscountCodes />} />
         <Route path='/ModifyItems' element={<ModifyItems />} />
         <Route path='/ModifyUsers' element={<ModifyUsers />} />

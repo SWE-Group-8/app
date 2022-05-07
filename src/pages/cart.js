@@ -14,11 +14,12 @@ import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 import { createOrder, createInventoryOrder } from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import {listDansInventories} from '../graphql/queries';
+import {listDansInventories, getDansInventory} from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import InputBase from '@mui/material/InputBase';
 import { useNavigate } from 'react-router-dom';
 import { NavLink, NavMenu } from '../components/NavbarElements';
+import { updateDansInventory } from '../graphql/mutations';
 
 function Copyright(props) {
     return (
@@ -104,12 +105,10 @@ function Cart(){
 
     const { user } = useAuthenticator(context => [context.user]);
     const [Inv, setInv] = useState([])
-
+    
     const [order, setOrder] = useState([])
+    const [searchInput, setSearchInput] = useState("")
     
-
-    
-
     const [cart, setCart] = useState([]);
     const [page, setPage] = useState(PAGE_PRODUCTS);
     
@@ -131,21 +130,69 @@ function Cart(){
         total = Math.round(total * 100) / 100
         return total;
     }
+    //var totalPurchased = 0
     const total = getTotalSum()
     const tax = (total*.0825)
-
+    const [totalPurchased, setTotal] = useState([])
     const [ordid, setordid] = useState([])
+
+    const placeOrder = async ( id, orderId ) => {
+
+        console.log(await API.graphql(graphqlOperation(createInventoryOrder, { input: {dansInventoryID: id, orderID: orderId} })))
+                
+        const data = await API.graphql(graphqlOperation(getDansInventory, { id: id }))
+        var quantity = data.data.getDansInventory.quantity
+        console.log(quantity)
+        quantity--
+        console.log(await API.graphql(graphqlOperation(updateDansInventory, { input: {id: id, quantity: quantity}})))
+    }
+
+    const fetchData = async () =>{
+
+        try {
+            if(route === 'authenticated' || route === 'idle'){
+                const object = await API.graphql({
+                query: listDansInventories,
+                variables: { filter: {name: {contains: ""}} },
+                authMode: 'AMAZON_COGNITO_USER_POOLS'
+                })
+                setInv(object.data.listDansInventories.items);
+                console.log('Testing Items:', Inv)
+            }
+            else{
+                const object = await API.graphql({
+                  query: listDansInventories,
+                  variables: { filter: {name: {contains: searchInput}} },
+                  authMode: 'AWS_IAM'
+                })
+                setInv(object.data.listDansInventories.items);
+                console.log('Items:', Inv)
+              }
+        }catch (err) {
+                console.log('error getting inventory:', err)
+        }
+    }
+
+    const updateSearch = async ( text ) =>{
+        setSearchInput(text)
+        await fetchData()
+    }
+
     const createNewOrder = async (  ) => {
         try {
-        if(route !== 'authenticated') return 
-        const userEmail = user.attributes.email
-        const order = await API.graphql(graphqlOperation(createOrder, { input: {tax: tax, totalPrice: total, user: userEmail} }))
-        const orderId = order.data.createOrder.id
-        setordid(orderId)
-        console.log('orderid: ', ordid)
-        console.log('Testing object:', order.data.createOrder.id)
+            if(route !== 'authenticated') return 
+            const userEmail = user.attributes.email
+            const order = await API.graphql(graphqlOperation(createOrder, { input: {tax: tax, totalPrice: total, user: userEmail} }))
+            const orderId = order.data.createOrder.id
+            setordid(orderId)
+            console.log('orderid: ', ordid)
+            console.log('Testing object:', order.data.createOrder.id)
 
-        cart.map(async ({id}) => console.log(await API.graphql(graphqlOperation(createInventoryOrder, { input: {dansInventoryID: id, orderID: orderId} }))))
+            for (const item of cart) {
+                console.log("Id: ", item.id)
+                await placeOrder( item.id, orderId)
+            }
+
         } catch (err) {
             console.log('error getting inventory:', err)
         }
@@ -244,6 +291,7 @@ function Cart(){
         </ThemeProvider>
         </body>
     );
+
     const renderCart = () => (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -256,8 +304,11 @@ function Cart(){
                         marginLeft: 30 
                         }}>Clear Cart</Button>
 
-                    <Button onClick={() => {
-                        createNewOrder();
+                    <Button onClick={async () => {
+                        await createNewOrder();
+                        setTotal(total)
+                        setCart([])
+                        fetchData()
                         navigateTo(PAGE_CONFIRMATION);
                     } }
                         style={{ color: '#000000'
@@ -314,34 +365,16 @@ function Cart(){
                 <CardContent>
                     <h2>Confirmed Purchase</h2>
                     <Typography>Order ID: {ordid}</Typography>
-                    <Typography>Total: {total}</Typography>
+                    <Typography>Total: {totalPurchased}</Typography>
                 </CardContent>
             </Card>
         </ThemeProvider>
     );
     
-    
-
     useEffect(() => {
-        const fetchData = async () =>{
-            try {
-                if(route === 'authenticated'){
-                    const object = await API.graphql({
-                    query: listDansInventories,
-                    variables: { filter: {name: {contains: ""}} },
-                    authMode: 'AMAZON_COGNITO_USER_POOLS'
-                    })
-                    setInv(object.data.listDansInventories.items);
-                    console.log('Testing Items:', Inv)
-                }
-            }catch (err) {
-                    console.log('error getting inventory:', err)
-                }
-        }
         fetchData();
-        console.log("yes")
-        //.catch(console.error)
     }, [])
+
     useEffect(() => {
         const fetchData2 = async () =>{
             try {
@@ -391,9 +424,7 @@ function Cart(){
                 {page === PAGE_CART && renderCart()}
                 {page === PAGE_PRODUCTS && renderProducts()}
                 {page === PAGE_CONFIRMATION && renderConfirmation()}
-
             </div>
-            
             <Copyright sx={{ mt: 8, mb: 4 }} />
         </>
     );

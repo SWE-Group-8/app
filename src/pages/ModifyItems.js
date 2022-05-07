@@ -114,15 +114,13 @@ export default function ToolbarGrid() {
   useEffect(() => {
     const fetchData = async () =>{
         try {
-            if(route === 'authenticated' || route === 'idle'){
                 const object = await API.graphql({
                 query: listDansInventories,
                 
                 authMode: 'AMAZON_COGNITO_USER_POOLS'
                 })
                 setOrders(object.data.listDansInventories.items);
-                console.log('Testing Items:', orders)
-            }
+                console.log('Testing Items:', object.data.listDansInventories.items)
         }catch (err) {
                 console.log('error getting inventory:', err)
             }
@@ -174,8 +172,7 @@ export default function ToolbarGrid() {
         }
     }
     
-    
-    
+    console.log("Items Showing", orders[0])    
 
   return (
     <ThemeProvider theme={theme} >

@@ -69,6 +69,12 @@ export default function SignIn() {
     },
   }
 
+  const authTheme = {
+    button: {
+        backgroundColor: "red"
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs" sx={{
@@ -76,7 +82,7 @@ export default function SignIn() {
         bgcolor: "#ffe8d6"
       }}>
         <CssBaseline />
-        <Authenticator formFields={formFields} signUpAttributes={[
+        <Authenticator theme={authTheme} formFields={formFields} signUpAttributes={[
           'name',
           'address',
           'email',

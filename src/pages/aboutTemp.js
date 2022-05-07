@@ -62,6 +62,7 @@ const mediaCards = [
     image: JavierPic,
     title: "Javier Delarosa Quiros",
     description: `Accounts & Carts Manager`,
+    linkedinLink: 'https://www.linkedin.com/in/javier-de-la-rosa-quiros-2891191b6/'
   },
   {
     image: JJPic,
@@ -146,10 +147,10 @@ export default function AboutTemp() {
       </Box>
       
       {/* temporary button to access admin : IS NOT WORKING */}
-      <Button 
+      {/* <Button 
         onClick={() => (route !== 'authenticated') ? navigate('/SignIn') : navigateTo('/AdminControls')}
         style={{color: '#000000', backgroundColor: '#A5A58D', marginRight:10}}> ADMIN
-      </Button>
+      </Button> */}
       
       <Copyright sx={{ mt: 8, mb: 4 }}/>
     </ThemeProvider>

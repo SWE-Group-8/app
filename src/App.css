@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+/* .amplify-button[data-variation='primary'] {
+  background: linear-gradient(
+    to right,
+    #6B705C,
+    #6B705C
+  );
+  
+} */
+
+.amplify-button[data-variation='primary'] {
+  background: linear-gradient(
+    to right,
+    #6B705C,
+    #6B705C
+  );
+}
+
+/* Override loading styles */
+.amplify-button[data-loading='true'] {
+  background: linear-gradient(
+    to right,
+    #FFFFFF,
+    #FFFFFF
+  );
+}

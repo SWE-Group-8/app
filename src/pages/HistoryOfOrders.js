@@ -77,22 +77,20 @@ export default function ToolbarGrid() {
       useEffect(() => {
         const fetchData = async () =>{
             try {
-                if(route === 'authenticated'){
-                    const object = await API.graphql({
-                    query: listInventoryOrders,
-                    
-                    authMode: 'AMAZON_COGNITO_USER_POOLS'
-                    })
-                    setOrders(object.data.listInventoryOrders.items);
-                    console.log('Testing Items:', orders)
-                }
+
+              const object = await API.graphql({
+              query: listInventoryOrders,
+              authMode: 'AMAZON_COGNITO_USER_POOLS'
+              })
+              setOrders(object.data.listInventoryOrders.items);
+              console.log('Testing Items:', orders)
             }catch (err) {
                     console.log('error getting inventory:', err)
                 }
         }
         fetchData();
         console.log("yes")
-        //.catch(console.error)
+
     }, [])
 
   return (

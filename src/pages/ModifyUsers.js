@@ -86,6 +86,7 @@ export default function ToolbarGrid() {
   ];
   const [users, setUsers] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
+
   useEffect(() => {
     const fetchUsers = async () =>{
         let apiName = 'AdminQueries';
@@ -102,12 +103,15 @@ export default function ToolbarGrid() {
         }
         const { NextToken, ...rest } = await API.get(apiName, path, myInit);
         nextToken = NextToken;
-        return rest
+        //rest.Users.map()
+        //setUsers([])
+        console.log("Fullfiled: ", rest.Users)
     }
-    const users = fetchUsers();
+    fetchUsers();
     console.log(users)
+    
     //setUsers(users)
-    console.log("no")
+    //console.log("no")
     //.catch(console.error)
 }, [])
       const [inputText, setInputText] = useState("");

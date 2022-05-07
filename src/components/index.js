@@ -71,7 +71,15 @@ let inputHandler = (e) => {
   var lowerCase = e.target.value.toLowerCase();
   setInputText(lowerCase);
 };
-  const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const { route , signOut } = useAuthenticator((context) => [context.route]);
+  const { user } = useAuthenticator((context) => [context.user]);
+  var isAdmin = false
+  try {
+    isAdmin = user.signInUserSession.accessToken.payload['cognito:groups'][0] == 'Admins';
+  } catch (err) {
+    console.log('Not Admin')
+  }
+
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -158,6 +166,10 @@ let inputHandler = (e) => {
           <NavLink to='/cart' activeStyle>
             Inventory
           </NavLink>
+          
+          {(isAdmin) ? <NavLink to='/AdminControls' activeStyle>
+            Admin
+          </NavLink>: <></>}
         </NavMenu>
           {/* <Search onchange={inputHandler}>
             <SearchIconWrapper>
