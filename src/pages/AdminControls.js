@@ -16,7 +16,7 @@ import discount from '../images/DiscountTag.png';
 import tools from '../images/Tools-Silhouette.png'; 
 import history from '../images/Vector-History-PNG-Image.png'; 
 import add from '../images/Plus-Symbol-Vector-PNG-Images-HD.png';
-
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -39,35 +39,37 @@ const theme = createTheme({
   }
 });
 
-
 const adminCards = [
   { 
     image: tools, button: "Modify Items", 
-    link: "http://localhost:3000/ModifyItems",},   
+    link: "/ModifyItems",},   
   {
     image: discount, button: "Discount Codes",     
-    link: "http://localhost:3000/AddDiscountCodes",   
+    link: "/AddDiscountCodes",   
   },//replaced DiscountCodes with AddDiscountCodes   
   {     
     image: add,     
     button: "Add Items",     
-    link: "http://localhost:3000/AddItemsTests",   
+    link: "/AddItemsTests",   
   },//replaced AddItems with AddItemsTest page   
   {     
     image: people,     
     button: "Modify Users",     
-    link: "http://localhost:3000/ModifyUsers",   
+    link: "/ModifyUsers",   
   },   
    
   {     
     image: history,     
     button: "History of Orders",     
-    link: "http://localhost:3000/HistoryOfOrders",   
+    link: "/HistoryOfOrders",   
   }, 
 ];
 
 
 export default function About() {
+  
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -111,7 +113,7 @@ export default function About() {
                   color: "#000000"
                 }}>
                   {card.description}
-                <Button href={card.link} variant="outlined" size="large" color="inherit">
+                <Button onClick={() => navigate(card.link)} variant="outlined" size="large" color="inherit">
                 {card.button}
                 </Button>
                 </Typography>
