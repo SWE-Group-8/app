@@ -26,8 +26,8 @@ Here is our fake domain [dansapparel.com](https://main.d3b5mqcrjy2lwz.amplifyapp
 - Login with an Admin account
 
 ```
-lixawo3681@vsooc.com
-test12345
+veyesaw351@bunlets.com
+test1234
 ```
 
 - Once logged in an admin can access the functionality of our dashboard
