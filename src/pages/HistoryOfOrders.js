@@ -95,7 +95,7 @@ export default function ToolbarGrid() {
 
   return (
     <ThemeProvider theme={theme} >
-    <div  style={{ height: 400, width: '100%' }}>
+    <div  style={{ height: 430, width: '100%' }}>
       <CssBaseline />
       {/* <Button onClick={HandleSubmit}>
         PopulateArray
@@ -105,8 +105,8 @@ export default function ToolbarGrid() {
       <DataGrid
         rows={orders}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={6}
+        rowsPerPageOptions={[6]}
         checkboxSelection
         disableSelectionOnClick
       />

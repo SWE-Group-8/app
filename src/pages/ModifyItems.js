@@ -58,7 +58,8 @@ export default function ToolbarGrid() {
     { 
       field: 'id', 
       headerName: 'ID', 
-      width: 300 },
+      width: 300 
+    },
     {
       field: 'name',
       headerName: 'NAME',
@@ -77,7 +78,7 @@ export default function ToolbarGrid() {
       field: 'price',
       headerName: 'PRICE',
       type: 'number',
-      width: 200,
+      width: 150,
       editable: true,
     },
     {
@@ -95,40 +96,38 @@ export default function ToolbarGrid() {
       editable: true,
     },
     {
-      field: 'image',
-      headerName: 'IMAGE',
-      type: 'string',
-      width: 200,
-      editable: true,
-    },
-    {
       field: 'quantity',
       headerName: 'QUANTITY',
       type: 'string',
-      width: 200,
+      width: 150,
       editable: true,
     },
+    // {
+    //   field: 'image',
+    //   headerName: 'IMAGE',
+    //   type: 'string',
+    //   width: 200,
+    //   editable: true,
+    // },
   ];
   const [orders, setOrders] = useState([])
   const { route , signOut } = useAuthenticator((context) => [context.user]);
+  const fetchData = async () =>{
+    try {
+      const object = await API.graphql({
+      query: listDansInventories,
+      
+      authMode: 'AMAZON_COGNITO_USER_POOLS'
+      })
+      setOrders(object.data.listDansInventories.items);
+      console.log('Testing Items:', object.data.listDansInventories.items)
+    }catch (err) {
+            console.log('error getting inventory:', err)
+        }
+  }
   useEffect(() => {
-    const fetchData = async () =>{
-        try {
-                const object = await API.graphql({
-                query: listDansInventories,
-                
-                authMode: 'AMAZON_COGNITO_USER_POOLS'
-                })
-                setOrders(object.data.listDansInventories.items);
-                console.log('Testing Items:', object.data.listDansInventories.items)
-        }catch (err) {
-                console.log('error getting inventory:', err)
-            }
-    }
     fetchData();
-    console.log("no")
-    //.catch(console.error)
-}, [])
+  }, [])
       const [inputText, setInputText] = useState("");
       let inputHandler = (e) => {
         //convert input text to lower case
@@ -167,20 +166,19 @@ export default function ToolbarGrid() {
             if(inputInv.id === "")return
             await API.graphql(graphqlOperation(updateDansInventory, { input: inputInv}))
             setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "", id: "" })
+            fetchData()
         } catch (err) {
             console.log('error creating todo:', err)
         }
     }
     
-    console.log("Items Showing", orders[0])    
+    
+    
 
   return (
     <ThemeProvider theme={theme} >
     <div  style={{ height: 400, width: '100%' }}>
       <CssBaseline />
-      {/* <Button onClick={HandleSubmit}>
-        PopulateArray
-      </Button> */}
       <ThemeProvider theme={innertheme}>
       
       <DataGrid
@@ -188,22 +186,12 @@ export default function ToolbarGrid() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
         disableSelectionOnClick
         editRowsModel={true}
       />
       
       </ThemeProvider>
       <ThemeProvider theme={innertheme}>
-        {/* <Search onchange={inputHandler}>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search> */}
         <Box>
           <StyledInputBase 
             placeholder="id..."

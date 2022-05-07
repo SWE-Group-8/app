@@ -27,16 +27,16 @@ function App() {
       <Routes>
         <Route path='/' exact element={<AboutTemp />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/Profile' element={route === 'authenticated' ? <Profile /> : <SignIn />} />
-        <Route path='/SignIn' element={route === 'authenticated' ? <Navigate to='/' /> : <SignIn />} />
+        <Route path='/Profile' element={route === 'authenticated' || route === 'idle'? <Profile /> : <SignIn />} />
+        <Route path='/SignIn' element={route === 'authenticated' || route === 'idle'? <Navigate to='/' /> : <SignIn />} />
         <Route path='/SignUp' element={<SignUp />} />
-        <Route path='/AdminControls' element={route === 'authenticated' ? <AdminControls />:  <Navigate to='/' />} />
-        <Route path='/DiscountCodes' element={<DiscountCodes />} />
-        <Route path='/ModifyItems' element={<ModifyItems />} />
-        <Route path='/ModifyUsers' element={<ModifyUsers />} />
-        <Route path='/HistoryOfOrders' element={<HistoryOfOrders />} />
-        <Route path='/AddItemsTests' element={<AddItemsTest />} />
-        <Route path='/AddDiscountCodes' element={<AddDiscountCodes />} />
+        <Route path='/AdminControls' element={route === 'authenticated'|| route === 'idle'? <AdminControls /> : <Navigate to='/' />} />
+        <Route path='/DiscountCodes' element={route === 'authenticated'|| route === 'idle'? <AddDiscountCodes /> : <Navigate to='/' />} />
+        <Route path='/ModifyItems' element={route === 'authenticated' || route === 'idle'? <ModifyItems /> : <Navigate to='/' />} />
+        <Route path='/ModifyUsers' element={route === 'authenticated' || route === 'idle'? <ModifyUsers /> : <Navigate to='/' />} />
+        <Route path='/HistoryOfOrders' element={route === 'authenticated' || route === 'idle'? <HistoryOfOrders /> : <Navigate to='/' />} />
+        <Route path='/AddItemsTests' element={route === 'authenticated' || route === 'idle'? <AddItemsTest /> : <Navigate to='/' />} />
+        <Route path='/AddDiscountCodes' element={route === 'authenticated' || route === 'idle'? <AddDiscountCodes /> : <Navigate to='/' />} />
 
       </Routes>
     </Router>

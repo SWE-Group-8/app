@@ -14,7 +14,7 @@ import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 import { createOrder, createInventoryOrder } from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import {listDansInventories, getDansInventory} from '../graphql/queries';
+import { listDansInventories, getDansInventory, listDiscountCodes } from '../graphql/queries';
 import { API, graphqlOperation } from 'aws-amplify';
 import InputBase from '@mui/material/InputBase';
 import { useNavigate } from 'react-router-dom';
@@ -90,12 +90,7 @@ function Cart(){
     const { route , signOut } = useAuthenticator((context) => [context.route]);
     const navigate = useNavigate();
 
-    const [inputText, setInputText] = useState("");
-    let inputHandler = (e) => {
-        //convert input text to lower case
-        var lowerCase = e.target.value.toLowerCase();
-        setInputText(lowerCase);
-      };
+
       const getFilteredItems = (query, items) => {
         if (!query) {
           return items;
@@ -108,6 +103,7 @@ function Cart(){
     
     const [order, setOrder] = useState([])
     const [searchInput, setSearchInput] = useState("")
+    const [discountCode, setDiscountCode] = useState(0)
     
     const [cart, setCart] = useState([]);
     const [page, setPage] = useState(PAGE_PRODUCTS);
@@ -124,17 +120,41 @@ function Cart(){
         );
     }
     
+    const getDiscountCode = async ( code ) => {
+
+        if(discountCode === "") {
+            setDiscountCode(0)
+            return
+        }
+
+        try {
+            const data = await API.graphql(graphqlOperation(listDiscountCodes, { filter: {code: {eq: code}} }))
+                    
+            var discCode = data.data.listDiscountCodes.items[0]
+            console.log("Discounted Amount: ",discCode.discountDecimal)
+            setDiscountCode(discCode.discountDecimal)
+        } catch(error){
+            setDiscountCode(0)
+            console.log(error)
+        }
+        
+
+    }
+
     function getTotalSum(){
         let total = 0;
         cart.map(({price}) => total = (total + price) + ((total + price) * .0825))
         total = Math.round(total * 100) / 100
-        return total;
+        return total - (total * discountCode);
     }
-    //var totalPurchased = 0
-    const total = getTotalSum()
+
+    const total = getTotalSum() 
+    //total = total * discountCode
     const tax = (total*.0825)
     const [totalPurchased, setTotal] = useState([])
     const [ordid, setordid] = useState([])
+    
+    
 
     const placeOrder = async ( id, orderId ) => {
 
@@ -148,12 +168,12 @@ function Cart(){
     }
 
     const fetchData = async () =>{
-
+        console.log(searchInput)
         try {
             if(route === 'authenticated' || route === 'idle'){
                 const object = await API.graphql({
                 query: listDansInventories,
-                variables: { filter: {name: {contains: ""}} },
+                variables: { filter: {name: {contains: searchInput}} },
                 authMode: 'AMAZON_COGNITO_USER_POOLS'
                 })
                 setInv(object.data.listDansInventories.items);
@@ -165,17 +185,23 @@ function Cart(){
                   variables: { filter: {name: {contains: searchInput}} },
                   authMode: 'AWS_IAM'
                 })
+                console.log('Items:', object.data.listDansInventories.items)
                 setInv(object.data.listDansInventories.items);
-                console.log('Items:', Inv)
+                
               }
         }catch (err) {
                 console.log('error getting inventory:', err)
         }
     }
 
-    const updateSearch = async ( text ) =>{
-        setSearchInput(text)
-        await fetchData()
+    const updateSearch = async ( e ) =>{
+        try {
+            setSearchInput(e.target.value)
+            await fetchData()
+        } catch(error) {
+            console.log('error')
+        }
+        
     }
 
     const createNewOrder = async (  ) => {
@@ -236,13 +262,14 @@ function Cart(){
                 </Container>
             </Box>
             <Box>
-                <Search onchange={event => inputHandler(event.target.value)}>
+                <Search>
                     <SearchIconWrapper>
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ 'aria-label': 'search' }}
+                    onKeyUp={e => updateSearch(e)}
                     />
                 </Search>
             </Box>
@@ -307,15 +334,28 @@ function Cart(){
                     <Button onClick={async () => {
                         await createNewOrder();
                         setTotal(total)
-                        setCart([])
+                        clearCart()
                         fetchData()
+                        setDiscountCode(0)
                         navigateTo(PAGE_CONFIRMATION);
                     } }
                         style={{ color: '#000000'
                         , backgroundColor: '#A5A58D'
                         , marginLeft: 30 
                     }}>CheckOut
-                    </Button></>
+                    </Button >
+                    {/* Discount code input */}
+                    <Box width={233} style={{
+                        backgroundColor: '#B7B7A4', marginLeft: 30 
+                    }}>
+                        <StyledInputBase 
+                        placeholder="Code..."
+                        inputProps={{ 'aria-label': 'id' }}
+                        onChange={(e) => getDiscountCode(e.target.value)}
+                        />
+                    </Box>
+                </>
+                    
             )}
             <Container sx={{ py: 0 }} maxWidth="md">
             <Grid container spacing={4}>
@@ -373,37 +413,7 @@ function Cart(){
     
     useEffect(() => {
         fetchData();
-    }, [])
-
-    useEffect(() => {
-        const fetchData2 = async () =>{
-            try {
-                if(route === 'authenticated'){
-                    const object = await API.graphql({
-                    query: listDansInventories,
-                    variables: { filter: {name: {contains: {inputText}}} },
-                    authMode: 'AMAZON_COGNITO_USER_POOLS'
-                    })
-                    setInv(object.data.listDansInventories.items);
-                    console.log('Testing Items:', Inv)
-                }
-                else{
-                    const object = await API.graphql({
-                      query: listDansInventories,
-                      variables: { filter: {name: {contains: ""}} },
-                      authMode: 'AWS_IAM'
-                    })
-                    setInv(object.data.listDansInventories.items);
-                    console.log('Items:', Inv)
-                  }
-            }catch (err) {
-                    console.log('error getting inventory:', err)
-                }
-        }
-        fetchData2();
-        console.log("yes")
         {page === PAGE_PRODUCTS && renderProducts()}
-        //.catch(console.error)
     }, [])
 
     return(

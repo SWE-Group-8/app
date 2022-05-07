@@ -56,28 +56,42 @@ export default function ToolbarGrid() {
   });
   const columns = [
     {
-      field: 'attributes.name',
+      field: 'id',
+      headerName: 'ID',
+      type: 'string',
+      width: 300,
+      editable: true,
+    },
+    {
+      field: 'name',
       headerName: 'NAME',
       type: 'string',
       width: 200,
       editable: true,
     },
     {
-      field: 'attributes.phone_number',
+      field: 'email',
+      headerName: 'EMAIL',
+      type: 'string',
+      width: 250,
+      editable: true,
+    },
+    {
+      field: 'verified',
+      headerName: 'EMAIL VERIFIED',
+      type: 'string',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'phone',
       headerName: 'PHONE NUMBER',
       type: 'string',
       width: 200,
       editable: true,
     },
     {
-      field: 'attributes.email',
-      headerName: 'EMAIL',
-      type: 'string',
-      width: 200,
-      editable: true,
-    },
-    {
-      field: 'attributes.address',
+      field: 'address',
       headerName: 'ADDRESS',
       type: 'string',
       width: 200,
@@ -103,9 +117,37 @@ export default function ToolbarGrid() {
         }
         const { NextToken, ...rest } = await API.get(apiName, path, myInit);
         nextToken = NextToken;
-        //rest.Users.map()
-        //setUsers([])
-        console.log("Fullfiled: ", rest.Users)
+
+        const userList = []
+        rest.Users.map((userObject) => {
+          const user = {id: userObject.Username}
+          console.log(userObject)
+          userObject.Attributes.map((attribute) => {
+            //console.log(!user.hasOwnProperty("name"))
+            
+            if(!user.hasOwnProperty("name") || user.name == "-") {
+              user.name = (attribute.Name === "name")? attribute.Value : "-"
+            }
+            if (!user.hasOwnProperty("email") || user.email == "-") {
+              user.email = (attribute.Name === "email")? attribute.Value : "-"
+            }
+            if (!user.hasOwnProperty("phone") || user.phone == "-") {
+              user.phone = (attribute.Name === "phone_number")? attribute.Value : "-"
+            }
+            if (!user.hasOwnProperty("address") || user.address == "-") {
+              user.address = (attribute.Name === "address")? attribute.Value : "-"
+            }
+            if (!user.hasOwnProperty("verified") || user.verified == "-") {
+              user.verified = (attribute.Name === "email_verified")? attribute.Value.toUpperCase() : "-"
+            }
+          })
+
+          userList.push(user)
+        })
+
+
+        setUsers(userList)
+        console.log("Fullfiled: ", userList)
     }
     fetchUsers();
     console.log(users)
@@ -113,13 +155,14 @@ export default function ToolbarGrid() {
     //setUsers(users)
     //console.log("no")
     //.catch(console.error)
-}, [])
-      const [inputText, setInputText] = useState("");
-      let inputHandler = (e) => {
-        //convert input text to lower case
-        var lowerCase = e.target.value.toLowerCase();
-        setInputText(lowerCase);
-      };
+    }, [])
+
+    const [inputText, setInputText] = useState("");
+    let inputHandler = (e) => {
+      //convert input text to lower case
+      var lowerCase = e.target.value.toLowerCase();
+      setInputText(lowerCase);
+    };
     
     const [dansDetails, setDansDetails] = useState({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "", id: "" });
     const handleSubmit = async (e) => {
@@ -153,91 +196,28 @@ export default function ToolbarGrid() {
             await API.graphql(graphqlOperation(updateDansInventory, { input: inputInv}))
             setDansDetails({ name: "", color: "", price: "", fabric: "", type: "", image: "", quantity: "", id: "" })
         } catch (err) {
-            console.log('error creating todo:', err)
+            console.log('error creating updating:', err)
         }
     }
-    
-    
     
 
   return (
     <ThemeProvider theme={theme} >
-    <div  style={{ height: 400, width: '100%' }}>
+    <div  style={{ height: 430, width: '100%' }}>
       <CssBaseline />
       {/* <Button onClick={HandleSubmit}>
         PopulateArray
       </Button> */}
       <ThemeProvider theme={innertheme}>
-      
       <DataGrid
         rows={users}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={6}
+        rowsPerPageOptions={[6]}
         checkboxSelection
         disableSelectionOnClick
         editRowsModel={true}
       />
-      
-      </ThemeProvider>
-      <ThemeProvider theme={innertheme}>
-        {/* <Search onchange={inputHandler}>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search> */}
-        <Box>
-          <StyledInputBase 
-            placeholder="id..."
-            inputProps={{ 'aria-label': 'id' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, id: e.target.value })}
-            required
-            fullWidth={true}
-          />
-          <StyledInputBase 
-            placeholder="name..."
-            inputProps={{ 'aria-label': 'name' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, name: e.target.value })}
-          />
-          <StyledInputBase 
-            placeholder="color..."
-            inputProps={{ 'aria-label': 'color' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, color: e.target.value })}
-          />
-          <StyledInputBase 
-            placeholder="price..."
-            inputProps={{ 'aria-label': 'price' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, price: e.target.value })}
-          />
-          <StyledInputBase 
-            placeholder="fabric..."
-            inputProps={{ 'aria-label': 'fabric' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, fabric: e.target.value })}
-          />
-          <StyledInputBase 
-            placeholder="type..."
-            inputProps={{ 'aria-label': 'type' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, type: e.target.value })}
-          />
-          <StyledInputBase 
-            placeholder="name..."
-            inputProps={{ 'aria-label': 'name' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, image: e.target.value })}
-          />
-          <StyledInputBase 
-            placeholder="quantity..."
-            inputProps={{ 'aria-label': 'quantity' }}
-            onChange={(e) => setDansDetails({ ...dansDetails, quantity: e.target.value })}
-          />
-
-          <Button variant="contained" onClick={handleSubmit}>
-            Submit Edit
-          </Button>
-        </Box>
       </ThemeProvider>
     </div>
     </ ThemeProvider>
